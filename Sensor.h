@@ -1,0 +1,23 @@
+#ifndef _SENSOR_H_INCLUDED_
+#define _SENSOR_H_INCLUDED_
+
+#include <iostream>
+#include <string>
+#include "TemplateArray.h"
+
+using namespace std;
+
+
+class Sensor
+{
+    private:
+        string Name;
+        Array<double> Data;
+    public:
+        Sensor();
+        ~Sensor();
+        void SetName(string Name);
+};
+
+
+#endif
