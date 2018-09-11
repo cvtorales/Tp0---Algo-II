@@ -13,7 +13,7 @@
 #include <string>
 #include "cmdline.h"
 #include "RedSensores.h"
-
+#include "Sensor.h"
 
 using namespace std;
 

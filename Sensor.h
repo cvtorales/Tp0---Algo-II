@@ -17,6 +17,7 @@ class Sensor
         Sensor();
         ~Sensor();
         void SetName(string Name);
+        string GetName();
 };
 
 

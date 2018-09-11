@@ -18,7 +18,7 @@ class RedSensores
     public:
         RedSensores();
         ~RedSensores();
-        RedSensores(istream& iss);
+     //   RedSensores(istream& iss);
 };
 
 

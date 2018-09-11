@@ -13,7 +13,7 @@ RedSensores::~RedSensores()
 {
     
 }
-
+/*
 RedSensores::RedSensores(istream& iss)
 {
     string str, str_sensor;
@@ -44,6 +44,7 @@ RedSensores::RedSensores(istream& iss)
 	sensors_quantity++;
 	cout<<"sensors_quantity: "<<sensors_quantity<<endl;
 	cout<<"v[0]: "<<sensores[0].GetName()<<endl;
+	
     for(i=0 ; !iss.eof() ; i++)     // con este for recorro cada fila
     {          
             getline(iss, str);   // Con esto leemos cada linea y la asignamos a cadena
@@ -67,4 +68,4 @@ RedSensores::RedSensores(istream& iss)
             }
     }
 }
-
+*/

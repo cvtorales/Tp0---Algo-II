@@ -14,7 +14,12 @@ Sensor::~Sensor()
 
 void Sensor::SetName(string Name)
 {
-    Name=Name;
+    this->Name = Name;
+}
+
+string Sensor:: GetName()
+{
+	return this->Name;
 }
 
 
