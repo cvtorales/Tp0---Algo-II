@@ -1,3 +1,0 @@
-sensor1,sensor2,,sensor4
-25.7,28,59.4
-11.2,,5

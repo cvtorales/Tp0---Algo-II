@@ -14,6 +14,7 @@
 #include "cmdline.h"
 #include "RedSensores.h"
 #include "Sensor.h"
+#include "Query.h"
 
 using namespace std;
 
