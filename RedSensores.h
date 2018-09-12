@@ -6,6 +6,7 @@
 #include <sstream>
 #include "TemplateArray.h"
 #include "Sensor.h"
+#include "Query.h"
 
 
 using namespace std;
@@ -16,10 +17,13 @@ class RedSensores
     private:
         string Name;
         Array<Sensor> Sensores;
+        Array<Query> Querys;
     public:
         RedSensores();
         ~RedSensores();
-        RedSensores(istream& iss);
+        RedSensores(istream&);
+        void LecturaQuerys(istream& iss);
+        Query ObtieneQuery(int pos);
 };
 
 

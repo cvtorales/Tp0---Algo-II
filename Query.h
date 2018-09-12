@@ -24,6 +24,7 @@ class Query
         Query();
         Query(string);
         ~Query();
+        int GetInitRange();
 };
 
 

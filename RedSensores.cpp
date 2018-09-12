@@ -112,3 +112,22 @@ RedSensores::RedSensores(istream& dss)
 
 }
 
+void RedSensores::LecturaQuerys(istream& iss)
+{
+	int i = 0;
+	string str;
+
+
+	for(i=0 ; !iss.eof() ; i++)     // Con este ciclo for se recorre cada fila
+	{   
+		getline(iss, str);
+	    Query* q = new Query(str);   // Inicializo una Query por linea
+	    this->Querys.Append(*q);
+	}
+
+}
+
+Query RedSensores::ObtieneQuery(int pos)
+{
+	return Querys[pos];
+}

@@ -94,3 +94,7 @@ Array<string> Query::ObtieneNombreSensores(string linea, Array<int>& arraySemico
 
 }
 
+int Query::GetInitRange()
+{
+	return this->InitRange;
+}
