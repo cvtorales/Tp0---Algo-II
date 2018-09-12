@@ -14,7 +14,7 @@ RedSensores::~RedSensores()
    //this-> Sensores.~Array();
 }
 
-RedSensores::RedSensores(istream& iss)
+RedSensores::RedSensores(istream& dss)
 {
 	string str, str_sensor;
 	int i=0, j=0;
@@ -27,7 +27,7 @@ RedSensores::RedSensores(istream& iss)
 
 	double number;
 
-	getline(iss, str);
+	getline(dss, str);
 	//cout<<"str: "<<str<<endl;
 	cout << "Hola" << str[str.length()-1] << endl;
 
@@ -64,9 +64,9 @@ RedSensores::RedSensores(istream& iss)
 
 	cout << " " << endl;
 	
-	for(i=0 ; !iss.eof() ; i++)     // con este for recorro cada fila
+	for(i=0 ; !dss.eof() ; i++)     // con este for recorro cada fila
 	{          
-	      getline(iss, str);   // Con esto leemos cada linea y la asignamos a cadena
+	      getline(dss, str);   // Con esto leemos cada linea y la asignamos a cadena
 	      initial_pos = 0;
 	      final_pos = 0;
 	      j = 0;
