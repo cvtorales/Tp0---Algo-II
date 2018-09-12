@@ -8,6 +8,7 @@
 
 
 
+
 using namespace std;
 
 
@@ -17,6 +18,8 @@ class Query
         Array<string> SensorsName;
         int InitRange;
         int FinalRange;
+        int ObtieneParametro(string linea, int instruccion, Array<int>& array) const;
+        Array<string> ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, Array<int>& arrayCommas) const;
     public:
         Query();
         Query(string);
