@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "TemplateArray.h"
 #include "Sensor.h"
 
@@ -18,7 +19,7 @@ class RedSensores
     public:
         RedSensores();
         ~RedSensores();
-     //   RedSensores(istream& iss);
+        RedSensores(istream& iss);
 };
 
 

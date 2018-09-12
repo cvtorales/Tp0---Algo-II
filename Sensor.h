@@ -18,6 +18,8 @@ class Sensor
         ~Sensor();
         void SetName(string Name);
         string GetName();
+        void SetElementAt(double dato);
+        double GetElementAt(int pos);
 };
 
 

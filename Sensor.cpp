@@ -22,7 +22,15 @@ string Sensor:: GetName()
 	return this->Name;
 }
 
+void Sensor::SetElementAt(double dato)
+{
+	this->Data.Append(dato);
+}
 
+double Sensor::GetElementAt(int pos)
+{
+	return this-> Data[pos];
+}
 
 
 
