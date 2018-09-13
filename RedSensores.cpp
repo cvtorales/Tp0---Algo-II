@@ -1,4 +1,5 @@
 #include "RedSensores.h"
+#define DELIMITER ","
 
 
 using namespace std;
@@ -108,9 +109,11 @@ RedSensores::RedSensores(istream& dss)
 	      }
 	}
 
+	Sensores = sensores;
 	cout<<"El elemento 1 del sensor 1 es: "<<sensores[1].GetElementAt(3)<<endl;
 
 }
+
 
 void RedSensores::LecturaQuerys(istream& iss)
 {
@@ -130,4 +133,75 @@ void RedSensores::LecturaQuerys(istream& iss)
 Query RedSensores::ObtieneQuery(int pos)
 {
 	return Querys[pos];
+}
+
+void RedSensores::ProcesamientoQuerys(ostream& oss)
+{
+	int i=0;
+	double promedio=0.0, max=0.0, min=0.0;
+
+	
+	for(i = 0; i < Querys.UsedSize() ; i++)
+	{
+		EjecutoQuery(Querys[i], oss ,promedio, max, min);
+	}
+}
+
+
+//RECORDAR HACER STATUS_T
+void RedSensores::EjecutoQuery(Query q, ostream& oss , double& promedio, double& max, double& min)
+{
+	int i = 0, j=0;
+
+	
+	for(i=0; i<q.GetSensorsNameQuantity(); i++)
+	{
+		for(j=0; j<Sensores.UsedSize(); j++)
+		{
+			
+			if(q.GetSensorNameAt(i) == Sensores[j].GetName())
+			{
+
+				max = Maximo(Sensores[j].GetData());
+				min = Minimo(Sensores[j].GetData());
+
+				oss<<max<<","<<min<<endl;
+
+			}	
+		}
+		
+	}
+}
+
+double RedSensores::Maximo(Array<double>& valores) const
+{
+	int i=0;
+	double maximo=0;
+	
+
+	for(i=0; i<valores.UsedSize(); i++)
+	{
+		if(maximo < valores[i])
+		{
+			maximo = valores[i];
+		}
+	}
+
+	return maximo;	
+}
+
+double RedSensores::Minimo(Array<double>& valores) const
+{
+	int i=0;
+	double minimo = valores[0];
+	
+	for(i=0; i<valores.UsedSize(); i++)
+	{
+		if(minimo > valores[i])
+		{
+			minimo = valores[i];
+		}
+	}
+
+	return minimo;
 }

@@ -25,6 +25,9 @@ class Query
         Query(string);
         ~Query();
         int GetInitRange();
+        int GetFinalRange();
+        string GetSensorNameAt(int pos);
+        int GetSensorsNameQuantity();
 };
 
 
