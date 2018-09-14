@@ -22,7 +22,6 @@ Query::Query(string line)
 	Array<int> commas;
 	Array<int> semicolons;
 	
-	int i=0;
 	int InitPos=0;
 	
 
