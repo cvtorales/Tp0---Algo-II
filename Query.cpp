@@ -102,7 +102,10 @@ int Query::GetFinalRange()
 
 string Query::GetSensorNameAt(int pos)
 {
-	//validar
+	if(pos<0 || pos>SensorsName.UsedSize())
+	{
+		return "Posicion erronea";//armar diccionario de errores
+	}
 	return this-> SensorsName[pos];
 }
 

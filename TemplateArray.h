@@ -267,7 +267,7 @@ T Array<T>::Minimo() const
 	
 	for(i=0; i<_UsedSize; i++)
 	{
-		if(minimo < _Array[i])
+		if(minimo > _Array[i])
 		{
 			minimo = _Array[i];
 		}
@@ -280,12 +280,13 @@ template <class T>
 T Array<T>::Promedio() const
 {
 	int i=0;
-	T promedio;
-
+	T promedio=0;
+	
 	for(i=0; i<_UsedSize;i++)
 	{
 		promedio += _Array[i];
 	}
+
 
 	return promedio/_UsedSize;
 }

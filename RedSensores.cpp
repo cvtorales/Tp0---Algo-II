@@ -92,11 +92,17 @@ RedSensores::RedSensores(istream& dss)
 		        }
 	            cout<<"final_pos: "<<final_pos<<endl;
 				str_sensor = str.substr(initial_pos, final_pos);
-				cout<< str_sensor <<endl;
+				cout<<"str_sensor: " <<str_sensor <<endl;
 				// number = str_sensor.stod(str_sensor, &sz);
-				istringstream(str_sensor) >> number;
+				if(!str_sensor.empty())
+				{
+					istringstream(str_sensor) >> number;	
+					sensores[j].SetElementAt(number);
+				}
+				
+				cout<<"number: "<<number<<endl;
 				cout<<"jota: "<<j<<endl;
-				sensores[j].SetElementAt(number);
+				
 				//datos.Append(number);
 	            //cout<<"datos["<<j<<"]: "<<datos[j]<<endl;
 	            initial_pos += final_pos+1;
@@ -110,8 +116,8 @@ RedSensores::RedSensores(istream& dss)
 	}
 
 	Sensores = sensores;
-	cout<<"El elemento 5 del sensor 0 es: "<<sensores[3].GetElementAt(3)<<endl;
-
+	cout<<"El elemento 5 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
+	cout<<"El nombre del sensor 3 es: "<<sensores[3].GetName()<<endl;
 }
 
 
@@ -132,6 +138,7 @@ void RedSensores::LecturaQuerys(istream& iss)
 
 Query RedSensores::ObtieneQuery(int pos)
 {
+	//validar
 	return Querys[pos];
 }
 
@@ -153,14 +160,31 @@ void RedSensores::EjecutoQuery(Query q, ostream& oss , double& promedio, double&
 {
 	int i = 0, j=0;
 	int k; //variable para hacer for de prueba
+
 	
 	for(i=0; i<q.GetSensorsNameQuantity(); i++)
 	{
 		for(j=0; j<Sensores.UsedSize(); j++)
 		{
-			
 			if(q.GetSensorNameAt(i) == Sensores[j].GetName())
 			{
+				
+				if(q.GetInitRange<Sensores[j].GetData().UsedSize() && q.GetFinalRange<Sensores[j].GetData().UsedSize())
+				{
+					for(k=Sensores[j].GetData()[q.GetInitRange()]; k<Sensores[j].GetData()[q.GetFinalRange()];k++)
+					{
+						max = Sensores[j].GetData().Maximo();
+						min = Sensores[j].GetData().Minimo();
+						promedio = Sensores[j].GetData().Promedio();
+						oss<<promedio<<","<<max<<","<<min<<endl;
+						
+					}	
+				}
+
+				
+				
+				
+				/*
 				//for para probar datos dentro del sensor
 				cout<<"Elementos en el sensor: "<<endl;
 
@@ -169,12 +193,9 @@ void RedSensores::EjecutoQuery(Query q, ostream& oss , double& promedio, double&
 					cout<<"Elemento "<<k<<" : "<< Sensores[j].GetData()[k]<<endl;	
 				}
 				//fin del for de prueba
-
-				max = Sensores[j].GetData().Maximo();
-				min = Sensores[j].GetData().Minimo();
-				promedio = Sensores[j].GetData().Promedio();
-
-				oss<<promedio<<","<<max<<","<<min<<endl;
+				*/	
+				
+				
 
 			}	
 		}
