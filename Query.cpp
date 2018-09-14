@@ -22,7 +22,6 @@ Query::Query(string line)
 	Array<int> commas;
 	Array<int> semicolons;
 	
-	int i=0;
 	int InitPos=0;
 	
 
@@ -51,9 +50,6 @@ Query::Query(string line)
 	
 	this->InitRange = ObtieneParametro(line,RANGO_INICIAL, commas);
 	this->FinalRange = ObtieneParametro(line,RANGO_FINAL, commas);
-	
-	
-	
 	
 		
 		
@@ -97,4 +93,20 @@ Array<string> Query::ObtieneNombreSensores(string linea, Array<int>& arraySemico
 int Query::GetInitRange()
 {
 	return this->InitRange;
+}
+
+int Query::GetFinalRange()
+{
+	return this->FinalRange;
+}
+
+string Query::GetSensorNameAt(int pos)
+{
+	//validar
+	return this-> SensorsName[pos];
+}
+
+int Query::GetSensorsNameQuantity()
+{
+	return this-> SensorsName.UsedSize();
 }

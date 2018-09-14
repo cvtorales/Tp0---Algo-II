@@ -27,6 +27,9 @@ public:
 	int UsedSize() const;
 	void Reset();
 	void Clear();
+	T Maximo() const;
+	T Minimo() const;
+	T Promedio() const;
 	T& operator[](int pos);
 	T& operator[](int pos) const;
 	Array& operator=(const Array &v);
@@ -236,6 +239,55 @@ void Array<T>::Append(const T &s) {
 		_AllocSize = NewSize;
 		_UsedSize++;
 	}
+}
+
+
+template <class T>
+T Array<T>::Maximo() const
+{
+	int i=0;
+	T maximo;
+	
+	for(i=0; i<_UsedSize; i++)
+	{
+		if(maximo < _Array[i])
+		{
+			maximo = _Array[i];
+		}
+	}
+
+	return maximo;	
+}
+
+template <class T>
+T Array<T>::Minimo() const
+{
+	int i=0;
+	T minimo;
+	
+	for(i=0; i<_UsedSize; i++)
+	{
+		if(minimo < _Array[i])
+		{
+			minimo = _Array[i];
+		}
+	}
+
+	return minimo;	
+}
+
+template <class T>
+T Array<T>::Promedio() const
+{
+	int i=0;
+	T promedio;
+
+	for(i=0; i<_UsedSize;i++)
+	{
+		promedio += _Array[i];
+	}
+
+	return promedio/_UsedSize;
 }
 
 #endif

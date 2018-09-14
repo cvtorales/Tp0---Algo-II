@@ -106,14 +106,12 @@ int main(int argc, char * const argv[])
     cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline
 	
-	
+		
 	RedSensores* rs;
 	rs = new RedSensores(*dss);
 	rs->LecturaQuerys(*iss);
 
-	cout<< "InitRange Query 0: "<< rs->ObtieneQuery(0).GetInitRange()<<endl;
-	cout<< "InitRange Query 1: "<< rs->ObtieneQuery(1).GetInitRange()<<endl;
-	cout<< "InitRange Query 2: "<< rs->ObtieneQuery(2).GetInitRange()<<endl;
+	rs->ProcesamientoQuerys(*oss);
 
 	delete rs;
 	

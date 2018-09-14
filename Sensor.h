@@ -20,6 +20,7 @@ class Sensor
         string GetName();
         void SetElementAt(double dato);
         double GetElementAt(int pos);
+        Array<double>& GetData();
 };
 
 

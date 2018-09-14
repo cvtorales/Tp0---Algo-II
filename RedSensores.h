@@ -9,6 +9,7 @@
 #include "Query.h"
 
 
+
 using namespace std;
 
 
@@ -22,8 +23,12 @@ class RedSensores
         RedSensores();
         ~RedSensores();
         RedSensores(istream&);
-        void LecturaQuerys(istream& iss);
-        Query ObtieneQuery(int pos);
+        void LecturaQuerys(istream&);
+        Query ObtieneQuery(int);
+        void ProcesamientoQuerys(ostream&);
+        void EjecutoQuery(Query, ostream&, double&, double&, double&);
+        double Maximo(Array<double>& valores) const;
+		double Minimo(Array<double>& valores) const;
 };
 
 

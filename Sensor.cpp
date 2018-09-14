@@ -29,8 +29,13 @@ void Sensor::SetElementAt(double dato)
 
 double Sensor::GetElementAt(int pos)
 {
+	//validar
 	return this-> Data[pos];
 }
 
+Array<double>& Sensor::GetData()
+{
+	return this -> Data;
+}
 
 
