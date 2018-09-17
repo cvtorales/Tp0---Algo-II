@@ -217,6 +217,7 @@ Array<T>& Array<T>::operator=(const Array<T> &v) {
 template <class T>
 Array<T>& Array<T>::operator+=(const T &t) {
 	this->Append(t);
+	return *this;
 }
 
 template <class T>
@@ -252,9 +253,9 @@ template <class T>
 T Array<T>::Maximo() const
 {
 	int i=0;
-	T maximo;
+	T maximo=_Array[i];
 	
-	for(i=0; i<_UsedSize; i++)
+	for(i=1; i<_UsedSize; i++)
 	{
 		if(maximo < _Array[i])
 		{
@@ -269,9 +270,9 @@ template <class T>
 T Array<T>::Minimo() const
 {
 	int i=0;
-	T minimo;
+	T minimo = _Array[0];
 	
-	for(i=0; i<_UsedSize; i++)
+	for(i=1; i<_UsedSize; i++)
 	{
 		if(minimo > _Array[i])
 		{

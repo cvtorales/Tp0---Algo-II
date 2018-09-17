@@ -8,7 +8,7 @@ static option_t options[] = {
 								{1, "d", "data", "-", opt_data, OPT_DEFAULT},
 								{1, "i", "input", "-", opt_input, OPT_DEFAULT},
 								{1, "o", "output", "-", opt_output, OPT_DEFAULT},
-								{0, },
+								{0, }
 							};
 
 static istream *dss = 0;	// Data Stream (clase para manejo de los flujos de entrada)

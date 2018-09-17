@@ -145,8 +145,6 @@ Query RedSensores::ObtieneQuery(int pos)
 void RedSensores::ProcesamientoQuerys(ostream& oss)
 {
 	int i=0;
-	double promedio=0.0, max=0.0, min=0.0;
-
 	
 	for(i = 0; i < Querys.UsedSize() ; i++)
 	{
@@ -158,59 +156,37 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 //RECORDAR HACER STATUS_T
 void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
-	int i = 0, j=0;
-	int k; //variable para hacer for de prueba
+	int i=0, j=0, k=0;
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
 	
-
 	for(i=0; i<cantNombresSensores; i++)
 	{
 		for(j=0; j<cantidadSensores; j++)
 		{
 			if(q.GetSensorNameAt(i) == Sensores[j].GetName())
 			{
-				Array<double> datos = Sensores[j].GetData();
-
+				Array<double> datos;
+				cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
+				cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 				for(k=InitRange; k<FinalRange;k++)
 				{
+					cout<<"k: "<<k<<endl;
+					cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
 					datos += Sensores[j].GetData()[k];
-					cout<<"dato: "<<datos[k]<<endl;
+					cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 				}
 
-
-				/*
-				if(q.GetInitRange<Sensores[j].GetData().UsedSize() && q.GetFinalRange<Sensores[j].GetData().UsedSize())
-				{
-					for(k=Sensores[j].GetData()[q.GetInitRange()]; k<Sensores[j].GetData()[q.GetFinalRange()];k++)
-					{
-						max = Sensores[j].GetData().Maximo();
-						min = Sensores[j].GetData().Minimo();
-						promedio = Sensores[j].GetData().Promedio();
-						oss<<promedio<<","<<max<<","<<min<<endl;
-						
-					}	
-				}
-				*/
-				
-				
-				
-				/*
-				//for para probar datos dentro del sensor
-				cout<<"Elementos en el sensor: "<<endl;
-
-				for(k=0; k<Sensores[j].GetData().UsedSize(); k++)
-				{
-					cout<<"Elemento "<<k<<" : "<< Sensores[j].GetData()[k]<<endl;	
-				}
-				//fin del for de prueba
-				*/	
-				
-				
-
+				oss<<datos.Maximo()<<","<<datos.Minimo()<<","<<datos.Promedio()<<endl;
+					for(int p=0; p<datos.UsedSize(); p++){
+						cout<<"datos["<<p<<"]: "<<datos[p]<<endl;
+					}
+					cout<<"tamaño de datos: "<<datos.UsedSize()<<endl;
 			}	
 		}
 		
 	}
+
+
 }
 
