@@ -38,4 +38,15 @@ Array<double>& Sensor::GetData()
 	return this -> Data;
 }
 
+bool Sensor::ValidarRango(int initRange, int finalRange)
+{
+	bool resultado=false;
 
+	if (initRange >= 0 && finalRange<Data.UsedSize())
+	{
+		resultado = true;
+	}
+
+	return resultado;
+
+}

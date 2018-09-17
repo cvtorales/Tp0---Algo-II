@@ -169,19 +169,22 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				Array<double> datos;
 				cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
 				cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
-				for(k=InitRange; k<FinalRange;k++)
+				if (Sensores[j].ValidarRango(InitRange, FinalRange))
 				{
-					cout<<"k: "<<k<<endl;
-					cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
-					datos += Sensores[j].GetData()[k];
-					cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
+					for(k=InitRange; k<FinalRange;k++)
+					{
+						cout<<"k: "<<k<<endl;
+						cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
+						datos += Sensores[j].GetData()[k];
+						cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
+					}
+
+					oss<<datos.Maximo()<<","<<datos.Minimo()<<","<<datos.Promedio()<<endl;
+				}
+				else{
+					oss<<"BAD RANGE"<<endl;
 				}
 
-				oss<<datos.Maximo()<<","<<datos.Minimo()<<","<<datos.Promedio()<<endl;
-					for(int p=0; p<datos.UsedSize(); p++){
-						cout<<"datos["<<p<<"]: "<<datos[p]<<endl;
-					}
-					cout<<"tamaño de datos: "<<datos.UsedSize()<<endl;
 			}	
 		}
 		
