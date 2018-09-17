@@ -150,25 +150,36 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 	
 	for(i = 0; i < Querys.UsedSize() ; i++)
 	{
-		EjecutoQuery(Querys[i], oss ,promedio, max, min);
+		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);	//pasar cantidad de sensores y cantidad de nombres de sensores
 	}
 }
 
 
 //RECORDAR HACER STATUS_T
-void RedSensores::EjecutoQuery(Query q, ostream& oss , double& promedio, double& max, double& min)
+void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
 	int i = 0, j=0;
 	int k; //variable para hacer for de prueba
-
+	int InitRange = q.GetInitRange();
+	int FinalRange = q.GetFinalRange();
 	
-	for(i=0; i<q.GetSensorsNameQuantity(); i++)
+
+	for(i=0; i<cantNombresSensores; i++)
 	{
-		for(j=0; j<Sensores.UsedSize(); j++)
+		for(j=0; j<cantidadSensores; j++)
 		{
 			if(q.GetSensorNameAt(i) == Sensores[j].GetName())
 			{
-				
+				Array<double> datos = Sensores[j].GetData();
+
+				for(k=InitRange; k<FinalRange;k++)
+				{
+					datos += Sensores[j].GetData()[k];
+					cout<<"dato: "<<datos[k]<<endl;
+				}
+
+
+				/*
 				if(q.GetInitRange<Sensores[j].GetData().UsedSize() && q.GetFinalRange<Sensores[j].GetData().UsedSize())
 				{
 					for(k=Sensores[j].GetData()[q.GetInitRange()]; k<Sensores[j].GetData()[q.GetFinalRange()];k++)
@@ -180,7 +191,7 @@ void RedSensores::EjecutoQuery(Query q, ostream& oss , double& promedio, double&
 						
 					}	
 				}
-
+				*/
 				
 				
 				

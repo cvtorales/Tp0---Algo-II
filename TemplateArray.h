@@ -33,6 +33,7 @@ public:
 	T& operator[](int pos);
 	T& operator[](int pos) const;
 	Array& operator=(const Array &v);
+	Array& operator+=(const T &t);
 	void Append(const T &s);
 	friend std::ostream& operator<<(std::ostream &os, const Array &v) {
 		//Si el vector esta vacio, retorna el mismo array
@@ -211,6 +212,11 @@ Array<T>& Array<T>::operator=(const Array<T> &v) {
 	}
 
 	return *this;
+}
+
+template <class T>
+Array<T>& Array<T>::operator+=(const T &t) {
+	this->Append(t);
 }
 
 template <class T>

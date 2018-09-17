@@ -26,7 +26,7 @@ class RedSensores
         void LecturaQuerys(istream&);
         Query ObtieneQuery(int);
         void ProcesamientoQuerys(ostream&);
-        void EjecutoQuery(Query, ostream&, double&, double&, double&);
+        void EjecutoQuery(Query,int,int,ostream&);
         double Maximo(Array<double>& valores) const;
 		double Minimo(Array<double>& valores) const;
 };

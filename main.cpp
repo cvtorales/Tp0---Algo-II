@@ -107,13 +107,13 @@ int main(int argc, char * const argv[])
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline
 	
 		
-	RedSensores* rs;
-	rs = new RedSensores(*dss);
-	rs->LecturaQuerys(*iss);
+	RedSensores rs(*dss);
+	
+	rs.LecturaQuerys(*iss);
 
-	rs->ProcesamientoQuerys(*oss);
+	rs.ProcesamientoQuerys(*oss);
 
-	delete rs;
+	
 	
 	
 
