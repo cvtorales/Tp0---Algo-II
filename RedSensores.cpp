@@ -156,7 +156,7 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 //RECORDAR HACER STATUS_T
 void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
-	int i=0, j=0, k=0, tb = 0;;
+	int i=0, j=0, k=0, tb = 0;
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
 	
