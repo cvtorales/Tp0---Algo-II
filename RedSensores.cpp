@@ -127,11 +127,11 @@ void RedSensores::LecturaQuerys(istream& iss)
 	string str;
 
 
-	for(i=0 ; !iss.eof() ; i++)     // Con este ciclo for se recorre cada fila
+	for(i=0 ; !iss.eof() ; i++)      // Con este ciclo for se recorre cada fila
 	{   
 		getline(iss, str);
 	    Query* q = new Query(str);   // Inicializo una Query por linea
-	    this->Querys.Append(*q);
+	    this->Querys.Append(*q);     // Agrego un query como ultimo elemento del vector
 	}
 
 }
@@ -156,22 +156,27 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 //RECORDAR HACER STATUS_T
 void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
-	int i=0, j=0, k=0;
+	int i=0, j=0, k=0, tb = 0;;
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
 	
-	for(i=0; i<cantNombresSensores; i++)
+	for(i=0; i<cantNombresSensores; i++)    // Por si en el query hay mas de un sensor
 	{
 		for(j=0; j<cantidadSensores; j++)
 		{
-			if(q.GetSensorNameAt(i) == Sensores[j].GetName())
+			cout << "---------" <<q.GetSensorNameAt(i)<< endl;
+			cout << ".........!!!!!" << Sensores[j].GetName() << endl;
+
+			if(q.GetSensorNameAt(i) == Sensores[j].GetName())   // Se compara por nombre del sensor
 			{
+				tb++;
 				Array<double> datos;
 				cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
 				cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
-				if (Sensores[j].ValidarRango(InitRange, FinalRange))
+
+				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango
 				{
-					for(k=InitRange; k<FinalRange;k++)
+					for( k = InitRange; k < FinalRange; k++)
 					{
 						cout<<"k: "<<k<<endl;
 						cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
@@ -182,12 +187,21 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					oss<<datos.Maximo()<<","<<datos.Minimo()<<","<<datos.Promedio()<<endl;
 				}
 				else{
-					oss<<"BAD RANGE"<<endl;
+					oss<<"NO DATA"<<endl;
 				}
 
-			}	
+			}
+
 		}
+
+		cout << "termino con un sensor " <<endl;
 		
+
+				if(tb == 0 )
+				{
+					oss << "UNKNOW ID" << endl;
+				}
+
 	}
 
 
