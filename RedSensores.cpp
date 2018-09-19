@@ -156,7 +156,9 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 //RECORDAR HACER STATUS_T
 void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
-	int i=0, j=0, k=0, tb = 0;
+	int i=0, j=0, k=0; 
+	int tb = 0;    // Esta variable cuenta la cantidad de coincidencias entre nombres de sensores.
+
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
 	
@@ -164,10 +166,19 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 	{
 		for(j=0; j<cantidadSensores; j++)
 		{
-			cout << "---------" <<q.GetSensorNameAt(i)<< endl;
-			cout << ".........!!!!!" << Sensores[j].GetName() << endl;
+			string query_name = q.GetSensorNameAt(i);
 
-			if(q.GetSensorNameAt(i) == Sensores[j].GetName())   // Se compara por nombre del sensor
+			cout << "---------ggg" << query_name << endl;
+			cout << ".........!!!!!" << Sensores[j].GetName() << endl;
+			
+			if( query_name == "-")
+			{
+				cout << "Emtro al caso en que tiene el guion, es decir consulta por todos"<< endl;
+				query_name = Sensores[j].GetName();
+			}
+
+			cout << "nombre de queeeeeeeeeeerryy: " << query_name << endl;
+			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
 			{
 				tb++;
 				Array<double> datos;
