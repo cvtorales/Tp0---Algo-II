@@ -194,6 +194,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango
 				{
+
 					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
 					cout<<"FinalRange: "<<FinalRange<<endl;
 					
@@ -205,7 +206,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 						cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 					}
 
-					oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<endl;
+					oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
 				}
 				else
 				{
