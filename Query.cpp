@@ -26,14 +26,12 @@ Query::Query(string line)
 	int InitPos=0;
 	
 
-	cout<<"LINEA: "<<line<<endl;
+	
 	//cargo arreglo con las posiciones de las comas
 	while((int)line.find(",", InitPos) != -1)
 	{
-		cout<<"Entré al while"<<endl;
 		commas.Append(line.find(",", InitPos));
 		InitPos = line.find(",", InitPos) + 1;
-		cout<<"Cantidad de comas: "<<commas.UsedSize()<<endl;
 	}
 
 	InitPos=0; //reinicio la variable
@@ -82,7 +80,7 @@ int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array) co
 		istringstream(linea.substr(array[instruccion]+1, linea.length())) >> ValorInstruccion;	
 		
 	}
-	cout<<"ValorInstruccion: "<<ValorInstruccion<<endl;
+	//cout<<"ValorInstruccion: "<<ValorInstruccion<<endl;
 	return ValorInstruccion;
 }
 

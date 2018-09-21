@@ -116,8 +116,8 @@ RedSensores::RedSensores(istream& dss)
 	}
 
 	Sensores = sensores;
-	cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
-	cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
+	//cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
+	//cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
 }
 
 
@@ -155,14 +155,15 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 
 	for(i = 0; i < Querys.UsedSize() ; i++)
 	{
-		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);	//pasar cantidad de sensores y cantidad de nombres de sensores
+		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 	}
 }
 
 
-//RECORDAR HACER STATUS_T
+
 void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
+	Array<double> datos;
 	int i=0, j=0, k=0; 
 	int tb = 0;    // Esta variable cuenta la cantidad de coincidencias entre nombres de sensores.
 
@@ -175,58 +176,69 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 		{
 			string query_name = q.GetSensorNameAt(i);
 
-			cout << "---------ggg" << query_name << endl;
-			cout << ".........!!!!!" << Sensores[j].GetName() << endl;
 			
 			if( query_name == "-")
 			{
-				cout << "Emtro al caso en que tiene el guion, es decir consulta por todos"<< endl;
 				query_name = Sensores[j].GetName();
 			}
 
-			cout << "nombre de queeeeeeeeeeerryy: " << query_name << endl;
 			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
 			{
 				tb++;
-				Array<double> datos;
-				cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
-				cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
+				
+				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
+				//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 
 				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango
 				{
-
+					//si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
+					//la cantidad de datos del sensor
 					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
-					cout<<"FinalRange: "<<FinalRange<<endl;
-					
+										
 					for( k = InitRange; k < FinalRange; k++)
 					{
-						cout<<"k: "<<k<<endl;
-						cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
+						//cout<<"k: "<<k<<endl;
+						//cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
 						datos += Sensores[j].GetData()[k];
-						cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
+						//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 					}
 
-					oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
+					//oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
 				}
+				/*
 				else
 				{
 					oss<<"NO DATA"<<endl;	
 				}
-
+				*/
 			}
 
 		}
 
-		cout << "termino con un sensor " <<endl;
 		
 
+		//cout << "termino con un sensor " <<endl;
+		
+/*
 				if(tb == 0 )
 				{
 					oss << "UNKNOW ID" << endl;
 				}
-
+*/
 	}
+	for(int m=0; m<datos.UsedSize();m++)
+		{
+			cout<<"datos["<<m<<"]"<<datos[m]<<endl;
+		}
 
+		if(datos.UsedSize()>0)
+		{
+			oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
+		}
+		else
+		{
+			oss<<"NO DATA"<<endl;	
+		}
 
 }
 
