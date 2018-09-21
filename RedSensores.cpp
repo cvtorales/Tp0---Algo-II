@@ -177,12 +177,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			string query_name = q.GetSensorNameAt(i);
 
 			
-			if( query_name == "-")
-			{
-				query_name = Sensores[j].GetName();
-			}
-
-			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
+			if( query_name == Sensores[j].GetName() || query_name.empty())   // Se compara por nombre del sensor
 			{
 				tb++;
 				
@@ -212,10 +207,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				}
 				*/
 			}
-
 		}
-
-		
 
 		//cout << "termino con un sensor " <<endl;
 		
@@ -226,10 +218,12 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				}
 */
 	}
-	for(int m=0; m<datos.UsedSize();m++)
+	/*
+		for(int m=0; m<datos.UsedSize();m++)
 		{
 			cout<<"datos["<<m<<"]"<<datos[m]<<endl;
 		}
+	*/
 
 		if(datos.UsedSize()>0)
 		{

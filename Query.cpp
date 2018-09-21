@@ -62,9 +62,7 @@ Query::Query(string line)
 	
 	this->InitRange = ObtieneParametro(line,RANGO_INICIAL, commas);
 	this->FinalRange = ObtieneParametro(line,RANGO_FINAL, commas);
-	
-		
-		
+			
 }
 
 int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array) const

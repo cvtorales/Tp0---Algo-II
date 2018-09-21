@@ -32,6 +32,7 @@ public:
 	T Promedio() const;
 	T& operator[](int pos);
 	T& operator[](int pos) const;
+	Array& operator/=(int divisor);
 	Array& operator=(const Array &v);
 	Array& operator+=(const T &t);
 	void Append(const T &s);
@@ -248,6 +249,22 @@ void Array<T>::Append(const T &s) {
 	}
 }
 
+template <class T>
+Array<T>& Array<T>::operator/=(int divisor) {
+int i =0;
+
+	if(divisor == 0)
+	{
+		return *this;
+	}
+
+	for(i=0; i<_UsedSize; i++)
+	{
+		_Array[i] = _Array[i]/divisor;
+	}
+
+	return *this;
+}
 
 template <class T>
 T Array<T>::Maximo() const
