@@ -133,9 +133,7 @@ void RedSensores::LecturaQuerys(istream& iss)
 		if(iss>>c)
 		{
 			iss.putback(c);
-			cout<<"GETLINE():"<<endl;
 			getline(iss, str);
-			cout<<"LEO UNA QUERY:"<<endl;
 		    Query* q = new Query(str);   // Inicializo una Query por linea
 		    this->Querys.Append(*q);     // Agrego un query como ultimo elemento del vector	
 		}
@@ -196,6 +194,9 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango
 				{
+					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
+					cout<<"FinalRange: "<<FinalRange<<endl;
+					
 					for( k = InitRange; k < FinalRange; k++)
 					{
 						cout<<"k: "<<k<<endl;
@@ -204,10 +205,11 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 						cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 					}
 
-					oss<<datos.Maximo()<<","<<datos.Minimo()<<","<<datos.Promedio()<<endl;
+					oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<endl;
 				}
-				else{
-					oss<<"NO DATA"<<endl;
+				else
+				{
+					oss<<"NO DATA"<<endl;	
 				}
 
 			}

@@ -42,11 +42,19 @@ bool Sensor::ValidarRango(int initRange, int finalRange)
 {
 	bool resultado=false;
 
-	if (initRange >= 0 && finalRange<Data.UsedSize())
+
+	if(finalRange>initRange && initRange >= 0 && initRange<Data.UsedSize())
 	{
 		resultado = true;
 	}
+	
 
 	return resultado;
 
+}
+
+
+int Sensor::GetQuantityOfData()
+{
+	return this -> Data.UsedSize();
 }

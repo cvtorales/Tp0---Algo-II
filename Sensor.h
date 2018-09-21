@@ -22,6 +22,7 @@ class Sensor
         double GetElementAt(int pos);
         Array<double>& GetData();
         bool ValidarRango(int initRange, int finalRange);
+        int GetQuantityOfData();
 };
 
 
