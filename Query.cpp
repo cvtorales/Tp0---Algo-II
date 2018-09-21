@@ -19,19 +19,21 @@ Query::~Query()
 Query::Query(string line)
 {
 	string str;
-	int semicolonsquantity = 0;
+	//int semicolonsquantity = 0;
 	Array<int> commas;
 	Array<int> semicolons;
 	
 	int InitPos=0;
 	
 
-
+	cout<<"LINEA: "<<line<<endl;
 	//cargo arreglo con las posiciones de las comas
 	while((int)line.find(",", InitPos) != -1)
 	{
+		cout<<"Entré al while"<<endl;
 		commas.Append(line.find(",", InitPos));
 		InitPos = line.find(",", InitPos) + 1;
+		cout<<"Cantidad de comas: "<<commas.UsedSize()<<endl;
 	}
 
 	InitPos=0; //reinicio la variable
@@ -41,22 +43,23 @@ Query::Query(string line)
 	{
 		semicolons.Append(line.find(";", InitPos));
 		InitPos = line.find(";", InitPos) + 1;
+		/*
 		semicolonsquantity++;
-		cout << "semicolonsquantity:"<< semicolonsquantity++ <<endl;
+		cout << "semicolonsquantity:"<< semicolonsquantity<<endl;
 			cout << "***********" << endl;
 	cout << "semicolons UsedSize:" << semicolons.UsedSize() << endl;
-
+*/
 	}
 
 	if(semicolons.UsedSize() == 0)
 //	if(semicolonsquantity == 0)
 	{
-		cout << "el nombre essssssssss:  "<< line.substr(0, commas[0]) << endl;
+		//cout << "el nombre essssssssss:  "<< line.substr(0, commas[0]) << endl;
 		this->SensorsName.Append(line.substr(0, commas[0]));
-		cout << "usedsize ceroooooooooo :" <<endl;
+		//cout << "usedsize ceroooooooooo :" <<endl;
 	}else{
-		this->SensorsName = ObtieneNombreSensores(line,semicolons, commas);
-		cout << " el nombre seriiiiiaaa:   "<< this ->SensorsName <<endl;
+		this->SensorsName = ObtieneNombreSensores(line,semicolons, commas[0]);
+		//cout << " el nombre seriiiiiaaa:   "<< this ->SensorsName <<endl;
 	}
 	
 	this->InitRange = ObtieneParametro(line,RANGO_INICIAL, commas);
@@ -83,7 +86,7 @@ int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array) co
 	return ValorInstruccion;
 }
 
-Array<string> Query::ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, Array<int>& arrayCommas) const
+Array<string> Query::ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, int firstCommaPosition) const
 {
 	Array<string> NombreSensores;
 	int InitPos=0;
@@ -95,7 +98,7 @@ Array<string> Query::ObtieneNombreSensores(string linea, Array<int>& arraySemico
 		InitPos = arraySemicolons[i]+1;
 	}
 
-	NombreSensores.Append(linea.substr(InitPos, arrayCommas[0]-InitPos));
+	NombreSensores.Append(linea.substr(InitPos, firstCommaPosition-InitPos));
 
 	return NombreSensores;
 

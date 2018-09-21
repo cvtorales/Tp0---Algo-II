@@ -116,8 +116,8 @@ RedSensores::RedSensores(istream& dss)
 	}
 
 	Sensores = sensores;
-	cout<<"El elemento 5 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
-	cout<<"El nombre del sensor 3 es: "<<sensores[3].GetName()<<endl;
+	cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
+	cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
 }
 
 
@@ -125,15 +125,23 @@ void RedSensores::LecturaQuerys(istream& iss)
 {
 	int i = 0;
 	string str;
+	char c;
 
 
 	for(i=0 ; !iss.eof() ; i++)      // Con este ciclo for se recorre cada fila
 	{   
-		getline(iss, str);
-	    Query* q = new Query(str);   // Inicializo una Query por linea
-	    this->Querys.Append(*q);     // Agrego un query como ultimo elemento del vector
+		if(iss>>c)
+		{
+			iss.putback(c);
+			cout<<"GETLINE():"<<endl;
+			getline(iss, str);
+			cout<<"LEO UNA QUERY:"<<endl;
+		    Query* q = new Query(str);   // Inicializo una Query por linea
+		    this->Querys.Append(*q);     // Agrego un query como ultimo elemento del vector	
+		}
+		
 	}
-
+	
 }
 
 Query RedSensores::ObtieneQuery(int pos)
@@ -146,6 +154,7 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 {
 	int i=0;
 	
+
 	for(i = 0; i < Querys.UsedSize() ; i++)
 	{
 		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);	//pasar cantidad de sensores y cantidad de nombres de sensores

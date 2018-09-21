@@ -1,7 +1,7 @@
 # Archivo : makefile
 
 CC = g++
-FLAGS = -W -Wall -g -pedantic
+FLAGS = -Wall -g -pedantic
 
 all:tp0 clean
 

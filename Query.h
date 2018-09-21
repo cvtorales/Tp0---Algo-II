@@ -19,7 +19,7 @@ class Query
         int InitRange;
         int FinalRange;
         int ObtieneParametro(string linea, int instruccion, Array<int>& array) const;
-        Array<string> ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, Array<int>& arrayCommas) const;
+        Array<string> ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, int) const;
     public:
         Query();
         Query(string);
