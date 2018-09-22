@@ -50,16 +50,16 @@ RedSensores::RedSensores(istream& dss)
 			{
 				delimiter_pos =i;      // Caso en que encuentra el nombre por medio del delimitador
 			}
-
+/*
 			cout<<"initial_pos: "<<initial_pos<<endl;
 			cout<<"i: "<<delimiter_pos<<endl;
 			cout<<"nombre: "<<str.substr(initial_pos, delimiter_pos - initial_pos)<<endl;
-
+*/
 			s.SetName(str.substr(initial_pos, delimiter_pos - initial_pos));
 	
-			cout<<"nombre sensor: "<<s.GetName()<<endl;
+			//cout<<"nombre sensor: "<<s.GetName()<<endl;
 			sensores.Append(s);
-			cout<<"v[0]: "<<sensores[sensors_quantity].GetName()<<endl;
+			//cout<<"v[0]: "<<sensores[sensors_quantity].GetName()<<endl;
 			sensors_quantity++;
 			//cout<<"sensors_quantity: "<<sensors_quantity<<endl;
 			initial_pos=i+1;
@@ -78,7 +78,7 @@ RedSensores::RedSensores(istream& dss)
 	      final_pos = 0;
 	      j = 0;
 
-	      cout << "*************** Leo una linea ****************"<< endl;
+	      //cout << "*************** Leo una linea ****************"<< endl;
 
 	      while( j < sensors_quantity )  // con este ciclo recorro cada sensor con la misma fila 
 	      {
@@ -90,9 +90,9 @@ RedSensores::RedSensores(istream& dss)
 		        {
 		         	final_pos = str.length() - initial_pos;
 		        }
-	            cout<<"final_pos: "<<final_pos<<endl;
+	            //cout<<"final_pos: "<<final_pos<<endl;
 				str_sensor = str.substr(initial_pos, final_pos);
-				cout<<"str_sensor: " <<str_sensor <<endl;
+				//cout<<"str_sensor: " <<str_sensor <<endl;
 				// number = str_sensor.stod(str_sensor, &sz);
 				if(!str_sensor.empty())
 				{
@@ -100,13 +100,13 @@ RedSensores::RedSensores(istream& dss)
 					sensores[j].SetElementAt(number);
 				}
 				
-				cout<<"number: "<<number<<endl;
-				cout<<"jota: "<<j<<endl;
+				//cout<<"number: "<<number<<endl;
+				//cout<<"jota: "<<j<<endl;
 				
 				//datos.Append(number);
 	            //cout<<"datos["<<j<<"]: "<<datos[j]<<endl;
 	            initial_pos += final_pos+1;
-				cout<<initial_pos<<endl << endl;
+				//cout<<initial_pos<<endl << endl;
 	            // convertir a str_sensor a double
 	            //sensores[j].SetData(datos);
 	            j++;
@@ -134,8 +134,8 @@ void RedSensores::LecturaQuerys(istream& iss)
 		{
 			iss.putback(c);
 			getline(iss, str);
-		    Query* q = new Query(str);   // Inicializo una Query por linea
-		    this->Querys.Append(*q);     // Agrego un query como ultimo elemento del vector	
+		    Query q(str);   // Inicializo una Query por linea
+		    this->Querys.Append(q);     // Agrego un query como ultimo elemento del vector	
 		}
 		
 	}
