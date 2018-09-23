@@ -30,6 +30,7 @@ public:
 	int UsedSize() const;
 	void Reset();
 	void Clear();
+	void Clean();
 	T Maximo()const;
 	T Minimo() const;
 	T Promedio() const;
@@ -162,6 +163,16 @@ void Array<T>::Reset()  {
 template <class T>
 void Array<T>::Clear()  {
 	_UsedSize = 0;
+	return;
+}
+
+template <class T>
+void Array<T>::Clean()  {
+	
+	for(int m=0; m<_UsedSize;m++)
+	{
+		_Array[m]=0;
+	}
 	return;
 }
 
@@ -346,12 +357,13 @@ Array<T>& Array<T>::AddAverageArray(Array<T> &v) {
 			// necesario (_UsedSize del objeto del argumento) y se igualan los elementos.
 			else {
 				T* aux = new T[v._UsedSize];
+				
 				//limpio arreglo
 				for(int i = 0; i<v._UsedSize; i++)
 				{
 					aux[i]=0;
 				}
-
+				
 				for(int i = 0; i<v._UsedSize; i++)
 				{
 					if(i<_UsedSize){

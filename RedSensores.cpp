@@ -158,9 +158,9 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 	int i=0;
 	
 	for(i = 0; i < Querys.UsedSize() ; i++)
-	//for(i = 2; i < 3 ; i++)
 	{
-		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
+		//if(i==4||i==5)
+			EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 	}
 }
 
@@ -170,7 +170,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 {
 	Array<double> datos;
 	Array<double> salida;
-	salida.FillWith(0);
+
 	//Array<int> divisores(0);
 	int i=0, j=0, k=0; 
 	int tb = 0;    // Esta variable cuenta la cantidad de coincidencias entre nombres de sensores.
@@ -223,13 +223,15 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 					salida.AddAverageArray(datos);
 					datos.Reset();
+					
 					for(int m=0; m<salida.UsedSize();m++)
 					{
+						cout<<"Sensor: "<<Sensores[j].GetName()<<endl;
 						cout<<"salida["<<m<<"]: "<<salida[m]<<endl;
 					}
 					cout<<"FIN ARREGLO"<<endl;
 					
-					salida /= 4;
+					
 
 					//oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
 				}
@@ -248,26 +250,29 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 	
 	
-	
-
-/*	for(int m=0; m<salida.UsedSize();m++)
+		salida /= 4;
+/*
+	for(int m=0; m<salida.UsedSize();m++)
 		{
 			cout<<"salida["<<m<<"]: "<<salida[m]<<endl;
 		}
 		cout<<"FIN ARREGLO"<<endl;
+		cout<<salida.Promedio()<<","<<salida.Minimo()<<","<<salida.Maximo()<<","<<salida.UsedSize()<<endl;
 */
 		if(tb>0)
 		{
-
+			
 
 			oss<<salida.Promedio()<<","<<salida.Minimo()<<","<<salida.Maximo()<<","<<salida.UsedSize()<<endl;
-			
+			salida.Clean();
 		}
 		else
 		{
 			oss<<"NO DATA"<<endl;	
 		}
-
+		cout<<endl;
+		cout<<"FIN DE LA QUERY"<<endl;
+		cout<<endl;
 
 }
 
