@@ -187,7 +187,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			
 			if( query_name == Sensores[j].GetName() || query_name.empty())   // Se compara por nombre del sensor
 			{
-								
+				tb++;				
 				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
 				//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 
@@ -256,11 +256,9 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 		}
 		cout<<"FIN ARREGLO"<<endl;
 */
-		if(salida.UsedSize()>0)
+		if(tb>0)
 		{
 
-
-			
 
 			oss<<salida.Promedio()<<","<<salida.Minimo()<<","<<salida.Maximo()<<","<<salida.UsedSize()<<endl;
 			
