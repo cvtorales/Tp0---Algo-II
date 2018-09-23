@@ -27,10 +27,21 @@ void Sensor::SetElementAt(double dato)
 	this->Data.Append(dato);
 }
 
+
 double Sensor::GetElementAt(int pos)
 {
 	//validar
 	return this-> Data[pos];
+}
+
+void Sensor::SetValidPosition(bool pos)
+{
+	this->ValidPositions.Append(pos);
+}
+
+bool Sensor::GetValidPosition(int pos)
+{
+	return this->ValidPositions[pos];
 }
 
 Array<double>& Sensor::GetData()

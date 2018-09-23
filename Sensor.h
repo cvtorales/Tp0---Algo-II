@@ -13,6 +13,7 @@ class Sensor
     private:
         string Name;
         Array<double> Data;
+        Array<bool> ValidPositions;
     public:
         Sensor();
         ~Sensor();
@@ -20,6 +21,8 @@ class Sensor
         string GetName();
         void SetElementAt(double dato);
         double GetElementAt(int pos);
+        void SetValidPosition(bool pos);
+        bool GetValidPosition(int pos);
         Array<double>& GetData();
         bool ValidarRango(int initRange, int finalRange);
         int GetQuantityOfData();

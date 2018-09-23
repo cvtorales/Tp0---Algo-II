@@ -12,6 +12,9 @@
 #define ERROR_ARRAY_INDEX "<Array> operator []: index not allowed."
 #define ERROR_ARRAY_SUM "<Array> operator +: Array sizes must match"
 #define ERROR_ARRAY_PAD "<Array> pad: PadSize must be greater or equal than UsedSize"
+#define EMPTY_SPACE -1
+
+using namespace std;
 
 template <class T>
 class Array{
@@ -27,15 +30,17 @@ public:
 	int UsedSize() const;
 	void Reset();
 	void Clear();
-	T Maximo() const;
+	T Maximo()const;
 	T Minimo() const;
 	T Promedio() const;
+	Array<T>& AddAverageArray(Array &v);
 	T& operator[](int pos);
 	T& operator[](int pos) const;
 	Array& operator/=(int divisor);
 	Array& operator=(const Array &v);
 	Array& operator+=(const T &t);
 	void Append(const T &s);
+	void FillWith(const int N);
 	friend std::ostream& operator<<(std::ostream &os, const Array &v) {
 		//Si el vector esta vacio, retorna el mismo array
 		if (!v.UsedSize())
@@ -109,6 +114,7 @@ Array<T>::Array() {
 	_UsedSize = 0;
 	_Array = new T[_AllocSize];
 }
+
 
 template <class T>
 Array<T>::Array(const int N) {
@@ -249,22 +255,6 @@ void Array<T>::Append(const T &s) {
 	}
 }
 
-template <class T>
-Array<T>& Array<T>::operator/=(int divisor) {
-int i =0;
-
-	if(divisor == 0)
-	{
-		return *this;
-	}
-
-	for(i=0; i<_UsedSize; i++)
-	{
-		_Array[i] = _Array[i]/divisor;
-	}
-
-	return *this;
-}
 
 template <class T>
 T Array<T>::Maximo() const
@@ -274,10 +264,13 @@ T Array<T>::Maximo() const
 	
 	for(i=1; i<_UsedSize; i++)
 	{
-		if(maximo < _Array[i])
-		{
-			maximo = _Array[i];
-		}
+			
+			if(maximo < _Array[i])
+			{
+				maximo = _Array[i];
+			}
+		
+		
 	}
 
 	return maximo;	
@@ -313,6 +306,86 @@ T Array<T>::Promedio() const
 
 
 	return promedio/_UsedSize;
+}
+
+template <class T>
+Array<T>& Array<T>::operator/=(int divisor) {
+int i =0;
+
+	if(divisor == 0)
+	{
+		return *this;
+	}
+
+	for(i=0; i<_UsedSize; i++)
+	{
+		_Array[i] = _Array[i]/divisor;
+	}
+
+	return *this;
+}
+
+
+
+template <class T>
+Array<T>& Array<T>::AddAverageArray(Array<T> &v) {
+
+	if(this!=&v) {
+		if(v._UsedSize <= _AllocSize) 
+		{
+			
+			for(int i = 0; i < v._UsedSize; i++){
+				
+				_Array[i] += v._Array[i];
+				
+			}
+				
+			_UsedSize=v._UsedSize;
+		}
+			//Si no alcanza el largo del arreglo de *this, se crea uno nuevo con el largo
+			// necesario (_UsedSize del objeto del argumento) y se igualan los elementos.
+			else {
+				T* aux = new T[v._UsedSize];
+				//limpio arreglo
+				for(int i = 0; i<v._UsedSize; i++)
+				{
+					aux[i]=0;
+				}
+
+				for(int i = 0; i<v._UsedSize; i++)
+				{
+					if(i<_UsedSize){
+						aux[i] += _Array[i] + v._Array[i];
+					}
+					else{
+						aux[i]+=v._Array[i];
+					}
+				}
+
+				delete[] _Array;
+				_Array = aux;
+				_AllocSize = _UsedSize = v._UsedSize;
+				
+			}
+			
+	}
+	return *this;
+}
+
+//crea e inicializa un arreglo con el valor T que se le pasa como argumento
+template <class T>
+void Array<T>::FillWith(const int N) {
+
+	this->Reset();
+
+	for(int i=0; i<_AllocSize;i++)
+	{
+		_Array[i]=N;
+	}
+
+	_UsedSize = _AllocSize;
+	
+	
 }
 
 #endif

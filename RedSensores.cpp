@@ -1,5 +1,6 @@
 #include "RedSensores.h"
 #define DELIMITER ","
+#define EMPTY_SPACE -1
 
 
 using namespace std;
@@ -98,8 +99,12 @@ RedSensores::RedSensores(istream& dss)
 				{
 					istringstream(str_sensor) >> number;	
 					sensores[j].SetElementAt(number);
+					sensores[j].SetValidPosition(true);
 				}
-				
+				else{
+					sensores[j].SetElementAt(EMPTY_SPACE);  //cargamos un valor cualquiera que no va
+					sensores[j].SetValidPosition(false);	//a ser tenido en cuenta al recorrer el arreglo
+				}											//porque se chequea el arreglo de booleanos
 				//cout<<"number: "<<number<<endl;
 				//cout<<"jota: "<<j<<endl;
 				
@@ -116,7 +121,7 @@ RedSensores::RedSensores(istream& dss)
 	}
 
 	Sensores = sensores;
-	//cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
+	//cout<<"El elemento 4 del sensor 1 es: "<<sensores[0].GetElementAt(4)<<endl;
 	//cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
 }
 
@@ -152,8 +157,8 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 {
 	int i=0;
 	
-
 	for(i = 0; i < Querys.UsedSize() ; i++)
+	//for(i = 2; i < 3 ; i++)
 	{
 		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 	}
@@ -164,6 +169,9 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
 	Array<double> datos;
+	Array<double> salida;
+	salida.FillWith(0);
+	//Array<int> divisores(0);
 	int i=0, j=0, k=0; 
 	int tb = 0;    // Esta variable cuenta la cantidad de coincidencias entre nombres de sensores.
 
@@ -179,8 +187,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			
 			if( query_name == Sensores[j].GetName() || query_name.empty())   // Se compara por nombre del sensor
 			{
-				tb++;
-				
+								
 				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
 				//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 
@@ -189,14 +196,40 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					//si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
 					//la cantidad de datos del sensor
 					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
-										
+					//Array<int> divisores(Sensores[j].GetQuantityOfData());
+					//divisores.FillWith(0);
+
 					for( k = InitRange; k < FinalRange; k++)
 					{
-						//cout<<"k: "<<k<<endl;
-						//cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
-						datos += Sensores[j].GetData()[k];
+						//cargo un nuevo arreglo con las dimensiones del rango solicitado
+						if(Sensores[j].GetValidPosition(k)){
+							datos += Sensores[j].GetData()[k];
+						}
+						else{
+							datos += 0;
+						}
+						//divisores[k] += 1;
+						
+						
 						//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 					}
+					/*
+						for(int m=0; m<datos.UsedSize();m++)
+						{
+							cout<<"datos["<<m<<"]: "<<datos[m]<<endl;
+						}
+						cout<<"FIN ARREGLO"<<endl;*/
+					
+
+					salida.AddAverageArray(datos);
+					datos.Reset();
+					for(int m=0; m<salida.UsedSize();m++)
+					{
+						cout<<"salida["<<m<<"]: "<<salida[m]<<endl;
+					}
+					cout<<"FIN ARREGLO"<<endl;
+					
+					salida /= 4;
 
 					//oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
 				}
@@ -208,31 +241,35 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				*/
 			}
 		}
-
-		//cout << "termino con un sensor " <<endl;
-		
-/*
-				if(tb == 0 )
-				{
-					oss << "UNKNOW ID" << endl;
-				}
-*/
 	}
-	/*
-		for(int m=0; m<datos.UsedSize();m++)
-		{
-			cout<<"datos["<<m<<"]"<<datos[m]<<endl;
-		}
-	*/
 
-		if(datos.UsedSize()>0)
+
+
+
+	
+	
+	
+
+/*	for(int m=0; m<salida.UsedSize();m++)
 		{
-			oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
+			cout<<"salida["<<m<<"]: "<<salida[m]<<endl;
+		}
+		cout<<"FIN ARREGLO"<<endl;
+*/
+		if(salida.UsedSize()>0)
+		{
+
+
+			
+
+			oss<<salida.Promedio()<<","<<salida.Minimo()<<","<<salida.Maximo()<<","<<salida.UsedSize()<<endl;
+			
 		}
 		else
 		{
 			oss<<"NO DATA"<<endl;	
 		}
+
 
 }
 
