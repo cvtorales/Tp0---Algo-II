@@ -128,12 +128,12 @@ RedSensores::RedSensores(istream& dss)
 
 	Sensores = sensores;
 
-	
+	/*
 		for(int m=0; m<Average.UsedSize();m++)
 		{
 			cout<<"Average["<<m<<"]"<<Average[m]<<endl;
 		}
-	
+	*/
 	//cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
 	//cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
 }
@@ -197,7 +197,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 
 			
-			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
+			if( query_name == Sensores[j].GetName()||query_name.empty())   // Se compara por nombre del sensor
 			{
 				
 				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
@@ -246,7 +246,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					for( k = InitRange; k < FinalRange; k++)
 					{	
 						datos_average += Average[k];
-							cout<< Average[k]<< endl;
+							//cout<< Average[k]<< endl;
 						
 
 
@@ -275,7 +275,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			//		}
 
 
-			}
+			} 
 
 
 					for(int l = 0; l < cantidadSensores; l++)

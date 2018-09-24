@@ -28,8 +28,6 @@ class RedSensores
         Query ObtieneQuery(int);
         void ProcesamientoQuerys(ostream&);
         void EjecutoQuery(Query,int,int,ostream&);
-        double Maximo(Array<double>& valores) const;
-		double Minimo(Array<double>& valores) const;
         bool ValidarRangoAverage(int initRange, int finalRange);
         int GetQuantityOfAverage();
 
