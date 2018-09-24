@@ -197,7 +197,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 
 			
-			if( query_name == Sensores[j].GetName()||query_name.empty())   // Se compara por nombre del sensor
+			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
 			{
 				
 				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;

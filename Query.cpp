@@ -71,11 +71,12 @@ int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array) co
 
 	if(instruccion < array.UsedSize()-1)
 	{
-	
+		//ACÁ
 		istringstream(linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1)) >> ValorInstruccion;	
 		
 	}else{
-		istringstream(linea.substr(array[instruccion]+1, linea.length())) >> ValorInstruccion;	
+		//Y ACÁ
+		istringstream(linea.substr(array[instruccion]+1, linea.length())) >> ValorInstruccion;				
 		
 	}
 	//cout<<"ValorInstruccion: "<<ValorInstruccion<<endl;
