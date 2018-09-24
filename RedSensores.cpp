@@ -1,5 +1,6 @@
 #include "RedSensores.h"
 #define DELIMITER ","
+#define EMPTY_SPACE "-1"
 
 
 using namespace std;
@@ -21,10 +22,7 @@ RedSensores::RedSensores(istream& dss)
 	int i=0, j=0, delimiter_pos = 0;
 	int initial_pos=0, final_pos=0, sensors_quantity=0;
 	Array<Sensor> sensores;
-	
 	Array<double> datos;
-
-
 
 	double number;
 
@@ -77,6 +75,8 @@ RedSensores::RedSensores(istream& dss)
 	      initial_pos = 0;
 	      final_pos = 0;
 	      j = 0;
+	      double acum_row = 0;
+	      int data_quantity = 0;
 
 	      //cout << "*************** Leo una linea ****************"<< endl;
 
@@ -96,7 +96,18 @@ RedSensores::RedSensores(istream& dss)
 				// number = str_sensor.stod(str_sensor, &sz);
 				if(!str_sensor.empty())
 				{
+					data_quantity++;
 					istringstream(str_sensor) >> number;	
+					sensores[j].SetElementAt(number);
+					acum_row = acum_row + number;
+
+					if(j == (sensors_quantity - 1))
+					{
+						Average.Append(acum_row/data_quantity);
+					}
+				}else{
+					//		empty_quantity++;
+					istringstream(EMPTY_SPACE) >> number;
 					sensores[j].SetElementAt(number);
 				}
 				
@@ -116,6 +127,13 @@ RedSensores::RedSensores(istream& dss)
 	}
 
 	Sensores = sensores;
+
+	
+		for(int m=0; m<Average.UsedSize();m++)
+		{
+			cout<<"Average["<<m<<"]"<<Average[m]<<endl;
+		}
+	
 	//cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
 	//cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
 }
@@ -164,8 +182,9 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
 	Array<double> datos;
+	Array<double> datos_average;
 	int i=0, j=0, k=0; 
-	int tb = 0;    // Esta variable cuenta la cantidad de coincidencias entre nombres de sensores.
+	int quantity_average;
 
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
@@ -177,9 +196,9 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			string query_name = q.GetSensorNameAt(i);
 
 			
-			if( query_name == Sensores[j].GetName() || query_name.empty())   // Se compara por nombre del sensor
+			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
 			{
-				tb++;
+				
 				
 				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
 				//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
@@ -193,12 +212,15 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					for( k = InitRange; k < FinalRange; k++)
 					{
 						//cout<<"k: "<<k<<endl;
+						if(Sensores[j].GetData()[k] != -1)
+							datos += Sensores[j].GetData()[k];
+
 						//cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
-						datos += Sensores[j].GetData()[k];
+
 						//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 					}
 
-					//oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
+					oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
 				}
 				/*
 				else
@@ -207,6 +229,30 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				}
 				*/
 			}
+			if(query_name.empty() && j == 0 )
+			{
+				cout<<"name empty:   "<<endl;  
+
+					quantity_average = GetQuantityOfAverage();
+						
+					for(int  k = 0; k < quantity_average; k++)
+					{
+						if(Average[k] > InitRange && Average[k] < FinalRange)
+						{	datos_average += Average[k];
+							cout<< Average[k]<< endl;
+						}
+					}
+					cout << "ss"<< endl;
+					cout<< quantity_average <<endl;
+
+
+						oss<< datos_average.Promedio()
+						<<","<<datos_average.Minimo()
+						<<","<<datos_average.Maximo()
+						<<","<<datos_average.UsedSize()<<endl;
+
+			}
+
 		}
 
 		//cout << "termino con un sensor " <<endl;
@@ -216,7 +262,10 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				{
 					oss << "UNKNOW ID" << endl;
 				}
+
+
 */
+
 	}
 	/*
 		for(int m=0; m<datos.UsedSize();m++)
@@ -225,14 +274,35 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 		}
 	*/
 
-		if(datos.UsedSize()>0)
-		{
-			oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
-		}
-		else
-		{
-			oss<<"NO DATA"<<endl;	
-		}
+		//				if(quantity_average>0)
+		//			{
+		//				oss<<datos_average.Promedio()
+		//				<<","<<datos_average.Minimo()
+		//				<<","<<datos_average.Maximo()
+		//				<<","<<datos_average.UsedSize()
+		//				<<endl;
+		//			}
+
+
 
 }
 
+bool RedSensores::ValidarRangoAverage(int initRange, int finalRange)
+{
+	bool resultado=false;
+
+
+	if(finalRange>initRange && initRange >= 0 && initRange< Average.UsedSize())
+	{
+		resultado = true;
+	}
+	
+
+	return resultado;
+
+}
+
+int RedSensores::GetQuantityOfAverage()
+{
+	return this -> Average.UsedSize();
+}

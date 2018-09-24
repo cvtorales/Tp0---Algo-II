@@ -19,6 +19,7 @@ class RedSensores
         string Name;
         Array<Sensor> Sensores;
         Array<Query> Querys;
+        Array<double> Average;
     public:
         RedSensores();
         ~RedSensores();
@@ -29,6 +30,9 @@ class RedSensores
         void EjecutoQuery(Query,int,int,ostream&);
         double Maximo(Array<double>& valores) const;
 		double Minimo(Array<double>& valores) const;
+        bool ValidarRangoAverage(int initRange, int finalRange);
+        int GetQuantityOfAverage();
+
 };
 
 
