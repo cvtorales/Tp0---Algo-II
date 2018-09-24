@@ -37,11 +37,12 @@ public:
 	Array<T>& AddAverageArray(Array &v);
 	T& operator[](int pos);
 	T& operator[](int pos) const;
-	Array& operator/=(int divisor);
+	Array& operator/=(Array<T> &v);
 	Array& operator=(const Array &v);
 	Array& operator+=(const T &t);
 	void Append(const T &s);
 	void FillWith(const int N);
+	void IncrementInPosition(int pos);
 	friend std::ostream& operator<<(std::ostream &os, const Array &v) {
 		//Si el vector esta vacio, retorna el mismo array
 		if (!v.UsedSize())
@@ -320,17 +321,18 @@ T Array<T>::Promedio() const
 }
 
 template <class T>
-Array<T>& Array<T>::operator/=(int divisor) {
+Array<T>& Array<T>::operator/=(Array<T> &v) {
 int i =0;
 
-	if(divisor == 0)
-	{
-		return *this;
-	}
-
+	//cout<<"Tamaño de salida: "<<_UsedSize<<endl<<endl;
 	for(i=0; i<_UsedSize; i++)
 	{
-		_Array[i] = _Array[i]/divisor;
+		if(v[i]==0)
+		{
+			return *this;
+		}
+		//cout<<"v["<<i<<"]: "<<v[i]<<endl<<endl;
+		_Array[i] = _Array[i]/v[i];
 	}
 
 	return *this;
@@ -358,14 +360,12 @@ Array<T>& Array<T>::AddAverageArray(Array<T> &v) {
 			else {
 				T* aux = new T[v._UsedSize];
 				
-				//limpio arreglo
+			
 				for(int i = 0; i<v._UsedSize; i++)
 				{
+					//limpio el arreglo
 					aux[i]=0;
-				}
-				
-				for(int i = 0; i<v._UsedSize; i++)
-				{
+
 					if(i<_UsedSize){
 						aux[i] += _Array[i] + v._Array[i];
 					}
@@ -399,5 +399,58 @@ void Array<T>::FillWith(const int N) {
 	
 	
 }
+
+template <class T>
+void Array<T>::IncrementInPosition(int pos)
+{
+	if(pos<0)
+		return;
+	
+	if(pos < _AllocSize) {
+		//limpio las posiciones de AllocSize
+		for(int i=_UsedSize;i<_AllocSize;i++)
+		{
+			_Array[i]=0;
+			
+		}
+		_Array[pos]++;
+		_UsedSize++;
+
+	}
+
+	else{
+		
+		//Si esta lleno, se debe alargar _Array.
+		T *NewArray;
+		//Primero, almacena valores en un arreglo auxiliar con el doble de largo.
+		int NewSize = _AllocSize*2;
+		NewArray = new T[NewSize];
+		
+		//limpio las posiciones de AllocSize nuevas
+		for(int i=0;i<NewSize;i++)
+		{
+			if(i<_UsedSize)
+			{
+				NewArray[i]=_Array[i];
+			}else{
+				NewArray[i]=0;
+			}
+			
+		}
+
+		//Agrega el nuevo elemento al final
+		NewArray[_UsedSize]=1;
+		
+		//Destruye _Array original y asigna un nuevo _Array con el doble de largo.
+		delete[] _Array;
+		_Array = NewArray;
+		_AllocSize = NewSize;
+		_UsedSize++;
+		
+	}
+	
+	
+}
+
 
 #endif

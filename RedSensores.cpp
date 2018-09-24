@@ -159,7 +159,7 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 	
 	for(i = 0; i < Querys.UsedSize() ; i++)
 	{
-		//if(i==4||i==5)
+		//if(i==3)
 			EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 	}
 }
@@ -170,10 +170,12 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 {
 	Array<double> datos;
 	Array<double> salida;
-
+	Array<double> divisores;
+	
+	//divisores.FillWith(0.0);
 	//Array<int> divisores(0);
 	int i=0, j=0, k=0; 
-	int tb = 0;    // Esta variable cuenta la cantidad de coincidencias entre nombres de sensores.
+	bool EnRango = false;    // Esta variable cuenta la cantidad de coincidencias entre nombres de sensores.
 
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
@@ -187,12 +189,14 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			
 			if( query_name == Sensores[j].GetName() || query_name.empty())   // Se compara por nombre del sensor
 			{
-				tb++;				
+				
+								
 				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
 				//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 
 				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango
 				{
+					EnRango=true;
 					//si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
 					//la cantidad de datos del sensor
 					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
@@ -203,34 +207,42 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					{
 						//cargo un nuevo arreglo con las dimensiones del rango solicitado
 						if(Sensores[j].GetValidPosition(k)){
+							//cout<<"sensor: "<<query_name<<endl;
+							//cout<<"k: "<<k<<endl;
 							datos += Sensores[j].GetData()[k];
+							divisores.IncrementInPosition(datos.UsedSize()-1);
 						}
 						else{
 							datos += 0;
+							//divisores.IncrementInPosition(datos.UsedSize()-1);
 						}
 						//divisores[k] += 1;
 						
 						
 						//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 					}
-					/*
-						for(int m=0; m<datos.UsedSize();m++)
-						{
-							cout<<"datos["<<m<<"]: "<<datos[m]<<endl;
-						}
-						cout<<"FIN ARREGLO"<<endl;*/
+					
+					
 					
 
 					salida.AddAverageArray(datos);
 					datos.Reset();
+					if(query_name==Sensores[2].GetName()){
+						for(int m=0; m<salida.UsedSize();m++)
+						{
+							cout<<"salida["<<m<<"]: "<<salida[m]<<endl;
+						}
+						cout<<"FIN ARREGLO"<<endl;
 					
+					}
+					/*
 					for(int m=0; m<salida.UsedSize();m++)
 					{
 						cout<<"Sensor: "<<Sensores[j].GetName()<<endl;
 						cout<<"salida["<<m<<"]: "<<salida[m]<<endl;
 					}
 					cout<<"FIN ARREGLO"<<endl;
-					
+					*/
 					
 
 					//oss<<datos.Promedio()<<","<<datos.Minimo()<<","<<datos.Maximo()<<","<<datos.UsedSize()<<endl;
@@ -246,25 +258,34 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 	}
 
 
-
-
-	
-	
-		salida /= 4;
+	/*	
+			for(int m=0; m<divisores.UsedSize();m++)
+			{
+				cout<<"divisores["<<m<<"]: "<<divisores[m]<<endl;
+			}
+	*/
+		if(salida.UsedSize()>0)
+		{
+			salida /= divisores;
+		}
+		
 /*
 	for(int m=0; m<salida.UsedSize();m++)
 		{
 			cout<<"salida["<<m<<"]: "<<salida[m]<<endl;
 		}
 		cout<<"FIN ARREGLO"<<endl;
-		cout<<salida.Promedio()<<","<<salida.Minimo()<<","<<salida.Maximo()<<","<<salida.UsedSize()<<endl;
-*/
-		if(tb>0)
+		*/
+		//cout<<salida.Promedio()<<","<<salida.Minimo()<<","<<salida.Maximo()<<","<<salida.UsedSize()<<endl;
+
+
+		if(EnRango)
 		{
 			
 
 			oss<<salida.Promedio()<<","<<salida.Minimo()<<","<<salida.Maximo()<<","<<salida.UsedSize()<<endl;
 			salida.Clean();
+
 		}
 		else
 		{
