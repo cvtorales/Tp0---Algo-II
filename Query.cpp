@@ -65,18 +65,32 @@ Query::Query(string line)
 			
 }
 
-int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array) const
+int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array)
 {
 	int ValorInstruccion=0;
+	string str;
+	bool resultado = true;
+
+
+
 
 	if(instruccion < array.UsedSize()-1)
 	{
-		//ACÁ
+	
+		str = linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1);
+		for(size_t i=0; i < str.length() ; i++)
+		{	
+			if(!isdigit(str[i]))
+			{
+				SetBadQuery(resultado);
+				
+				break;
+			}
+		}    
 		istringstream(linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1)) >> ValorInstruccion;	
 		
 	}else{
-		//Y ACÁ
-		istringstream(linea.substr(array[instruccion]+1, linea.length())) >> ValorInstruccion;				
+		istringstream(linea.substr(array[instruccion]+1, linea.length())) >> ValorInstruccion;	
 		
 	}
 	//cout<<"ValorInstruccion: "<<ValorInstruccion<<endl;
@@ -124,3 +138,14 @@ int Query::GetSensorsNameQuantity()
 {
 	return this-> SensorsName.UsedSize();
 }
+
+void Query::SetBadQuery(bool badq)
+{
+
+	this -> IsBadQuery = badq;
+}
+
+ bool Query::GetBadQuery()
+ {
+ 	  return this-> IsBadQuery;
+ }

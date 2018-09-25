@@ -18,7 +18,8 @@ class Query
         Array<string> SensorsName;
         int InitRange;
         int FinalRange;
-        int ObtieneParametro(string linea, int instruccion, Array<int>& array) const;
+        bool IsBadQuery;
+        int ObtieneParametro(string linea, int instruccion, Array<int>& array);
         Array<string> ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, int) const;
     public:
         Query();
@@ -28,6 +29,9 @@ class Query
         int GetFinalRange();
         string GetSensorNameAt(int pos);
         int GetSensorsNameQuantity();
+        void SetBadQuery(bool badq);
+        bool GetBadQuery();
+        
 };
 
 

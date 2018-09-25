@@ -1,6 +1,7 @@
 #include "RedSensores.h"
 #define DELIMITER ","
 #define EMPTY_SPACE "-1"
+#define EMPTY_SPACE_INDICATOR -1
 
 
 using namespace std;
@@ -128,12 +129,12 @@ RedSensores::RedSensores(istream& dss)
 
 	Sensores = sensores;
 
-	/*
+	
 		for(int m=0; m<Average.UsedSize();m++)
 		{
 			cout<<"Average["<<m<<"]"<<Average[m]<<endl;
 		}
-	*/
+	
 	//cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
 	//cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
 }
@@ -188,6 +189,8 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 	int tb = 0;
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
+
+	//cout<< "booleann" <<q.GetBadQuery()<<endl;
 	
 	for(i=0; i<cantNombresSensores; i++)    // Por si en el query hay mas de un sensor
 	{
@@ -200,6 +203,8 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
 			{
 				
+
+
 				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
 				//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 
@@ -208,11 +213,20 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					//si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
 					//la cantidad de datos del sensor
 					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
-										
+
+// no funciona
+			//		cout<< "booleann" <<q.GetBadQuery()<<endl;
+			//								if(q.GetBadQuery() == true)
+			//			{
+			//				oss<<"BUT QUERY"<<endl;
+						
+			//			}					
 					for( k = InitRange; k < FinalRange; k++)
 					{
 						//cout<<"k: "<<k<<endl;
-						if(Sensores[j].GetData()[k] != -1)
+
+
+						if(Sensores[j].GetData()[k] != EMPTY_SPACE_INDICATOR)
 							datos += Sensores[j].GetData()[k];
 
 						//cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
@@ -246,7 +260,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					for( k = InitRange; k < FinalRange; k++)
 					{	
 						datos_average += Average[k];
-							//cout<< Average[k]<< endl;
+							cout<< Average[k]<< endl;
 						
 
 
@@ -275,7 +289,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			//		}
 
 
-			} 
+			}
 
 
 					for(int l = 0; l < cantidadSensores; l++)
