@@ -190,7 +190,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
 
-	//cout<< "booleann" <<q.GetBadQuery()<<endl;
+	cout<< "booleann" <<q.GetBadQuery()<<endl;
 	
 	for(i=0; i<cantNombresSensores; i++)    // Por si en el query hay mas de un sensor
 	{
@@ -248,7 +248,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 			if(query_name.empty() && j == 0 )
 			{
 
-				cout<<"name empty:   "<<endl;  
+				//cout<<"name empty:   "<<endl;  
 
 					quantity_average = GetQuantityOfAverage();
 
@@ -260,15 +260,15 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 					for( k = InitRange; k < FinalRange; k++)
 					{	
 						datos_average += Average[k];
-							cout<< Average[k]<< endl;
+							//cout<< Average[k]<< endl;
 						
 
 
 					}
 
 
-					cout << "ss"<< endl;
-					cout<< quantity_average <<endl;
+					//cout << "ss"<< endl;
+					//cout<< quantity_average <<endl;
 
 
 						oss<< datos_average.Promedio()

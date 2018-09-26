@@ -69,7 +69,7 @@ int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array)
 {
 	int ValorInstruccion=0;
 	string str;
-	bool resultado = true;
+	bool resultado = false;
 
 
 
@@ -82,18 +82,21 @@ int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array)
 		{	
 			if(!isdigit(str[i]))
 			{
-				SetBadQuery(resultado);
+				resultado = true;
 				
-				break;
 			}
 		}    
-		istringstream(linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1)) >> ValorInstruccion;	
+		IsBadQuery = resultado;
+		if(!resultado)
+			istringstream(linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1)) >> ValorInstruccion;	
+		
 		
 	}else{
 		istringstream(linea.substr(array[instruccion]+1, linea.length())) >> ValorInstruccion;	
 		
 	}
-	//cout<<"ValorInstruccion: "<<ValorInstruccion<<endl;
+	cout<<"ValorInstruccion: "<<ValorInstruccion<<endl;
+	cout<<"IsBadQuery: "<<this->IsBadQuery<<endl;
 	return ValorInstruccion;
 }
 
