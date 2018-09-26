@@ -24,12 +24,14 @@ Query::Query(string line)
 	Array<int> semicolons;
 	
 	int InitPos=0;
+
 	
 
 	
 	//cargo arreglo con las posiciones de las comas
 	while((int)line.find(",", InitPos) != -1)
 	{
+		//commas_quantity++;
 		commas.Append(line.find(",", InitPos));
 		InitPos = line.find(",", InitPos) + 1;
 	}

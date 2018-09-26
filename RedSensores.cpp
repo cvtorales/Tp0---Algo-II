@@ -46,7 +46,7 @@ RedSensores::RedSensores(istream& dss)
 			{
 				delimiter_pos = i+1;   // Caso en que encuentra el ultimo nombre
 			}else
-			{
+			{	
 				delimiter_pos =i;      // Caso en que encuentra el nombre por medio del delimitador
 			}
 /*
@@ -216,28 +216,30 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 // no funciona
 			//		cout<< "booleann" <<q.GetBadQuery()<<endl;
-			//								if(q.GetBadQuery() == true)
-			//			{
-			//				oss<<"BUT QUERY"<<endl;
-						
-			//			}					
-					for( k = InitRange; k < FinalRange; k++)
+					if(q.GetBadQuery() == true)
 					{
-						//cout<<"k: "<<k<<endl;
+						oss<<"BUT QUERY"<<endl;
+						
+					}else{
+
+						for( k = InitRange; k < FinalRange; k++)
+						{
+							//cout<<"k: "<<k<<endl;
 
 
-						if(Sensores[j].GetData()[k] != EMPTY_SPACE_INDICATOR)
-							datos += Sensores[j].GetData()[k];
+							if(Sensores[j].GetData()[k] != EMPTY_SPACE_INDICATOR)
+								datos += Sensores[j].GetData()[k];
 
-						//cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
+							//cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
 
-						//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
+							//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
+						}
+
+						oss<<datos.Promedio()
+						<<","<<datos.Minimo()
+						<<","<<datos.Maximo()
+						<<","<<datos.UsedSize()<<endl;
 					}
-
-					oss<<datos.Promedio()
-					<<","<<datos.Minimo()
-					<<","<<datos.Maximo()
-					<<","<<datos.UsedSize()<<endl;
 				}else
 				{
 						oss<<"NO DATA"<<endl;	
