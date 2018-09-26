@@ -1,169 +1,138 @@
 #include "RedSensores.h"
-#define DELIMITER ","
-#define EMPTY_SPACE "-1"
-#define EMPTY_SPACE_INDICATOR -1
-
-
-using namespace std;
 
 RedSensores::RedSensores()
 {
 
 }
 
-
 RedSensores::~RedSensores()
 {
-   //this-> Sensores.~Array();
+
 }
 
-RedSensores::RedSensores(istream& dss)
+RedSensores::RedSensores(istream & dss)
 {
 	string str, str_sensor;
 	int i=0, j=0, delimiter_pos = 0;
-	int initial_pos=0, final_pos=0, sensors_quantity=0;
+	int initial_pos = 0, final_pos = 0, sensors_quantity = 0;
+	double number;
 	Array<Sensor> sensores;
 	Array<double> datos;
-
-	double number;
-
-
 
  // Lectura y procesamiento de la primer linea (que contiene a los nombres de los sensores).
  // Como son elementos separados por un delimitador, se decidio ubicar al delimitador para 
  // obtener los nombres de cada sensor. En particular, para el ultimo nombre, se realizo una 
  // comparacion con '\0' para poder obtenerlo.
 
-	getline(dss, str);
+	getline(dss, str);                       // Lectura de la primer linea.
 
 	for(i=0; str[i] != '\0'; i++)
 	{	
-		if(str[i]==',' || str[i+1] == '\0')  // Para el ultimo nombre se compara con '\0'
+		if(str[i]==',' || str[i+1] == '\0')  // Para el ultimo nombre se compara con '\0'.
 		{
 			Sensor s;
 
 			if(str[i+1] == '\0')
 			{
-				delimiter_pos = i+1;   // Caso en que encuentra el ultimo nombre
+				delimiter_pos = i+1;   // Caso en que encuentra el ultimo nombre.
 			}else
 			{	
-				delimiter_pos =i;      // Caso en que encuentra el nombre por medio del delimitador
+				delimiter_pos =i;      // Caso en que encuentra el nombre por medio del delimitador.
 			}
-/*
-			cout<<"initial_pos: "<<initial_pos<<endl;
-			cout<<"i: "<<delimiter_pos<<endl;
-			cout<<"nombre: "<<str.substr(initial_pos, delimiter_pos - initial_pos)<<endl;
-*/
+
 			s.SetName(str.substr(initial_pos, delimiter_pos - initial_pos));
-	
-			//cout<<"nombre sensor: "<<s.GetName()<<endl;
-			sensores.Append(s);
-			//cout<<"v[0]: "<<sensores[sensors_quantity].GetName()<<endl;
+
+			sensores.Append(s);        // Se agrega el nombre del sensor al vector de sensores. 
+
 			sensors_quantity++;
-			//cout<<"sensors_quantity: "<<sensors_quantity<<endl;
+
 			initial_pos=i+1;
 		}		
 	}
 
-
 // Lectura y procesamiento de los datos correspondientes a cada sensor, tener en cuenta 
-// que en cada linea se encuentran las posiciones de las columnas y la fila es constante
-// Se carga una fila a medida que se lee una linea.
+// que en cada linea se encuentran las posiciones de las columnas y la fila es constante.
+// Se carga una fila para cada sensor a medida que se lee una linea.
 
-	for(i=0 ; !dss.eof() ; i++)     // Con este ciclo for se recorre cada fila
+	for(i=0 ; !dss.eof() ; i++)     // Se recorre cada fila.
 	{          
-	      getline(dss, str);   // Con esto leemos cada linea y la asignamos a cadena
+	      getline(dss, str);        // Se lee cada linea y se asigna a la cadena str.
 	      initial_pos = 0;
 	      final_pos = 0;
 	      j = 0;
 	      double acum_row = 0;
 	      int data_quantity = 0;
 
-	      //cout << "*************** Leo una linea ****************"<< endl;
-
-	      while( j < sensors_quantity )  // con este ciclo recorro cada sensor con la misma fila 
+	      while( j < sensors_quantity )  
 	      {
-			  	//cout<<"initial_pos: "<<initial_pos<<endl;
-	      		if(j != (sensors_quantity - 1))
+
+	      // Se buscan las posiciones del final de cada subcadena.	
+	      		if(j != (sensors_quantity - 1))  
 	      		{	
 		            final_pos = str.find(",", initial_pos) - initial_pos;
 		        }else
 		        {
-		         	final_pos = str.length() - initial_pos;
+		         	final_pos = str.length() - initial_pos;  // Ultima posicion (no encuentra la coma).
 		        }
-	            //cout<<"final_pos: "<<final_pos<<endl;
+
 				str_sensor = str.substr(initial_pos, final_pos);
-				//cout<<"str_sensor: " <<str_sensor <<endl;
-				// number = str_sensor.stod(str_sensor, &sz);
+
 				if(!str_sensor.empty())
 				{
 					data_quantity++;
 					istringstream(str_sensor) >> number;	
 					sensores[j].SetElementAt(number);
-					acum_row = acum_row + number;
+					acum_row = acum_row + number;   // Se acumula la suma de todos los sensores en una fila.
 
-					if(j == (sensors_quantity - 1))
+					if(j == (sensors_quantity - 1)) // Cuando termina sumar los valores.
 					{
-						Average.Append(acum_row/data_quantity);
+						// Se calcula el promedio de los sensores en una fila 
+						// y se agrega a un vector de promedios (Average).  
+
+						Average.Append(acum_row/data_quantity);  
 					}
+
 				}else{
-					//		empty_quantity++;
+
+					// Si no se encuentra ningun dato, se asigna una constante.
 					istringstream(EMPTY_SPACE) >> number;
 					sensores[j].SetElementAt(number);
 				}
 				
-				//cout<<"number: "<<number<<endl;
-				//cout<<"jota: "<<j<<endl;
-				
-				//datos.Append(number);
-	            //cout<<"datos["<<j<<"]: "<<datos[j]<<endl;
 	            initial_pos += final_pos+1;
-				//cout<<initial_pos<<endl << endl;
-	            // convertir a str_sensor a double
-	            //sensores[j].SetData(datos);
 	            j++;
-
-
 	      }
 	}
 
 	Sensores = sensores;
 
-	
-		for(int m=0; m<Average.UsedSize();m++)
-		{
-			cout<<"Average["<<m<<"]"<<Average[m]<<endl;
-		}
-	
-	//cout<<"El elemento 2 del sensor 0 es: "<<sensores[0].GetElementAt(2)<<endl;
-	//cout<<"El nombre del sensor 4 es: "<<sensores[3].GetName()<<endl;
+	for(int m=0; m<Average.UsedSize();m++)
+	{
+		cout<<"Average["<<m<<"]"<<Average[m]<<endl;
+	}
 }
 
 
-void RedSensores::LecturaQuerys(istream& iss)
+void RedSensores::LecturaQuerys(istream & iss)
 {
 	int i = 0;
 	string str;
 	char c;
 
-
-	for(i=0 ; !iss.eof() ; i++)      // Con este ciclo for se recorre cada fila
+	for(i=0 ; !iss.eof() ; i++)      // Se recorre cada fila.
 	{   
 		if(iss>>c)
 		{
 			iss.putback(c);
 			getline(iss, str);
-		    Query q(str);   // Inicializo una Query por linea
-		    this->Querys.Append(q);     // Agrego un query como ultimo elemento del vector	
-		}
-		
-	}
-	
+		    Query q(str);           // Inicializo una Query por linea.
+		    this->Querys.Append(q); // Agrego un query como ultimo elemento del vector.	
+		}	
+	}	
 }
 
 Query RedSensores::ObtieneQuery(int pos)
 {
-	//validar
 	return Querys[pos];
 }
 
@@ -171,7 +140,6 @@ void RedSensores::ProcesamientoQuerys(ostream& oss)
 {
 	int i=0;
 	
-
 	for(i = 0; i < Querys.UsedSize() ; i++)
 	{
 		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
@@ -185,54 +153,36 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 	Array<double> datos;
 	Array<double> datos_average;
 	int i=0, j=0, k=0; 
-	int quantity_average;
-	int tb = 0;
+	int average_quantity;
+	int name_quentity = 0;
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
-
-	cout<< "booleann" <<q.GetBadQuery()<<endl;
 	
-	for(i=0; i<cantNombresSensores; i++)    // Por si en el query hay mas de un sensor
+	for(i=0; i<cantNombresSensores; i++)               // Por si en el query hay mas de un sensor.
 	{
 		for(j=0; j<cantidadSensores; j++)
 		{
 			string query_name = q.GetSensorNameAt(i);
-
-
 			
-			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor
+			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor.
 			{
-				
-
-
-				//cout<<"tamaño de Sensores: "<<Sensores[j].GetData().UsedSize()<<endl;
-				//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
-
-				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango
+				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango.
 				{
-					//si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
-					//la cantidad de datos del sensor
+					// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
+					// la cantidad de datos del sensor.
 					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
 
-// no funciona
-			//		cout<< "booleann" <<q.GetBadQuery()<<endl;
-					if(q.GetBadQuery() == true)
+					if(q.GetBadQuery() == true)   // Si la consulta esta mal ingresada.
 					{
 						oss<<"BUT QUERY"<<endl;
 						
-					}else{
+					}else{                        // Si se ingresa bien la consulta, se procesan los datos. 
 
 						for( k = InitRange; k < FinalRange; k++)
 						{
-							//cout<<"k: "<<k<<endl;
-
-
+							// Se carga en el vector datos los valores validos de la consulta.
 							if(Sensores[j].GetData()[k] != EMPTY_SPACE_INDICATOR)
 								datos += Sensores[j].GetData()[k];
-
-							//cout<<"Sensores[j].GetData()[k]: "<<Sensores[j].GetData()[k]<<endl;
-
-							//cout<<"tamaño del arreglo datos:"<<datos.UsedSize()<<endl;
 						}
 
 						oss<<datos.Promedio()
@@ -247,96 +197,48 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				
 			}
 
+  // En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
+  // caso de que no se ingrese el nombre del sensor que se quiere consultar.
+  // Se procesan los datos consultando por todos los sensores en el rango indicado.
+
 			if(query_name.empty() && j == 0 )
 			{
+				average_quantity = GetQuantityOfAverage();
 
-				//cout<<"name empty:   "<<endl;  
-
-					quantity_average = GetQuantityOfAverage();
-
-				if (ValidarRangoAverage(InitRange, FinalRange))  // Si esta dentro del rango
+				if (ValidarRangoAverage(InitRange, FinalRange))  // Si esta dentro del rango.
 				{
-					//si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
-					//la cantidad de datos del sensor
-					FinalRange = FinalRange> quantity_average ? quantity_average : FinalRange ;
+					// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
+					// la cantidad de datos del sensor.
+
+					FinalRange = FinalRange> average_quantity ? average_quantity : FinalRange;
 					for( k = InitRange; k < FinalRange; k++)
 					{	
 						datos_average += Average[k];
-							//cout<< Average[k]<< endl;
-						
-
-
 					}
 
-
-					//cout << "ss"<< endl;
-					//cout<< quantity_average <<endl;
-
-
-						oss<< datos_average.Promedio()
-						<<","<<datos_average.Minimo()
-						<<","<<datos_average.Maximo()
-						<<","<<datos_average.UsedSize()<<endl;
-						
+					oss<< datos_average.Promedio()
+					<<","<<datos_average.Minimo()
+					<<","<<datos_average.Maximo()
+					<<","<<datos_average.UsedSize()<<endl;
+					
 				}else
 				{
 						oss<<"NO DATA"<<endl;	
-				}		
-			//		for(int  k = 0; k < quantity_average; k++)
-			//		{
-			//			if(Average[k] > InitRange && Average[k] < FinalRange)
-			//			{	datos_average += Average[k];
-			//				cout<< Average[k]<< endl;
-			//			}
-			//		}
-
-
+				}
 			}
 
+			for(int l = 0; l < cantidadSensores; l++)
+			{
+				if(query_name == Sensores[l].GetName() || query_name.empty())
+					name_quentity++;
 
-					for(int l = 0; l < cantidadSensores; l++)
-					{
-						if(query_name == Sensores[l].GetName() || query_name.empty())
-							tb++;
+				if((l+1) == cantidadSensores)
+					if(name_quentity == 0 && j==0)
+						oss << "UNKNOW ID" << endl;
 
-						if((l+1) == cantidadSensores)
-							if(tb == 0 && j==0)
-								oss << "UNKNOW ID" << endl;
-
-					}
-
+			}
 		}
-
-		//cout << "termino con un sensor " <<endl;
-		
-/*
-				if(tb == 0 )
-				{
-					oss << "UNKNOW ID" << endl;
-				}
-
-
-*/
-
 	}
-	/*
-		for(int m=0; m<datos.UsedSize();m++)
-		{
-			cout<<"datos["<<m<<"]"<<datos[m]<<endl;
-		}
-	*/
-
-		//				if(quantity_average>0)
-		//			{
-		//				oss<<datos_average.Promedio()
-		//				<<","<<datos_average.Minimo()
-		//				<<","<<datos_average.Maximo()
-		//				<<","<<datos_average.UsedSize()
-		//				<<endl;
-		//			}
-
-
-
 }
 
 bool RedSensores::ValidarRangoAverage(int initRange, int finalRange)

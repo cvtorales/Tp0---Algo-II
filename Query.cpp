@@ -1,10 +1,5 @@
 #include "Query.h"
 
-#define RANGO_INICIAL 0
-#define RANGO_FINAL 1
-
-using namespace std;
-
 Query::Query()
 {
 

@@ -6,11 +6,10 @@
 #include <sstream>
 #include "TemplateArray.h"
 
-
-
+#define RANGO_INICIAL 0
+#define RANGO_FINAL 1
 
 using namespace std;
-
 
 class Query
 {

@@ -8,7 +8,9 @@
 #include "Sensor.h"
 #include "Query.h"
 
-
+#define DELIMITER ","
+#define EMPTY_SPACE "-1"
+#define EMPTY_SPACE_INDICATOR -1
 
 using namespace std;
 
@@ -19,7 +21,7 @@ class RedSensores
         string Name;
         Array<Sensor> Sensores;
         Array<Query> Querys;
-        Array<double> Average;
+        Array<double> Average;   // Arreglo de promedios de las filas de todos los sensores.
     public:
         RedSensores();
         ~RedSensores();
