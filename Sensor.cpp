@@ -1,6 +1,5 @@
 #include "Sensor.h"
 #include <iostream>
-//#include <vector>
 
 Sensor::Sensor()
 {
