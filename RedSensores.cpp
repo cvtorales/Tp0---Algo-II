@@ -108,7 +108,7 @@ RedSensores::RedSensores(istream & dss)
 
 	for(int m=0; m<Average.UsedSize();m++)
 	{
-		cout<<"Average["<<m<<"]"<<Average[m]<<endl;
+		cout<<"Average["<<m<<"]" << " = " <<Average[m]<<endl;
 	}
 }
 
@@ -174,7 +174,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 
 					if(q.GetBadQuery() == true)   // Si la consulta esta mal ingresada.
 					{
-						oss<<"BUT QUERY"<<endl;
+						oss<<"BAD QUERY"<<endl;
 						
 					}else{                        // Si se ingresa bien la consulta, se procesan los datos. 
 

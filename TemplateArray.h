@@ -1,4 +1,3 @@
-
 #ifndef _TEMPLATE_ARRAY_INCLUDED_
 #define _TEMPLATE_ARRAY_INCLUDED_
 
@@ -36,71 +35,6 @@ public:
 	Array& operator=(const Array &v);
 	Array& operator+=(const T &t);
 	void Append(const T &s);
-	friend std::ostream& operator<<(std::ostream &os, const Array &v) {
-		//Si el vector esta vacio, retorna el mismo array
-		if (!v.UsedSize())
-			return os;
-
-			//Para cada elemento, llama al operador << de la clase T.
-		for(int i = 0; i < v._UsedSize; i++)
-			os<<v._Array[i]<<" ";
-
-		os<<'\n';
-		return os;
-	}
-
-	friend std::istream& operator>>(std::istream &is, Array &v){
-		T s;
-		bool eol = false;
-		while(eol==false && !is.eof()) {
-			int aux;
-			//Mientras haya llegado al final de la linea y no se EOF
-
-			aux=is.peek(); // Se fija que hay en el proximo caracter del istream sin modificarlo
-			//NOTA: Se usa este metodo del istream porque este no ignora los whitespaces,
-			// mientras que el operador >> si, y justamente para verificar sea eol
-			// se necesita ver si hay un '\n'.
-
-			// Si es EOF, pasa a la siguiente iteracion y sale del bucle.
-			if (is.eof()) {
-				continue;
-			}
-
-			// Si llego al final de la linea, settea EOL en verdadero y el istream
-			// pasa al primer caracter de la siguiente linea.
-			if(aux=='\n') {
-				eol = true;
-				is.ignore();
-				continue;
-			}
-
-			// Si el proximo caracter es un whitespace distinto al '\n',
-			// lo ignora y pasa al siguiente caracter.
-			if (aux==' '|| aux=='\t' || aux=='\v' || aux=='\f' || aux=='\r' ) {
-				is.ignore();
-				continue;
-			}
-
-			// Si no es ninguno de los casos anteriores, intenta leer un T.
-			if (is>>s) {
-				// Si lee bien el T, lo agrega al final del Array.
-				v.Append(s);
-				continue;
-			}	else {
-
-				// Si no cumple el formato de T, vuelve a habilitar el istream
-				// para poder terminar de ignorar los caracteres restantes de la linea,
-				// pasando a apuntar al primer caracter de la linea siguiente.
-				// Luego, settea eol en verdadero y vuelve a poner el badbit.
-				is.clear(std::ios::goodbit); //Habilita istream
-				is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				eol=true;
-				is.clear(std::ios::badbit);
-			}
-		}
-		return is;
-	}
-
 };
 
 template <class T>
