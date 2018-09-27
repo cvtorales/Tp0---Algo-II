@@ -110,10 +110,6 @@ RedSensores::RedSensores(istream & dss)
 
 	Sensores = sensores;
 
-	for(int m=0; m<Average.UsedSize();m++)
-	{
-		cout<<"Average["<<m<<"]" << " = " <<Average[m]<<endl;
-	}
 }
 
 
