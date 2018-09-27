@@ -235,7 +235,6 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 				if((l+1) == cantidadSensores)
 					if(name_quentity == 0 && j==0)
 						oss << "UNKNOW ID" << endl;
-
 			}
 		}
 	}
@@ -245,15 +244,12 @@ bool RedSensores::ValidarRangoAverage(int initRange, int finalRange)
 {
 	bool resultado=false;
 
-
 	if(finalRange>initRange && initRange >= 0 && initRange< Average.UsedSize())
 	{
 		resultado = true;
 	}
 	
-
 	return resultado;
-
 }
 
 int RedSensores::GetQuantityOfAverage()

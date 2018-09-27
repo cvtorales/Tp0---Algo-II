@@ -2,7 +2,7 @@
 
 using namespace std;
 
-/**************** Elementos globales ******************/
+/******************************* Elementos globales ***********************************/
 
 static option_t options[] = {
 								{1, "d", "data", "-", opt_data, OPT_DEFAULT},
@@ -16,10 +16,26 @@ static istream *iss = 0;	// Input Stream (clase para manejo de los flujos de ent
 static ostream *oss = 0;	// Output Stream (clase para manejo de los flujos de salida)
 static fstream ifs; 
 static fstream dfs; 		// Input File Stream (derivada de la clase ifstream que deriva de istream para el manejo de archivos)
-static fstream ofs;		// Output File Stream (derivada de la clase ofstream que deriva de ostream para el manejo de archivos)
+static fstream ofs;		// Output File Stream (derivada de la clase ofstream que deriva de ostream para el manejo de archivos
 
-static void
-opt_data(string const &arg)
+/**************************************************************************************/
+
+int main(int argc, char * const argv[])
+{
+    cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
+	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline.
+	
+		
+	RedSensores rs(*dss);
+	
+	rs.LecturaQuerys(*iss);
+
+	rs.ProcesamientoQuerys(*oss);
+	
+    return 0;
+}
+
+static void opt_data(string const &arg)
 {
 	// Si el nombre del archivos es "-", usaremos la entrada
 	// est�ndar. De lo contrario, abrimos un archivo en modo
@@ -46,8 +62,7 @@ opt_data(string const &arg)
 	}
 }
 
-static void
-opt_input(string const &arg)
+static void opt_input(string const &arg)
 {
 	// Si el nombre del archivos es "-", usaremos la entrada
 	// est�ndar. De lo contrario, abrimos un archivo en modo
@@ -74,8 +89,7 @@ opt_input(string const &arg)
 	}
 }
 
-static void
-opt_output(string const &arg)
+static void opt_output(string const &arg)
 {
 	// Si el nombre del archivos es "-", usaremos la salida
 	// est�ndar. De lo contrario, abrimos un archivo en modo
@@ -97,26 +111,4 @@ opt_output(string const &arg)
 		     << endl;
 		exit(1);		// EXIT: Terminaci�n del programa en su totalidad
 	}
-}
-
-/**************************************************************************************/
-
-int main(int argc, char * const argv[])
-{
-    cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
-	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline
-	
-		
-	RedSensores rs(*dss);
-	
-	rs.LecturaQuerys(*iss);
-
-	rs.ProcesamientoQuerys(*oss);
-
-	
-	
-	
-
-	
-    return 0;
 }

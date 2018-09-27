@@ -1,6 +1,6 @@
 #include "Sensor.h"
 #include <iostream>
-#include <vector>
+//#include <vector>
 
 Sensor::Sensor()
 {
@@ -29,7 +29,6 @@ void Sensor::SetElementAt(double dato)
 
 double Sensor::GetElementAt(int pos)
 {
-	//validar
 	return this-> Data[pos];
 }
 
