@@ -1,3 +1,7 @@
+/*
+	Archivo: Query.h
+*/
+
 #ifndef _QUERY_H_INCLUDED_
 #define _QUERY_H_INCLUDED_
 

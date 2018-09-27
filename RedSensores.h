@@ -1,3 +1,7 @@
+/*
+	Archivo: RedSensores.h
+*/
+
 #ifndef _RED_SENSORES_H_INCLUDED_
 #define _RED_SENSORES_H_INCLUDED_
 

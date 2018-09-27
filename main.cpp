@@ -1,3 +1,7 @@
+/*
+	Archivo: main.cpp
+*/
+
 #include "main.h"
 
 using namespace std;

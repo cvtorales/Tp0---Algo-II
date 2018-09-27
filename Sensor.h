@@ -1,3 +1,7 @@
+/*
+	Archivo: Sensor.h
+*/
+
 #ifndef _SENSOR_H_INCLUDED_
 #define _SENSOR_H_INCLUDED_
 
@@ -6,7 +10,6 @@
 #include "TemplateArray.h"
 
 using namespace std;
-
 
 class Sensor
 {
@@ -24,6 +27,5 @@ class Sensor
         bool ValidarRango(int initRange, int finalRange);
         int GetQuantityOfData();
 };
-
 
 #endif

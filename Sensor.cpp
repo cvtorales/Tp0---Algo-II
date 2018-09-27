@@ -1,3 +1,7 @@
+/*
+	Archivo: Sensor.cpp
+*/
+
 #include "Sensor.h"
 #include <iostream>
 

@@ -1,3 +1,7 @@
+/*
+	Archivo: Query.cpp
+*/
+
 #include "Query.h"
 
 Query::Query()

@@ -1,3 +1,7 @@
+/*
+	Archivo: RedSensores.cpp
+*/
+
 #include "RedSensores.h"
 
 RedSensores::RedSensores()
@@ -82,7 +86,7 @@ RedSensores::RedSensores(istream & dss)
 					data_quantity++;
 					istringstream(str_sensor) >> number;	
 					sensores[j].SetElementAt(number);
-					acum_row = acum_row + number;   // Se acumula la suma de todos los sensores en una fila.
+					acum_row += number;   // Se acumula la suma de todos los sensores en una fila.
 
 					if(j == (sensors_quantity - 1)) // Cuando termina sumar los valores.
 					{

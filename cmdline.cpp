@@ -1,4 +1,4 @@
-// cmdline - procesamiento de opciones en la l�nea de comando.
+// cmdline - procesamiento de opciones en la linea de comando.
 //
 // $Date: 2012/09/14 13:08:33 $
 //

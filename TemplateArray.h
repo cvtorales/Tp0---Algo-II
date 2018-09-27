@@ -1,3 +1,7 @@
+/*
+	Archivo: TemplateArray.h
+*/
+
 #ifndef _TEMPLATE_ARRAY_INCLUDED_
 #define _TEMPLATE_ARRAY_INCLUDED_
 
