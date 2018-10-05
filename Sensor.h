@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include "TemplateArray.h"
+#include "SegmentTree.h"
 
 using namespace std;
 
@@ -16,6 +17,8 @@ class Sensor
     private:
         string Name;
         Array<double> Data;
+        SegmentTree ST;
+
     public:
         Sensor();
         ~Sensor();
