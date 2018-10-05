@@ -29,3 +29,18 @@ int Data::GetCantidadDatos()
 {
     return this->CantidadDatos;
 }
+
+void Data::SetMax(double max)
+{
+	this->Max = max;
+}
+
+void Data::SetMin(double min)
+{
+	this->Min = min;
+}
+
+void Data::SetCantidadDatos(int cantidadDatos)
+{
+    this->CantidadDatos = cantidadDatos;
+}

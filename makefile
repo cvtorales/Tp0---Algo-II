@@ -5,8 +5,8 @@ FLAGS = -Wall -g -pedantic
 
 all:tp0 clean
 
-tp0: main.o cmdline.o Sensor.o RedSensores.o Query.o
-	$(CC) $(FLAGS) -o tp0 main.o cmdline.o Sensor.o RedSensores.o Query.o
+tp0: main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
+	$(CC) $(FLAGS) -o tp0 main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
 
 main.o: main.cpp main.h
 	$(CC) $(FLAGS) -o main.o -c main.cpp
@@ -22,6 +22,12 @@ RedSensores.o: RedSensores.cpp RedSensores.h
 
 Query.o: Query.cpp Query.h
 	$(CC) $(FLAGS) -o Query.o -c Query.cpp
+
+Data.o: Data.cpp Data.h
+	$(CC) $(FLAGS) -o Data.o -c Data.cpp
+
+SegmentTree.o: SegmentTree.cpp SegmentTree.h
+	$(CC) $(FLAGS) -o SegmentTree.o -c SegmentTree.cpp
 
 clean:
 	rm *.o

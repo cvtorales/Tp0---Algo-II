@@ -22,6 +22,7 @@ RedSensores::RedSensores(istream & dss)
 	double number;
 	Array<Sensor> sensores;
 	Array<double> datos;
+	
 
  // Lectura y procesamiento de la primer linea (que contiene a los nombres de los sensores).
  // Como son elementos separados por un delimitador, se decidio ubicar al delimitador para 

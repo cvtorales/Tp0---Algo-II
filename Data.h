@@ -17,6 +17,9 @@ class Data
     public:
         Data();
         ~Data();
+        double GetMax();
+        double GetMin();
+        int GetCantidadDatos();
 
         
         
