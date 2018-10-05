@@ -24,5 +24,4 @@ class SegmentTree
 };
 
 
-
 #endif
