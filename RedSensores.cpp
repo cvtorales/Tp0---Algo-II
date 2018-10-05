@@ -16,7 +16,7 @@ RedSensores::~RedSensores()
 
 RedSensores::RedSensores(istream & dss)
 {
-	string str, str_sensor;
+	string str, str_value;
 	int i=0, j=0, delimiter_pos = 0;
 	int initial_pos = 0, final_pos = 0, sensors_quantity = 0;
 	double number;
@@ -79,28 +79,30 @@ RedSensores::RedSensores(istream & dss)
 		         	final_pos = str.length() - initial_pos;  // Ultima posicion (no encuentra la coma).
 		        }
 
-				str_sensor = str.substr(initial_pos, final_pos);
+				//guardo cada valor en una cadena
+				str_value = str.substr(initial_pos, final_pos);
 
-				if(!str_sensor.empty())
+				if(!str_value.empty())
 				{
 					data_quantity++;
-					istringstream(str_sensor) >> number;	
-					sensores[j].SetElementAt(number);
+					istringstream(str_value) >> number;	//convierto el string a double
+					sensores[j].SetElementAt(number); //agrego el valor al sensor
 					acum_row += number;   // Se acumula la suma de todos los sensores en una fila.
 
-					if(j == (sensors_quantity - 1)) // Cuando termina sumar los valores.
-					{
-						// Se calcula el promedio de los sensores en una fila 
-						// y se agrega a un vector de promedios (Average).  
-
-						Average.Append(acum_row/data_quantity);  
-					}
 
 				}else{
 
 					// Si no se encuentra ningun dato, se asigna una constante.
 					istringstream(EMPTY_SPACE) >> number;
 					sensores[j].SetElementAt(number);
+				}
+
+				if(j == (sensors_quantity - 1)) // Cuando termina sumar los valores.
+				{
+					// Se calcula el promedio de los sensores en una fila 
+					// y se agrega a un vector de promedios (Average).  
+					if(data_quantity!=0)
+						Average.Append(acum_row/data_quantity);  
 				}
 				
 	            initial_pos += final_pos+1;
