@@ -20,7 +20,9 @@ class Data
         double GetMax();
         double GetMin();
         int GetCantidadDatos();
-
+        void SetMax(double max);
+        void SetMin(double min);
+        void SetCantidadDatos(int cantidadDatos);
         
         
 };
