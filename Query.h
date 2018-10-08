@@ -12,6 +12,7 @@
 
 #define RANGO_INICIAL 0
 #define RANGO_FINAL 1
+#define EXPECTED_COMMAS 2
 
 using namespace std;
 

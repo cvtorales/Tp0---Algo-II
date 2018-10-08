@@ -161,83 +161,85 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
 	
-	for(i=0; i<cantNombresSensores; i++)               // Por si en el query hay mas de un sensor.
+	if(q.GetBadQuery() == true)   // Si la consulta esta mal ingresada.
 	{
-		for(j=0; j<cantidadSensores; j++)
+		oss<<"BAD QUERY"<<endl;
+	}else{ // Si se ingresa bien la consulta, se procesan los datos. 
+
+		for(i=0; i<cantNombresSensores; i++)               // Por si en el query hay mas de un sensor.
 		{
-			string query_name = q.GetSensorNameAt(i);
-			
-			if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor.
+			for(j=0; j<cantidadSensores; j++)
 			{
-				if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango.
+				string query_name = q.GetSensorNameAt(i);
+				
+				if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor.
 				{
-					// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
-					// la cantidad de datos del sensor.
-					FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
-
-					if(q.GetBadQuery() == true)   // Si la consulta esta mal ingresada.
+					if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango.
 					{
-						oss<<"BAD QUERY"<<endl;
-						
-					}else{                        // Si se ingresa bien la consulta, se procesan los datos. 
+						// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
+						// la cantidad de datos del sensor.
+						FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
 
+                      // Si se ingresa bien la consulta, se procesan los datos. 
+
+							for( k = InitRange; k < FinalRange; k++)
+							{
+								// Se carga en el vector datos los valores validos de la consulta.
+								if(Sensores[j].GetData()[k] != EMPTY_SPACE_INDICATOR)
+									datos += Sensores[j].GetData()[k];
+							}
+
+							oss<<datos.Promedio()
+							<<","<<datos.Minimo()
+							<<","<<datos.Maximo()
+							<<","<<datos.UsedSize()<<endl;
+						
+					}else
+					{
+							oss<<"NO DATA"<<endl;	
+					}
+					
+				}
+
+	// En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
+	// caso de que no se ingrese el nombre del sensor que se quiere consultar.
+	// Se procesan los datos consultando por todos los sensores en el rango indicado.
+
+				if(query_name.empty() && j == 0 )
+				{
+					average_quantity = GetQuantityOfAverage();
+
+					if (ValidarRangoAverage(InitRange, FinalRange))  // Si esta dentro del rango.
+					{
+						// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
+						// la cantidad de datos del sensor.
+
+						FinalRange = FinalRange> average_quantity ? average_quantity : FinalRange;
 						for( k = InitRange; k < FinalRange; k++)
-						{
-							// Se carga en el vector datos los valores validos de la consulta.
-							if(Sensores[j].GetData()[k] != EMPTY_SPACE_INDICATOR)
-								datos += Sensores[j].GetData()[k];
+						{	
+							datos_average += Average[k];
 						}
 
-						oss<<datos.Promedio()
-						<<","<<datos.Minimo()
-						<<","<<datos.Maximo()
-						<<","<<datos.UsedSize()<<endl;
+						oss<< datos_average.Promedio()
+						<<","<<datos_average.Minimo()
+						<<","<<datos_average.Maximo()
+						<<","<<datos_average.UsedSize()<<endl;
+						
+					}else
+					{
+							oss<<"NO DATA"<<endl;	
 					}
-				}else
-				{
-						oss<<"NO DATA"<<endl;	
 				}
-				
-			}
 
-  // En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
-  // caso de que no se ingrese el nombre del sensor que se quiere consultar.
-  // Se procesan los datos consultando por todos los sensores en el rango indicado.
-
-			if(query_name.empty() && j == 0 )
-			{
-				average_quantity = GetQuantityOfAverage();
-
-				if (ValidarRangoAverage(InitRange, FinalRange))  // Si esta dentro del rango.
+				for(int l = 0; l < cantidadSensores; l++)
 				{
-					// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
-					// la cantidad de datos del sensor.
+					if(query_name == Sensores[l].GetName() || query_name.empty())
+						name_quentity++;
 
-					FinalRange = FinalRange> average_quantity ? average_quantity : FinalRange;
-					for( k = InitRange; k < FinalRange; k++)
-					{	
-						datos_average += Average[k];
-					}
-
-					oss<< datos_average.Promedio()
-					<<","<<datos_average.Minimo()
-					<<","<<datos_average.Maximo()
-					<<","<<datos_average.UsedSize()<<endl;
-					
-				}else
-				{
-						oss<<"NO DATA"<<endl;	
+					if((l+1) == cantidadSensores)
+						if(name_quentity == 0 && j==0)
+							oss << "UNKNOW ID" << endl;
 				}
-			}
-
-			for(int l = 0; l < cantidadSensores; l++)
-			{
-				if(query_name == Sensores[l].GetName() || query_name.empty())
-					name_quentity++;
-
-				if((l+1) == cantidadSensores)
-					if(name_quentity == 0 && j==0)
-						oss << "UNKNOW ID" << endl;
 			}
 		}
 	}

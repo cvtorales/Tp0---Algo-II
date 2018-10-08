@@ -23,6 +23,7 @@ Query::Query(string line)
 	
 	int InitPos=0;
 
+
 	// Cargo arreglo con las posiciones de las comas.
 	while((int)line.find(",", InitPos) != -1)
 	{
@@ -39,27 +40,37 @@ Query::Query(string line)
 		InitPos = line.find(";", InitPos) + 1;
 	}
 
-	if(semicolons.UsedSize() == 0)
+	cout<<commas.UsedSize()<<endl;
+	if(commas.UsedSize()<EXPECTED_COMMAS)
 	{
-		this->SensorsName.Append(line.substr(0, commas[0]));
+		this->IsBadQuery=true;
 	}else{
-		this->SensorsName = ObtieneNombreSensores(line,semicolons, commas[0]);
+			if(semicolons.UsedSize() == 0)
+			{
+				this->SensorsName.Append(line.substr(0, commas[0]));
+			}else{
+			this->SensorsName = ObtieneNombreSensores(line,semicolons, commas[0]);
+		}
+
+		
+		this->InitRange = ObtieneParametro(line,RANGO_INICIAL, commas);
+		this->FinalRange = ObtieneParametro(line,RANGO_FINAL, commas);			
 	}
 	
-	this->InitRange = ObtieneParametro(line,RANGO_INICIAL, commas);
-	this->FinalRange = ObtieneParametro(line,RANGO_FINAL, commas);			
 }
 
 int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array)
 {
 	int ValorInstruccion=0;
 	string str;
+	
 	bool resultado = false;
 
 	if(instruccion < array.UsedSize()-1)
 	{
-	
+		
 		str = linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1);
+		
 		for(size_t i=0; i < str.length() ; i++)
 		{	
 			if(!isdigit(str[i]))
