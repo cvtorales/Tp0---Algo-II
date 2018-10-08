@@ -40,8 +40,7 @@ Query::Query(string line)
 		InitPos = line.find(";", InitPos) + 1;
 	}
 
-	cout<<commas.UsedSize()<<endl;
-	if(commas.UsedSize()<EXPECTED_COMMAS)
+	if(commas.UsedSize()<MINIMUM_EXPECTED_COMMAS)
 	{
 		this->IsBadQuery=true;
 	}else{
