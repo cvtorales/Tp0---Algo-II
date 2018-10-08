@@ -17,9 +17,10 @@ class Sensor
     private:
         string Name;
         Array<double> Data;
-        SegmentTree ST;
+        //SegmentTree ST;
 
     public:
+        SegmentTree ST;
         Sensor();
         ~Sensor();
         void SetName(string Name);
@@ -29,6 +30,7 @@ class Sensor
         Array<double>& GetData();
         bool ValidarRango(int initRange, int finalRange);
         int GetQuantityOfData();
+        void SetSegmentTree(SegmentTree &st);
 };
 
 #endif

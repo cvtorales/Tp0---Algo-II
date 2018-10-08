@@ -4,6 +4,7 @@
 
 #include "main.h"
 
+
 using namespace std;
 
 /******************************* Elementos globales ***********************************/
@@ -42,7 +43,7 @@ int main(int argc, char * const argv[])
 static void opt_data(string const &arg)
 {
 	// Si el nombre del archivos es "-", usaremos la entrada
-	// est�ndar. De lo contrario, abrimos un archivo en modo
+	// estandar. De lo contrario, abrimos un archivo en modo
 	// de lectura.
 	//
 	if (arg == "-") {

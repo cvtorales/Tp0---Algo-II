@@ -60,3 +60,8 @@ int Sensor::GetQuantityOfData()
 {
 	return this -> Data.UsedSize();
 }
+
+void Sensor::SetSegmentTree(SegmentTree &st)
+{
+    this->ST = st;
+}
