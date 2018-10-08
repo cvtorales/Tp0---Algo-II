@@ -61,18 +61,20 @@ Query::Query(string line)
 int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array)
 {
 	int ValorInstruccion=0;
-	string str;
+	string str, str_limpio; //str_limpio va a ser un string sin espacios o tabulaciones
 	
 	bool resultado = false;
+
 
 	if(instruccion < array.UsedSize()-1)
 	{
 		
 		str = linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1);
+		istringstream(str)>>str_limpio;
 		
-		for(size_t i=0; i < str.length() ; i++)
+		for(size_t i=0; i < str_limpio.length() ; i++)
 		{	
-			if(!isdigit(str[i]))
+			if(!isdigit(str_limpio[i]))
 			{
 				resultado = true;				
 			}
@@ -82,6 +84,7 @@ int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array)
 			istringstream(linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1)) >> ValorInstruccion;		
 		
 	}else{
+
 		istringstream(linea.substr(array[instruccion]+1, linea.length())) >> ValorInstruccion;	
 		
 	}
