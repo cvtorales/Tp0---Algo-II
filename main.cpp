@@ -37,6 +37,7 @@ int main(int argc, char * const argv[])
 
 	rs.ProcesamientoQuerys(*oss);
 	
+	
     return 0;
 }
 

@@ -11,11 +11,10 @@ class Data
 {
     private:
         double Max;
-        //double Min;
+        double Min;
         int CantidadDatos;
         
     public:
-        double Min;
         Data();
         ~Data();
         double GetMax();

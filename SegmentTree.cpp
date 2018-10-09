@@ -16,6 +16,7 @@ SegmentTree::SegmentTree(const Array<double>& v)
 	
 	Array<Data> datos(tamanoST);
 
+
 	//inserto datos del arreglo desde la posicion tamanoST-cantElementos
 	//hasta el final del segment tree
 	for(int i=tamanoST - cantElementos; i<tamanoST;i++ )
@@ -24,16 +25,22 @@ SegmentTree::SegmentTree(const Array<double>& v)
 		Data d;
 		//si la potencia de 2 mas cercana es mas grande que la cantidad original 
 		//de elementos en el vector, tengo que rellenarlo con datos vacios
-		if(indice<cantElementos)
+		if(indice<v.UsedSize())
 		{
+			
 			d.SetMin(v[indice]); 
 			d.SetMax(v[indice]);
 			d.SetCantidadDatos(1);
+			
 		}else{
+			
 			d.SetMin(-INFINITY); 
 			d.SetMax(INFINITY);
 			d.SetCantidadDatos(0);
 		}
+
+		
+		datos.Append(d);
 
 	}
 }
