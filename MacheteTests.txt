@@ -1,0 +1,12 @@
+,,,,,           //comas de mas   -> NO DATA
+,               //comas de menos -> BAD QUERY
+a,b,c           //letras en vez de numeros  -> BAD QUERY  
+                //linea vacia   ->No hace nada
+,0.5,5          //numero decimal en primer parametro  ->BAD QUERY
+,2,0.5          //numero decimal en segundo parametro ->NO DATA
+,1,1            //mismo rango   ->NO DATA
+Sensor,1,8      //nombre de sensor desconocido ->UNKNOW ID
+,   2,     8    //espacios entre valores -> Olvida los espacios y hace el cálculo
+,?,-            //signos de puntuacion -> BAD QUERY
+,3,4,5          //parametro extra ->Toma los parámetros que necesita y se olvida del último
+,2              //parametro faltante ->BAD QUERY
