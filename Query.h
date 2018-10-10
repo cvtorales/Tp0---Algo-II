@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 #include "TemplateArray.h"
 
 #define RANGO_INICIAL 0
@@ -25,6 +26,7 @@ class Query
         bool IsBadQuery;
         int ObtieneParametro(string linea, int instruccion, Array<int>& array);
         Array<string> ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, int) const;
+	string RemoveSpaces(string &str);
     public:
         Query();
         Query(string);
