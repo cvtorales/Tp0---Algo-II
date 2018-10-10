@@ -14,13 +14,14 @@ using namespace std;
 class SegmentTree
 {
     private:
-        Array<Data> Datos;
+        //Array<Data> Datos;
         int Pot2MasCercana(int cantidadElementos);
     public:
-        
+        Array<Data> Datos;
         SegmentTree();
         SegmentTree(const Array<double>& v);
         ~SegmentTree();
+        void ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v, int first, int last);
         
         
 };

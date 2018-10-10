@@ -37,6 +37,28 @@ int main(int argc, char * const argv[])
 
 	rs.ProcesamientoQuerys(*oss);
 	
+	//pruebas desde aca
+	Array<double> arreglo;
+
+	for(double i=0; i<5;i++)
+	{
+		arreglo.Append(i+1);
+	}
+	
+	SegmentTree st(arreglo);
+
+	
+
+	for(int i=0; i<st.Datos.UsedSize();i++){
+		cout<<"Min: "<<st.Datos[i].Min<<endl;
+	}
+
+	for(int i=0; i<st.Datos.UsedSize();i++){
+		cout<<"Max: "<<st.Datos[i].Max<<endl;
+	}
+	//hasta aca
+
+
 	
     return 0;
 }

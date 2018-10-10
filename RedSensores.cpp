@@ -111,25 +111,6 @@ RedSensores::RedSensores(istream & dss)
 	      }
 	}
 
-//desde aca borrar 
-	for(int i=0; i< sensors_quantity; i++)
-	{
-		/*
-		SegmentTree st(sensores[i].GetData());
-		sensores[i].SetSegmentTree(st);
-		*/
-		sensores[i];
-
-		
-
-	}
-	/*
-		for(int p=0; p<sensores[p].ST.Datos.UsedSize();p++){
-			cout<<"valor p: "<<p<<endl;
-		}
-		*/
-//hasta aca	
-	
 	Sensores = sensores;
 
 }

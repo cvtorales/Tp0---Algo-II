@@ -39,6 +39,7 @@ public:
 	Array& operator=(const Array &v);
 	Array& operator+=(const T &t);
 	void Append(const T &s);
+	void InsertElementAt(int pos, T& x);
 };
 
 template <class T>
@@ -251,6 +252,17 @@ T Array<T>::Promedio() const
 
 
 	return promedio/_UsedSize;
+}
+
+template <class T>
+void Array<T>::InsertElementAt(int pos, T &x)
+{
+	
+	if(pos < _AllocSize){
+		_Array[pos]= x;
+		_UsedSize++;
+		
+	}
 }
 
 #endif

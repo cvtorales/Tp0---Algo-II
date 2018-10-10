@@ -72,7 +72,7 @@ int Query::ObtieneParametro(string linea, int instruccion, Array<int>& array)
 		str = linea.substr(array[instruccion]+1, array[instruccion+1]-array[instruccion]-1);
 		
 		str_limpio=RemoveSpaces(str);
-		cout<<"str_limpio: "<<str_limpio<<endl;
+		
 		
 		for(size_t i=0; i < str_limpio.length() ; i++)
 		{	

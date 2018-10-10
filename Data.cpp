@@ -44,3 +44,25 @@ void Data::SetCantidadDatos(int cantidadDatos)
 {
     this->CantidadDatos = cantidadDatos;
 }
+
+void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
+{
+	Data d;
+	double min=array[first].Min, max=array[first].Max;
+
+
+	for(int i=first; i<last;i++)
+	{
+		if(array[i].Min<min){
+			min=array[i].Min;
+		}
+		if(array[i].Max>max){
+			max=array[i].Max;
+		}
+	}
+
+	this -> Min = min;
+	this -> Max = max;
+	this ->CantidadDatos = array.UsedSize();
+	
+}
