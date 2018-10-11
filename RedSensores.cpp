@@ -196,7 +196,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 						
 					}else
 					{
-							oss<<"NO DATA"<<endl;	
+							oss<<"BAD QUERY"<<endl;	
 					}
 					
 				}
