@@ -52,9 +52,13 @@ int main(int argc, char * const argv[])
 	for(int i=0; i<st.Datos.UsedSize();i++){
 		cout<<"Min: "<<st.Datos[i].Min<<endl;
 	}
-
+	cout<<endl;
 	for(int i=0; i<st.Datos.UsedSize();i++){
 		cout<<"Max: "<<st.Datos[i].Max<<endl;
+	}
+	cout<<endl;
+	for(int i=0; i<st.Datos.UsedSize();i++){
+		cout<<"CantidadDatos: "<<st.Datos[i].CantidadDatos<<endl;
 	}
 	//hasta aca
 
