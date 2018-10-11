@@ -49,20 +49,19 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 {
 	Data d;
 	double min=array[first].Min, max=array[first].Max;
-
+	int sum=0;
 
 	//for(int j=first; j<last)
 
 	for(int i=first; i<last+1;i++)
 	{
+		if(array[i].Min!= INFINITY || array[i].Max!= -INFINITY){
+			sum++;
+		}
 		if(array[i].Min<min){
 			min=array[i].Min;
 		}
-		if(last-first+1==8)
-		{
-		cout<<"array["<<i<<"]: "<<array[i].Max<<endl;
-		cout<<"max: "<<max<<endl;
-		}
+
 		if(array[i].Max>max){
 			max=array[i].Max;
 		}
@@ -71,6 +70,6 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 
 	this -> Min = min;
 	this -> Max = max;
-	this ->CantidadDatos = last-first+1;
+	this ->CantidadDatos = sum;
 	
 }
