@@ -16,10 +16,11 @@ class Sensor
 {
     private:
         string Name;
-        Array<double> Data;
+        //Array<double> Data;
         //SegmentTree ST;
 
     public:
+        Array<double> Data;
         SegmentTree ST;
         Sensor();
         ~Sensor();

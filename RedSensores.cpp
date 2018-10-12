@@ -111,6 +111,12 @@ RedSensores::RedSensores(istream & dss)
 	      }
 	}
 
+	for(int i=0; i<sensors_quantity;i++)
+	{
+		SegmentTree st(sensores[i].Data);
+		sensores[i].ST=st;
+	}
+
 	Sensores = sensores;
 
 }

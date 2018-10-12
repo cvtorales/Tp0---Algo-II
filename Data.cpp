@@ -68,6 +68,8 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 		
 	}
 
+	this -> First = first;
+	this -> Last = last;
 	this -> Min = min;
 	this -> Max = max;
 	this ->CantidadDatos = sum;

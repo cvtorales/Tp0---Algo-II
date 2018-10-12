@@ -40,7 +40,7 @@ int main(int argc, char * const argv[])
 	//pruebas desde aca
 	Array<double> arreglo;
 
-	for(double i=0; i<3;i++)
+	for(double i=0; i<9;i++)
 	{
 		arreglo.Append(i+1);
 	}

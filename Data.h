@@ -15,7 +15,8 @@ class Data
        /* double Max;
         double Min;
         int CantidadDatos;*/
-        
+        int First;  //posicion inicial del arreglo original con el que se armó el Data
+        int Last;
     public:
         double Max;
         double Min;

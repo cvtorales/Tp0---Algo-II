@@ -38,36 +38,12 @@ SegmentTree::SegmentTree(const Array<double>& v)
 		nuevoArray.Append(d);
 	}
 
-	
+	//armo el arreglo de Datos del SegmentTree
 	ArmaArrayDatos(datos, 0, nuevoArray, 0,cantElementos-1);
 	
 	this->Datos = datos;
 
 
-	/*
-	//inserto datos del arreglo desde la posicion tamanoST-cantElementos
-	//hasta el final del segment tree
-	for(int i=tamanoST - cantElementos; i<tamanoST;i++ )
-	{
-		int indice = i - cantElementos + 1;
-		Data d;
-		//si la potencia de 2 mas cercana es mas grande que la cantidad original 
-		//de elementos en el vector, tengo que rellenarlo con datos vacios
-		if(indice<v.UsedSize())
-		{
-			d.SetMin(v[indice]); 
-			d.SetMax(v[indice]);
-			d.SetCantidadDatos(1);
-			
-		}else{
-			
-			d.SetMin(-INFINITY); 
-			d.SetMax(INFINITY);
-			d.SetCantidadDatos(0);
-		}
-		datos.Append(d);
-	}
-	*/
 }
 
 SegmentTree::~SegmentTree()
@@ -86,12 +62,20 @@ int SegmentTree::Pot2MasCercana(int cantidadElementos)
 	
 }
 
+//funcion que recibe el arreglo de datos del ST(largo=2*N-1), la posicion del arreglo donde será insertado
+// el proximo dato, el arreglo que contiene los datos del arreglo original (largo=N) y las posiciones inicial
+//y final donde se ciclará el arreglo
 void SegmentTree::ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v, int first, int last)
 {
 	Data d;
+	
+	//armo un unico Data de un arreglo de tipos Data ciclando a partir de las posiciones
+	//inicial y final
 	d.ArmoDataDeArreglo(v, first, last);
 
-	if(first<last)
+	//si la ultima posicion es mayor que la primera vuelvo a llamar a la funcion
+	//para insertar los datos en la posicion correspondiente
+	if(first<last)	
 	{
 		
 		int med = (first+last)/2;
@@ -102,7 +86,7 @@ void SegmentTree::ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v,
 
 	}
 
-	
+	//inserta el tipo Data d en la posicion pos
 	st_datos.InsertElementAt(pos,d);
 
 }
