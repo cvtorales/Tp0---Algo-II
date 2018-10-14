@@ -25,12 +25,18 @@ class Data
         ~Data();
         double GetMax();
         double GetMin();
+        int GetFirst();
+        int GetLast();
         int GetCantidadDatos();
         void SetMax(double max);
         void SetMin(double min);
+        void SetFirst(int first);
+        void SetLast(int last);
         void SetCantidadDatos(int cantidadDatos);
         void ArmoDataDeArreglo(Array<Data> &array, int first, int last);
-        
+        void Distinto(Array<Data> &array);
+
+
         
 };
 

@@ -40,14 +40,20 @@ int main(int argc, char * const argv[])
 	//pruebas desde aca
 	Array<double> arreglo;
 
-	for(double i=0; i<9;i++)
+	for(double i=0; i<5;i++)
 	{
 		arreglo.Append(i+1);
 	}
 	
 	SegmentTree st(arreglo);
-
 	
+	Array<Data> arregloDatasUtiles;
+	Data d;
+
+	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 7, 3, 7);
+	d.Distinto(arregloDatasUtiles);
+
+	/*
 
 	for(int i=0; i<st.Datos.UsedSize();i++){
 		cout<<"Min: "<<st.Datos[i].Min<<endl;
@@ -60,6 +66,30 @@ int main(int argc, char * const argv[])
 	for(int i=0; i<st.Datos.UsedSize();i++){
 		cout<<"CantidadDatos: "<<st.Datos[i].CantidadDatos<<endl;
 	}
+	cout<<endl;
+	
+	for(int i=0; i<st.Datos.UsedSize();i++){
+		cout<<"First: "<<st.Datos[i].GetFirst()<<endl;
+	}
+	cout<<endl;
+	for(int i=0; i<st.Datos.UsedSize();i++){
+		cout<<"Last: "<<st.Datos[i].GetLast()<<endl;
+	}
+
+	cout<<endl;
+	*/
+	
+	for(int i=0; i<arregloDatasUtiles.UsedSize();i++)
+	{
+		cout<<"Minimo: "<<arregloDatasUtiles[i].GetMin()<<endl;
+		cout<<"Maximo: "<<arregloDatasUtiles[i].GetMax()<<endl;
+		cout<<"#Datos: "<<arregloDatasUtiles[i].GetCantidadDatos()<<endl;
+	}
+
+	//cout<<"Minimo: "<<d.GetMin()<<endl;
+	//cout<<"Maximo: "<<d.GetMax()<<endl;
+	//cout<<"#Datos: "<<d.GetCantidadDatos()<<endl;
+	
 	//hasta aca
 
 

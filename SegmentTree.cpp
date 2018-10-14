@@ -28,12 +28,16 @@ SegmentTree::SegmentTree(const Array<double>& v)
 			d.SetMin(v[i]); 
 			d.SetMax(v[i]);
 			d.SetCantidadDatos(1);
-			
+			d.SetFirst(i);
+			d.SetLast(i);
+
 		}else{
 			
 			d.SetMin(INFINITY); 
 			d.SetMax(-INFINITY);
 			d.SetCantidadDatos(0);
+			d.SetFirst(i);
+			d.SetLast(i);
 		}
 		nuevoArray.Append(d);
 	}
@@ -68,10 +72,12 @@ int SegmentTree::Pot2MasCercana(int cantidadElementos)
 void SegmentTree::ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v, int first, int last)
 {
 	Data d;
+
 	
 	//armo un unico Data de un arreglo de tipos Data ciclando a partir de las posiciones
 	//inicial y final
-	d.ArmoDataDeArreglo(v, first, last);
+	d.ArmoDataDeArreglo(v,first,last);
+
 
 	//si la ultima posicion es mayor que la primera vuelvo a llamar a la funcion
 	//para insertar los datos en la posicion correspondiente
@@ -88,5 +94,50 @@ void SegmentTree::ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v,
 
 	//inserta el tipo Data d en la posicion pos
 	st_datos.InsertElementAt(pos,d);
+
+}
+
+
+//Busco en el ST el Data que tiene como rango inicial la posicion first y como rango final
+//la posicion last
+Data SegmentTree::BuscoDataEnST(int first, int last)
+{
+	//Creo un data vacio para devolver en caso que no este en el ST
+	Data d;
+
+
+	for(int i=0; i<Datos.UsedSize();i++)
+	{
+	
+		if(Datos[i].GetFirst()==first && Datos[i].GetLast()==last)
+		{
+
+			return Datos[i];
+		}
+	}
+
+	return d;
+}
+
+void SegmentTree::BuscoIntervaloDeData(Array<Data> &data_array, int first, int last, int init_range, int final_range)
+{
+	if(first >= init_range && last <= final_range)  // CASO BASE
+	{
+		data_array += BuscoDataEnST(first, last);
+	}
+
+	else{
+		int middle = (first+last)/2;
+
+		if(middle < init_range)//derecha
+		{
+			BuscoIntervaloDeData(data_array, middle+1, last, init_range, final_range);
+		}	
+
+		if(middle >= init_range && middle < final_range)//izquierda
+		{
+			BuscoIntervaloDeData(data_array, first, middle, init_range, final_range);
+		}
+	}
 
 }

@@ -10,6 +10,7 @@
 #include "TemplateArray.h"
 #include "SegmentTree.h"
 
+
 using namespace std;
 
 class Sensor
