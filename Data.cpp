@@ -69,12 +69,9 @@ void Data::SetLast(int last)
 void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 {
 	Data d;
-	double min=array[0].Min, max=array[0].Max;
+	double min=array[first].Min, max=array[first].Max;
 	
-
-
 	int sum=0;
-
 
 	for(int i=first; i<=last;i++)
 	{
@@ -99,20 +96,18 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 	
 }
 
-void Data::Distinto(Array<Data> &array)
+void Data::UnicoDataDeArreglo(Array<Data> &array)
 {
 	Data d;
 	double min=array[0].Min, max=array[0].Max;
-	//int first=array[0].First, last=array[0].Last;
-
+	
 
 	int sum=0;
-
 
 	for(int i=0; i<array.UsedSize();i++)
 	{
 		if(array[i].Min!= INFINITY || array[i].Max!= -INFINITY){
-			sum++;
+			sum += array[i].CantidadDatos;
 		}
 		if(array[i].Min<min){
 			min=array[i].Min;
