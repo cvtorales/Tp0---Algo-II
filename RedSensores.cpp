@@ -117,6 +117,11 @@ RedSensores::RedSensores(istream & dss)
 		sensores[i].ST=st;
 	}
 
+	cout<<"SegmentTree de primer sensor:"<<endl<<endl;
+	for(int i=0; i<sensores[0].ST.Datos.UsedSize();i++){
+		cout<<"Valor: "<<sensores[0].ST.Datos[i].Min<<endl;
+	}
+
 	Sensores = sensores;
 
 }

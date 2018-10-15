@@ -39,19 +39,24 @@ int main(int argc, char * const argv[])
 	
 	//pruebas desde aca
 	Array<double> arreglo;
-
+/*
 	for(double i=0; i<5;i++)
 	{
 		arreglo.Append(i+1);
 	}
+*/
+
+
+
 	
 	SegmentTree st(arreglo);
 	
 	Array<Data> arregloDatasUtiles;
 	Data d;
 
-	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 7, 0, 6);
-	d.UnicoDataDeArreglo(arregloDatasUtiles);
+	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 511, 0, 379);
+	d.ArmoDataDeArreglo(arregloDatasUtiles);
+	
 
 	/*
 	cout<<endl;
@@ -79,7 +84,7 @@ int main(int argc, char * const argv[])
 
 	cout<<endl;
 	*/
-	/*
+	
 	for(int i=0; i<arregloDatasUtiles.UsedSize();i++)
 	{
 		cout<<"Minimo: "<<arregloDatasUtiles[i].GetMin()<<endl;
@@ -87,7 +92,8 @@ int main(int argc, char * const argv[])
 		cout<<"#Datos: "<<arregloDatasUtiles[i].GetCantidadDatos()<<endl;
 		cout<<endl;
 	}
-	*/
+	
+	
 	cout<<endl;
 	cout<<"Minimo: "<<d.GetMin()<<endl;
 	cout<<"Maximo: "<<d.GetMax()<<endl;

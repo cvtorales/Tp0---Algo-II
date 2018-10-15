@@ -125,9 +125,12 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 	return d;
 }
 
+//funcion que recibe un arreglo vacio de tipos Data con su posicion inicial, final y el rango buscado. Recursivamente
+//va a 
 void SegmentTree::BuscoIntervaloDeData(Array<Data> &data_array, int first, int last, int init_range, int final_range)
 {
 
+	
 	if(first >= init_range && last <= final_range)  // CASO BASE
 	{
 	

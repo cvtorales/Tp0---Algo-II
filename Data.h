@@ -34,7 +34,8 @@ class Data
         void SetLast(int last);
         void SetCantidadDatos(int cantidadDatos);
         void ArmoDataDeArreglo(Array<Data> &array, int first, int last);
-        void UnicoDataDeArreglo(Array<Data> &array);
+        void ArmoDataDeArreglo(Array<Data> &array);
+        //void UnicoDataDeArreglo(Array<Data> &array);
 
 
         

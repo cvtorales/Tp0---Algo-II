@@ -96,11 +96,13 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 	
 }
 
-void Data::UnicoDataDeArreglo(Array<Data> &array)
+//funcion que recibe un arreglo de tipos Data y devuelve un unico tipo Data con los elementos que tiene dentro
+void Data::ArmoDataDeArreglo(Array<Data> &array)
 {
 	Data d;
 	double min=array[0].Min, max=array[0].Max;
-	
+	/*double min= INFINITY;
+	double max = -INFINITY;*/
 
 	int sum=0;
 
