@@ -36,6 +36,7 @@ class Data
         void ArmoDataDeArreglo(Array<Data> &array, int first, int last);
         void ArmoDataDeArreglo(Array<Data> &array);
         //void UnicoDataDeArreglo(Array<Data> &array);
+        Data& operator=(const Data &d);
 
 
         

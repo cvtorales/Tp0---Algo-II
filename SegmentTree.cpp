@@ -9,13 +9,14 @@ SegmentTree::SegmentTree()
 
 }
 
-SegmentTree::SegmentTree(const Array<double>& v)
+SegmentTree::SegmentTree(const Array<Data>& v)
 {
 	int cantElementos = Pot2MasCercana(v.UsedSize());
 	int tamanoST = 2*cantElementos-1;
 	
 	Array<Data> nuevoArray(cantElementos);
 	Array<Data> datos(tamanoST);
+
 
 	for(int i=0; i<cantElementos;i++ )
 	{
@@ -24,13 +25,7 @@ SegmentTree::SegmentTree(const Array<double>& v)
 		//de elementos en el vector, tengo que rellenarlo con datos vacios
 		if(i<v.UsedSize())
 		{
-			
-			d.SetMin(v[i]); 
-			d.SetMax(v[i]);
-			d.SetCantidadDatos(1);
-			d.SetFirst(i);
-			d.SetLast(i);
-
+			d=v[i];
 		}else{
 			
 			d.SetMin(INFINITY); 
@@ -42,9 +37,11 @@ SegmentTree::SegmentTree(const Array<double>& v)
 		nuevoArray.Append(d);
 	}
 
+
+	
 	//armo el arreglo de Datos del SegmentTree
 	ArmaArrayDatos(datos, 0, nuevoArray, 0,cantElementos-1);
-	
+	cout<<"Estoy por salir"<<endl;
 	this->Datos = datos;
 
 
@@ -73,7 +70,6 @@ void SegmentTree::ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v,
 {
 	Data d;
 
-	
 	//armo un unico Data de un arreglo de tipos Data ciclando a partir de las posiciones
 	//inicial y final
 	d.ArmoDataDeArreglo(v,first,last);
@@ -175,4 +171,17 @@ void SegmentTree::BuscoIntervaloDeData(Array<Data> &data_array, int first, int l
 		}
 	}
 
+}
+
+
+SegmentTree& SegmentTree::operator=(const SegmentTree &st) 
+{
+	//Si la direccion del objeto sobre el cual trabajo no es la misma
+	//que la del argumento, ejecuto lo siguiente:
+	if(this!=&st) 
+	{
+		this->Datos = st.Datos;
+	}
+
+	return *this;
 }

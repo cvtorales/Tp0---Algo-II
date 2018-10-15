@@ -126,3 +126,18 @@ void Data::ArmoDataDeArreglo(Array<Data> &array)
 	this -> CantidadDatos = sum;
 	
 }
+
+Data& Data::operator=(const Data &d) {
+	//Si la direccion del objeto sobre el cual trabajo no es la misma
+	//que la del argumento, ejecuto lo siguiente:
+	if(this!=&d) 
+	{
+		this -> First = d.First;
+		this -> Last = d.Last;
+		this -> Min = d.Min;
+		this -> Max = d.Max;
+		this -> CantidadDatos = d.CantidadDatos;
+	}
+
+	return *this;
+}

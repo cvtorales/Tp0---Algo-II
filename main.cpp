@@ -37,14 +37,22 @@ int main(int argc, char * const argv[])
 
 	rs.ProcesamientoQuerys(*oss);
 	
+
+	
 	//pruebas desde aca
-	Array<double> arreglo;
-/*
+	Array<Data> arreglo;
+	
 	for(double i=0; i<5;i++)
 	{
-		arreglo.Append(i+1);
+		Data d1;
+		d1.SetMin(i+1); 
+		d1.SetMax(i+1);
+		d1.SetCantidadDatos(1);
+		d1.SetFirst(i);
+		d1.SetLast(i);
+		arreglo.Append(d1);
 	}
-*/
+
 
 
 

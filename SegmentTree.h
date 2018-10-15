@@ -19,12 +19,12 @@ class SegmentTree
     public:
         Array<Data> Datos;
         SegmentTree();
-        SegmentTree(const Array<double>& v);
+        SegmentTree(const Array<Data>& v);
         ~SegmentTree();
         void ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v, int first, int last);
         Data BuscoDataEnST(int first, int last);
         void BuscoIntervaloDeData(Array<Data> &data_array, int first, int last, int init_range, int final_range);
-        
+        SegmentTree& operator=(const SegmentTree &st);
 };
 
 

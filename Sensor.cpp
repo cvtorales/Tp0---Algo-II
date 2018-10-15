@@ -27,17 +27,17 @@ string Sensor:: GetName()
 
 void Sensor::SetElementAt(double dato)
 {
-	this->Data.Append(dato);
+	this->Datos.Append(dato);
 }
 
 double Sensor::GetElementAt(int pos)
 {
-	return this-> Data[pos];
+	return this-> Datos[pos];
 }
 
 Array<double>& Sensor::GetData()
 {
-	return this -> Data;
+	return this -> Datos;
 }
 
 bool Sensor::ValidarRango(int initRange, int finalRange)
@@ -45,7 +45,7 @@ bool Sensor::ValidarRango(int initRange, int finalRange)
 	bool resultado=false;
 
 
-	if(finalRange>initRange && initRange >= 0 && initRange<Data.UsedSize())
+	if(finalRange>initRange && initRange >= 0 && initRange<Datos.UsedSize())
 	{
 		resultado = true;
 	}
@@ -58,7 +58,7 @@ bool Sensor::ValidarRango(int initRange, int finalRange)
 
 int Sensor::GetQuantityOfData()
 {
-	return this -> Data.UsedSize();
+	return this -> Datos.UsedSize();
 }
 
 void Sensor::SetSegmentTree(SegmentTree &st)

@@ -23,10 +23,11 @@ class RedSensores
 {
     private:
         string Name;
-        Array<Sensor> Sensores;
+        //Array<Sensor> Sensores;
         Array<Query> Querys;
         Array<double> Average;   // Arreglo de promedios de las filas de todos los sensores.
     public:
+    Array<Sensor> Sensores;
         RedSensores();
         ~RedSensores();
         RedSensores(istream&);

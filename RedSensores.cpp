@@ -21,7 +21,7 @@ RedSensores::RedSensores(istream & dss)
 	int initial_pos = 0, final_pos = 0, sensors_quantity = 0;
 	double number;
 	Array<Sensor> sensores;
-	Array<double> datos;
+
 	
 
  // Lectura y procesamiento de la primer linea (que contiene a los nombres de los sensores).
@@ -67,6 +67,7 @@ RedSensores::RedSensores(istream & dss)
 	      j = 0;
 	      double acum_row = 0;
 	      int data_quantity = 0;
+		  int pos=0; //contador que guardará la posicion del arreglo donde se guarde cada dato
 
 	      while( j < sensors_quantity )  
 	      {
@@ -83,6 +84,9 @@ RedSensores::RedSensores(istream & dss)
 				//guardo cada valor en una cadena
 				str_value = str.substr(initial_pos, final_pos);
 
+				
+				Data d; //creo un objeto tipo Data para contener los valores
+
 				if(!str_value.empty())
 				{
 					data_quantity++;
@@ -90,12 +94,32 @@ RedSensores::RedSensores(istream & dss)
 					sensores[j].SetElementAt(number); //agrego el valor al sensor
 					acum_row += number;   // Se acumula la suma de todos los sensores en una fila.
 
+					//creo tipo Data
+					d.SetMin(number); 
+					d.SetMax(number);
+					d.SetCantidadDatos(1);
+					d.SetFirst(pos);
+					d.SetLast(pos);
+
+					sensores[j].DatosSinProcesar.Append(d);
+
+					pos++;
 
 				}else{
 
 					// Si no se encuentra ningun dato, se asigna una constante.
 					istringstream(EMPTY_SPACE) >> number;
 					sensores[j].SetElementAt(number);
+
+					d.SetMin(INFINITY); 
+					d.SetMax(-INFINITY);
+					d.SetCantidadDatos(0);
+					d.SetFirst(pos);
+					d.SetLast(pos);
+
+					sensores[j].DatosSinProcesar.Append(d);
+
+					pos++;
 				}
 
 				if(j == (sensors_quantity - 1)) // Cuando termina sumar los valores.
@@ -106,20 +130,32 @@ RedSensores::RedSensores(istream & dss)
 						Average.Append(acum_row/data_quantity);  
 				}
 				
+
+
 	            initial_pos += final_pos+1;
 	            j++;
 	      }
 	}
 
+	for(int i=0; i<sensors_quantity;i++){
+		for(int j=0; j<sensores[i].DatosSinProcesar.UsedSize();j++)
+		{
+			cout<<"DatosSinProcesar del sensor"<<i<< ": "<<sensores[i].DatosSinProcesar[j].Min<<endl;
+		}
+		
+	}
+
 	for(int i=0; i<sensors_quantity;i++)
 	{
-		SegmentTree st(sensores[i].Data);
+		SegmentTree st(sensores[i].DatosSinProcesar);
 		sensores[i].ST=st;
 	}
 
-	cout<<"SegmentTree de primer sensor:"<<endl<<endl;
-	for(int i=0; i<sensores[0].ST.Datos.UsedSize();i++){
-		cout<<"Valor: "<<sensores[0].ST.Datos[i].Min<<endl;
+	
+
+	cout<<"SegmentTree de ultimo sensor:"<<endl<<endl;
+	for(int i=0; i<sensores[2].ST.Datos.UsedSize();i++){
+		cout<<"Valor: "<<sensores[2].ST.Datos[i].Min<<endl;
 	}
 
 	Sensores = sensores;

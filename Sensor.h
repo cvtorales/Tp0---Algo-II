@@ -21,7 +21,8 @@ class Sensor
         //SegmentTree ST;
 
     public:
-        Array<double> Data;
+        Array<double> Datos;
+        Array<Data> DatosSinProcesar;
         SegmentTree ST;
         Sensor();
         ~Sensor();
