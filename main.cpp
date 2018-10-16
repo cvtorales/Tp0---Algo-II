@@ -26,7 +26,11 @@ static fstream ofs;		// Output File Stream (derivada de la clase ofstream que de
 
 int main(int argc, char * const argv[])
 {
+<<<<<<< HEAD
 	size_t init_processsing_time, final_processsing_time, time, time1;
+=======
+size_t init_processsing_time, final_processsing_time, time, time1;
+>>>>>>> 11b25e4
     cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline.
 	
@@ -45,11 +49,17 @@ int main(int argc, char * const argv[])
 	time = clock();
 	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
 	time1 = clock();
+<<<<<<< HEAD
 
 	double tiempo = (double (time1 - time)/ CLOCKS_PER_SEC);
 	cout << "Tiempo de ejecucion de ProcesamientoQuerys2: "<< 1000 * tiempo << " ms" << endl;
 
 	
+=======
+
+	double tiempo = (double (time1 - time)/ CLOCKS_PER_SEC);
+	cout << "Tiempo de ejecucion de ProcesamientoQuerys2: "<< 1000 * tiempo << " ms" << endl;
+>>>>>>> 11b25e4
 	//pruebas desde aca
 	Array<Data> arreglo;
 	

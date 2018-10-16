@@ -6,7 +6,11 @@ FLAGS = -Wall -g -pedantic
 all:tp1 clean
 
 tp1: main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
+<<<<<<< HEAD
 	$(CC) $(FLAGS) -o tp0 main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
+=======
+	$(CC) $(FLAGS) -o tp1 main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
+>>>>>>> 11b25e4
 
 main.o: main.cpp main.h
 	$(CC) $(FLAGS) -o main.o -c main.cpp
