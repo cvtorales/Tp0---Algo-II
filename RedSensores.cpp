@@ -84,7 +84,9 @@ RedSensores::RedSensores(istream & dss)
 				//guardo cada valor en una cadena
 				str_value = str.substr(initial_pos, final_pos);
 
-				
+				//creo un tipo Data para contener el promedio de cada fila
+
+				Data dAverage;
 
 				if(!str_value.empty())
 				{
@@ -95,7 +97,7 @@ RedSensores::RedSensores(istream & dss)
 
 					//creo un objeto tipo Data para contener los valores individuales
 					Data d(number, pos, false);
-
+					dAverage += d;
 					sensores[j].DatosSinProcesar.Append(d);
 
 					pos++;
@@ -108,7 +110,8 @@ RedSensores::RedSensores(istream & dss)
 
 					//creo un objeto tipo Data para contener los valores individuales
 					Data d(number, pos, true);
-
+					
+					dAverage += d;
 
 					sensores[j].DatosSinProcesar.Append(d);
 
@@ -121,6 +124,11 @@ RedSensores::RedSensores(istream & dss)
 					// y se agrega a un vector de promedios (Average).  
 					if(data_quantity!=0)
 						Average.Append(acum_row/data_quantity);  
+					if(dAverage.GetCantidadDatos()!=0)
+					{
+						AverageDataST.Append(dAverage);
+						dAverage.CleanData(); //limpio los valores del Data
+					}
 				}
 				
 
@@ -129,8 +137,20 @@ RedSensores::RedSensores(istream & dss)
 	            j++;
 	      }
 	}
+/*
+	for(int p=0; p<AverageDataST.UsedSize();p++)
+	{
+		cout<<"First: "<<AverageDataST[p].GetFirst()<<endl;
+	}
+*/
+	//inicializo el ST del promedio de sensores
+	SegmentTree stAverage(AverageDataST);
+	AverageST = stAverage;
 
-
+	for(int p=0; p<AverageST.DatosST.UsedSize();p++)
+	{
+		cout<<"Last: "<<AverageST.DatosST[p].GetLast()<<endl;
+	}
 
 	for(int i=0; i<sensors_quantity;i++)
 	{
@@ -141,8 +161,8 @@ RedSensores::RedSensores(istream & dss)
 /*
 	for(int p=0; p<sensors_quantity;p++)
 	{
-		for(int q=0; q<sensores[p].ST.Datos.UsedSize();q++){
-			cout<<"Min: "<<sensores[p].ST.Datos[q].Min<<endl;
+		for(int q=0; q<sensores[p].ST.DatosST.UsedSize();q++){
+			cout<<"First: "<<sensores[p].ST.DatosST[q].GetFirst()<<endl;
 		}
 		
 	}
@@ -296,7 +316,7 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 {
 	Array<double> datos;
 	Array<double> datos_average;
-	int i=0, j=0, k=0; 
+	int i=0, j=0; 
 	int average_quantity;
 	int name_quentity = 0;
 	int InitRange = q.GetInitRange();
@@ -360,15 +380,19 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 						// la cantidad de datos del sensor.
 
 						FinalRange = FinalRange> average_quantity ? average_quantity : FinalRange;
-						for( k = InitRange; k < FinalRange; k++)
-						{	
-							datos_average += Average[k];
-						}
 
-						oss<< datos_average.Promedio()
-						<<","<<datos_average.Minimo()
-						<<","<<datos_average.Maximo()
-						<<","<<datos_average.UsedSize()<<endl;
+						Array<Data> arregloDatasUtiles;
+						Data d;
+						
+						int cantidadElementosST = arregloDatasUtiles.Pot2MasCercana(FinalRange) - 1;
+						AverageST.BuscoIntervaloDeData(arregloDatasUtiles, 0, cantidadElementosST, InitRange, FinalRange-1);
+						d.ArmoDataDeArreglo(arregloDatasUtiles);
+
+							oss<<d.GetPromedio()
+							<<","<<d.GetMin()
+							<<","<<d.GetMax()
+							<<","<<d.GetCantidadDatos()
+							<<endl;
 						
 					}else
 					{

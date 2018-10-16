@@ -190,3 +190,25 @@ Data& Data::operator=(const Data &d) {
 
 	return *this;
 }
+
+Data& Data::operator+=(const Data &d) {
+	//Si la direccion del objeto sobre el cual trabajo no es la misma
+	//que la del argumento, ejecuto lo siguiente:
+	if(this!=&d) 
+	{
+		//cout<<"Data First: "<<d.First<<endl;
+		this -> First = d.First;
+		this -> Last = d.Last;
+		this -> CantidadDatos++;
+		this ->Sumatoria += d.Sumatoria;
+	}
+
+	return *this;
+}
+
+void Data::CleanData()
+{
+	
+	this->Sumatoria=0;
+	this ->CantidadDatos=0;
+}

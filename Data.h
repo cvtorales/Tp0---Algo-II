@@ -43,7 +43,8 @@ class Data
         void ArmoDataDeArreglo(Array<Data> &array);
         //void UnicoDataDeArreglo(Array<Data> &array);
         Data& operator=(const Data &d);
-
+        Data& operator+=(const Data &d);
+        void CleanData();
 
         
 };

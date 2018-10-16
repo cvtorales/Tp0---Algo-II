@@ -26,7 +26,8 @@ class RedSensores
         //Array<Sensor> Sensores;
         Array<Query> Querys;
         Array<double> Average;   // Arreglo de promedios de las filas de todos los sensores.
-        Array<Data> AverageST;
+        Array<Data> AverageDataST;
+        SegmentTree AverageST;
     public:
     Array<Sensor> Sensores;
         RedSensores();
