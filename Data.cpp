@@ -40,16 +40,16 @@ int Data::GetCantidadDatos()
     return this->CantidadDatos;
 }
 
-double Data::GetTotal()
+double Data::GetSumatoria()
 {
-	return this->Total;
+	return this->Sumatoria;
 }
 
 double Data::GetPromedio()
 {
 	
 	if(CantidadDatos!=0){
-		return Total / CantidadDatos;
+		return Sumatoria / CantidadDatos;
 	}
 	return 0;
 }
@@ -64,9 +64,10 @@ void Data::SetMin(double min)
 	this->Min = min;
 }
 
-void Data::SetTotal(double total)
+void Data::SetSumatoria(const double sum)
 {
-	this->Total=total;
+	
+	this->Sumatoria=sum;
 }
 
 void Data::SetCantidadDatos(int cantidadDatos)
@@ -95,11 +96,12 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 
 	for(int i=first; i<=last;i++)
 	{
-		
+		cout<<"i: "<<i<<endl;
+		cout<<"sum actual: "<<array[i].GetSumatoria()<<endl;
 		if(array[i].Min != INFINITY && array[i].Max != -INFINITY)
 		{
 			quantity++;
-			sum += array[i].Sumatoria;
+			sum += array[i].GetSumatoria();
 		}
 		if(array[i].Min<min){
 			min=array[i].Min;
@@ -165,6 +167,7 @@ Data& Data::operator=(const Data &d) {
 		this -> Min = d.Min;
 		this -> Max = d.Max;
 		this -> CantidadDatos = d.CantidadDatos;
+		this ->Sumatoria = d.Sumatoria;
 	}
 
 	return *this;

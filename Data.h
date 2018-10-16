@@ -22,21 +22,19 @@ class Data
         double Max;
         double Min;
         int CantidadDatos;
-        double Total;
         double Sumatoria;
         Data();
         ~Data();
         double GetMax();
         double GetMin();
-        double GetTotal();
-
+        double GetSumatoria();
         int GetFirst();
         int GetLast();
         int GetCantidadDatos();
         double GetPromedio();
         void SetMax(double max);
         void SetMin(double min);
-        void SetTotal(double total);
+        void SetSumatoria(const double sum);
         void SetFirst(int first);
         void SetLast(int last);
         void SetCantidadDatos(int cantidadDatos);

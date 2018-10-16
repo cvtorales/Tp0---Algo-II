@@ -97,14 +97,14 @@ RedSensores::RedSensores(istream & dss)
 					//creo tipo Data
 					d.SetMin(number); 
 					d.SetMax(number);
-					d.SetTotal(number);
+					d.SetSumatoria(number);
 					d.SetCantidadDatos(1);
 					d.SetFirst(pos);
 					d.SetLast(pos);
-
+					/*
 					cout<<"Maximo: "<<d.Max<<endl;
 					cout<<"Minimo: "<<d.Min<<endl;
-					cout<<"Suma: "<<d.Total<<endl;
+					cout<<"Suma: "<<d.Sumatoria<<endl;*/
 					sensores[j].DatosSinProcesar.Append(d);
 
 					pos++;
@@ -117,7 +117,7 @@ RedSensores::RedSensores(istream & dss)
 
 					d.SetMin(INFINITY); 
 					d.SetMax(-INFINITY);
-					d.SetTotal(0);
+					d.SetSumatoria(0);
 					d.SetCantidadDatos(0);
 					d.SetFirst(pos);
 					d.SetLast(pos);

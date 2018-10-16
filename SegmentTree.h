@@ -17,7 +17,7 @@ class SegmentTree
         //Array<Data> Datos;
         int Pot2MasCercana(int cantidadElementos);
     public:
-        Array<Data> Datos;
+        Array<Data> DatosST;
         SegmentTree();
         SegmentTree(const Array<Data>& v);
         ~SegmentTree();

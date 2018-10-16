@@ -42,17 +42,18 @@ int main(int argc, char * const argv[])
 	//pruebas desde aca
 	Array<Data> arreglo;
 	
-	for(double i=0; i<5;i++)
+	
+
+	for(int i=0; i<5;i++)
 	{
-		Data d1;
-		d1.SetMin(i+1); 
-		d1.SetMax(i+1);
-		d1.SetTotal(i+1);
-		d1.Sumatoria=i+1;
-		d1.SetCantidadDatos(1);
-		d1.SetFirst(i);
-		d1.SetLast(i);
-		arreglo.Append(d1);
+		Data d2;
+		d2.SetMin(i+1); 
+		d2.SetMax(i+1);
+		d2.SetSumatoria(i+1);
+		d2.SetCantidadDatos(1);
+		d2.SetFirst(i);
+		d2.SetLast(i);
+		arreglo.Append(d2);
 	}
 
 
@@ -61,46 +62,47 @@ int main(int argc, char * const argv[])
 	Array<Data> arregloDatasUtiles;
 	Data d;
 
-	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 7, 0, 7);
+	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 7, 0, 3);
 	d.ArmoDataDeArreglo(arregloDatasUtiles);
 	
 
 	
 	cout<<endl;
 	cout<<"SEGMENT TREE:"<<endl;
-	for(int i=0; i<st.Datos.UsedSize();i++){
-		cout<<"Min: "<<st.Datos[i].Min<<endl;
+	for(int i=0; i<st.DatosST.UsedSize();i++){
+		cout<<"Min: "<<st.DatosST[i].Min<<endl;
 	}
 	cout<<endl;
-	for(int i=0; i<st.Datos.UsedSize();i++){
-		cout<<"Max: "<<st.Datos[i].Max<<endl;
+	for(int i=0; i<st.DatosST.UsedSize();i++){
+		cout<<"Max: "<<st.DatosST[i].Max<<endl;
 	}
 	cout<<endl;
-	for(int i=0; i<st.Datos.UsedSize();i++){
-		cout<<"Total: "<<st.Datos[i].Sumatoria<<endl;
+	for(int i=0; i<st.DatosST.UsedSize();i++){
+		cout<<"Sumatoria: "<<st.DatosST[i].GetSumatoria()<<endl;
 	}
 	cout<<endl;
-	for(int i=0; i<st.Datos.UsedSize();i++){
-		cout<<"CantidadDatos: "<<st.Datos[i].CantidadDatos<<endl;
+	for(int i=0; i<st.DatosST.UsedSize();i++){
+		cout<<"CantidadDatos: "<<st.DatosST[i].CantidadDatos<<endl;
 	}
 	cout<<endl;
-	
-	for(int i=0; i<st.Datos.UsedSize();i++){
-		cout<<"First: "<<st.Datos[i].GetFirst()<<endl;
+	/*
+	for(int i=0; i<st.DatosST.UsedSize();i++){
+		cout<<"First: "<<st.DatosST[i].GetFirst()<<endl;
 	}
 	cout<<endl;
-	for(int i=0; i<st.Datos.UsedSize();i++){
-		cout<<"Last: "<<st.Datos[i].GetLast()<<endl;
+	for(int i=0; i<st.DatosST.UsedSize();i++){
+		cout<<"Last: "<<st.DatosST[i].GetLast()<<endl;
 	}
 
 	cout<<endl;
-	
+	*/
 	/*
 	for(int i=0; i<arregloDatasUtiles.UsedSize();i++)
 	{
 		cout<<"Minimo: "<<arregloDatasUtiles[i].GetMin()<<endl;
 		cout<<"Maximo: "<<arregloDatasUtiles[i].GetMax()<<endl;
 		cout<<"#Datos: "<<arregloDatasUtiles[i].GetCantidadDatos()<<endl;
+		cout<<"Sumatoria: "<<arregloDatasUtiles[i].GetTotal()<<endl;
 		cout<<endl;
 	}
 	

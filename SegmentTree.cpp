@@ -26,11 +26,13 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 		if(i<v.UsedSize())
 		{
 			d=v[i];
+			cout<<"sum: "<<v[i].Sumatoria<<endl;
 		}else{
 			
 			d.SetMin(INFINITY); 
 			d.SetMax(-INFINITY);
 			d.SetCantidadDatos(0);
+			d.SetSumatoria(0);
 			d.SetFirst(i);
 			d.SetLast(i);
 		}
@@ -41,7 +43,7 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 	
 	//armo el arreglo de Datos del SegmentTree
 	ArmaArrayDatos(datos, 0, nuevoArray, 0,cantElementos-1);
-	this->Datos = datos;
+	this->DatosST = datos;
 
 
 }
@@ -101,18 +103,19 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 	Data d;
 
 
-	for(int i=0; i<Datos.UsedSize();i++)
+	for(int i=0; i<DatosST.UsedSize();i++)
 	{
 	
-		if(Datos[i].GetFirst()==first && Datos[i].GetLast()==last)
+		if(DatosST[i].GetFirst()==first && DatosST[i].GetLast()==last)
 		{
 			/*cout<<"Busco First: "<<first<<endl;
 			cout<<"Busco Last: "<<last<<endl;
 			cout<<endl;
-			cout<<"Minimo encontrado: "<<Datos[i].GetMin()<<endl;
-			cout<<"Maximo encontrado: "<<Datos[i].GetMax()<<endl;
-			cout<<"#Datos encontrado: "<<Datos[i].GetCantidadDatos()<<endl;*/
-			return Datos[i];
+			cout<<"Minimo encontrado: "<<DatosST[i].GetMin()<<endl;
+			cout<<"Maximo encontrado: "<<DatosST[i].GetMax()<<endl;
+			*/
+			cout<<"Sumatoria encontrado: "<<DatosST[i].GetSumatoria()<<endl;
+			return DatosST[i];
 			
 		}
 	}
@@ -185,7 +188,7 @@ SegmentTree& SegmentTree::operator=(const SegmentTree &st)
 	//que la del argumento, ejecuto lo siguiente:
 	if(this!=&st) 
 	{
-		this->Datos = st.Datos;
+		this->DatosST = st.DatosST;
 	}
 
 	return *this;
