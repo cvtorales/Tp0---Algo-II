@@ -3,9 +3,9 @@
 CC = g++
 FLAGS = -Wall -g -pedantic
 
-all:tp0 clean
+all:tp1 clean
 
-tp0: main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
+tp1: main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
 	$(CC) $(FLAGS) -o tp0 main.o cmdline.o Sensor.o RedSensores.o Query.o Data.o SegmentTree.o
 
 main.o: main.cpp main.h

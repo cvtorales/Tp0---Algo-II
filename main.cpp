@@ -10,7 +10,7 @@ using namespace std;
 /******************************* Elementos globales ***********************************/
 
 static option_t options[] = {
-								{1, "d", "data", "-", opt_data, OPT_DEFAULT},
+								{1, "d", "data", "-", opt_data, OPT_MANDATORY},
 								{1, "i", "input", "-", opt_input, OPT_DEFAULT},
 								{1, "o", "output", "-", opt_output, OPT_DEFAULT},
 								{0, }
