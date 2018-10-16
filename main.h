@@ -11,6 +11,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <string>
+#include <time.h>
 #include "cmdline.h"
 #include "RedSensores.h"
 #include "Sensor.h"

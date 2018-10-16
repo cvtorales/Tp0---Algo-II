@@ -22,12 +22,10 @@ RedSensores::RedSensores(istream & dss)
 	double number;
 	Array<Sensor> sensores;
 
-	
-
- // Lectura y procesamiento de la primer linea (que contiene a los nombres de los sensores).
- // Como son elementos separados por un delimitador, se decidio ubicar al delimitador para 
- // obtener los nombres de cada sensor. En particular, para el ultimo nombre, se realizo una 
- // comparacion con '\0' para poder obtenerlo.
+	// Lectura y procesamiento de la primer linea (que contiene a los nombres de los sensores).
+	// Como son elementos separados por un delimitador, se decidio ubicar al delimitador para 
+	// obtener los nombres de cada sensor. En particular, para el ultimo nombre, se realizo una 
+	// comparacion con '\0' para poder obtenerlo.
 
 	getline(dss, str);                       // Lectura de la primer linea.
 
@@ -55,9 +53,9 @@ RedSensores::RedSensores(istream & dss)
 		}		
 	}
 
-// Lectura y procesamiento de los datos correspondientes a cada sensor, tener en cuenta 
-// que en cada linea se encuentran las posiciones de las columnas y la fila es constante.
-// Se carga una fila para cada sensor a medida que se lee una linea.
+	// Lectura y procesamiento de los datos correspondientes a cada sensor, tener en cuenta 
+	// que en cada linea se encuentran las posiciones de las columnas y la fila es constante.
+	// Se carga una fila para cada sensor a medida que se lee una linea.
 
 	for(i=0 ; !dss.eof() ; i++)     // Se recorre cada fila.
 	{          
@@ -101,10 +99,7 @@ RedSensores::RedSensores(istream & dss)
 					d.SetCantidadDatos(1);
 					d.SetFirst(pos);
 					d.SetLast(pos);
-					/*
-					cout<<"Maximo: "<<d.Max<<endl;
-					cout<<"Minimo: "<<d.Min<<endl;
-					cout<<"Suma: "<<d.Sumatoria<<endl;*/
+
 					sensores[j].DatosSinProcesar.Append(d);
 
 					pos++;
@@ -134,8 +129,6 @@ RedSensores::RedSensores(istream & dss)
 					if(data_quantity!=0)
 						Average.Append(acum_row/data_quantity);  
 				}
-				
-
 
 	            initial_pos += final_pos+1;
 	            j++;
@@ -150,15 +143,6 @@ RedSensores::RedSensores(istream & dss)
 		sensores[i].ST=st;
 	}
 
-/*
-	for(int p=0; p<sensors_quantity;p++)
-	{
-		for(int q=0; q<sensores[p].ST.Datos.UsedSize();q++){
-			cout<<"Min: "<<sensores[p].ST.Datos[q].Min<<endl;
-		}
-		
-	}
-*/
 	Sensores = sensores;
 
 }
@@ -260,9 +244,9 @@ void RedSensores::EjecutoQueryUsual(Query q, int cantNombresSensores , int canti
 					
 				}
 
-	// En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
-	// caso de que no se ingrese el nombre del sensor que se quiere consultar.
-	// Se procesan los datos consultando por todos los sensores en el rango indicado.
+				// En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
+				// caso de que no se ingrese el nombre del sensor que se quiere consultar.
+				// Se procesan los datos consultando por todos los sensores en el rango indicado.
 
 				if(query_name.empty() && j == 0 )
 				{

@@ -35,15 +35,22 @@ int main(int argc, char * const argv[])
 	
 	rs.LecturaQuerys(*iss);
 
+	clock_t st_start = clock();   
 	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
-	
+	clock_t st_stop = clock();
+	double st_time = (double)(st_stop - st_start) * 1000.0 / CLOCKS_PER_SEC;
+	cout<<"Segment Tree time: "<<st_time<<endl;
 
-	
+	clock_t usual_start = clock();   
+	rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
+	clock_t usual_stop = clock();
+	double usual_time = (double)(usual_stop - usual_start) * 1000.0 / CLOCKS_PER_SEC;
+	cout<<"Segment Tree time: "<<usual_time<<endl;
+
 	//pruebas desde aca
+	/*
 	Array<Data> arreglo;
 	
-	
-
 	for(int i=0; i<5;i++)
 	{
 		Data d2;
@@ -85,7 +92,7 @@ int main(int argc, char * const argv[])
 		cout<<"CantidadDatos: "<<st.DatosST[i].CantidadDatos<<endl;
 	}
 	cout<<endl;
-	/*
+	
 	for(int i=0; i<st.DatosST.UsedSize();i++){
 		cout<<"First: "<<st.DatosST[i].GetFirst()<<endl;
 	}
@@ -96,6 +103,7 @@ int main(int argc, char * const argv[])
 
 	cout<<endl;
 	*/
+
 	/*
 	for(int i=0; i<arregloDatasUtiles.UsedSize();i++)
 	{
@@ -112,10 +120,9 @@ int main(int argc, char * const argv[])
 	cout<<"Maximo: "<<d.GetMax()<<endl;
 	cout<<"#Datos: "<<d.GetCantidadDatos()<<endl;
 	*/
+
 	//hasta aca
-
-
-	
+		
     return 0;
 }
 

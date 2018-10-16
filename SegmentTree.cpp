@@ -14,7 +14,7 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 	int cantElementos = v.Pot2MasCercana(v.UsedSize());
 	int tamanoST = 2*cantElementos-1;
 	
-	cout<<"CantidadELementos: "<<cantElementos<<endl;
+	
 	Array<Data> nuevoArray(cantElementos);
 	Array<Data> datos(tamanoST);
 
@@ -27,7 +27,7 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 		if(i<v.UsedSize())
 		{
 			d=v[i];
-			cout<<"sum: "<<v[i].Sumatoria<<endl;
+			
 		}else{
 			
 			d.SetMin(INFINITY); 
@@ -114,8 +114,7 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 			cout<<endl;
 			cout<<"Minimo encontrado: "<<DatosST[i].GetMin()<<endl;
 			cout<<"Maximo encontrado: "<<DatosST[i].GetMax()<<endl;
-			*/
-			cout<<"Sumatoria encontrado: "<<DatosST[i].GetSumatoria()<<endl;
+			cout<<"Sumatoria encontrado: "<<DatosST[i].GetSumatoria()<<endl;*/
 			return DatosST[i];
 			
 		}
