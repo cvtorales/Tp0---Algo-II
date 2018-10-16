@@ -10,7 +10,7 @@ using namespace std;
 /******************************* Elementos globales ***********************************/
 
 static option_t options[] = {
-								{1, "d", "data", "-", opt_data, OPT_DEFAULT},
+								{1, "d", "data", "-", opt_data, OPT_MANDATORY},
 								{1, "i", "input", "-", opt_input, OPT_DEFAULT},
 								{1, "o", "output", "-", opt_output, OPT_DEFAULT},
 								{0, }
@@ -27,6 +27,7 @@ static fstream ofs;		// Output File Stream (derivada de la clase ofstream que de
 
 int main(int argc, char * const argv[])
 {
+	size_t init_processsing_time, final_processsing_time, time, time1;
     cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline.
 	
@@ -34,18 +35,20 @@ int main(int argc, char * const argv[])
 	RedSensores rs(*dss);
 	
 	rs.LecturaQuerys(*iss);
-
-	clock_t st_start = clock();   
-	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
-	clock_t st_stop = clock();
-	double st_time = (double)(st_stop - st_start) * 1000.0 / CLOCKS_PER_SEC;
-	cout<<"Segment Tree time: "<<st_time<<endl;
-
-	clock_t usual_start = clock();   
+	// Caso de ejecutoquerys1
+	init_processsing_time = clock();
 	rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
-	clock_t usual_stop = clock();
-	double usual_time = (double)(usual_stop - usual_start) * 1000.0 / CLOCKS_PER_SEC;
-	cout<<"Segment Tree time: "<<usual_time<<endl;
+	final_processsing_time = clock();
+	double processing_time1 = (double (final_processsing_time - init_processsing_time)/ CLOCKS_PER_SEC);
+	cout << "Tiempo de ejecucion de ProcesamientoQuerys1: "<< 1000 * processing_time1 << " ms" << endl;
+    
+    // Caso de ejecutoquerys2
+	time = clock();
+	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
+	time1 = clock();
+
+	double tiempo = (double (time1 - time)/ CLOCKS_PER_SEC);
+	cout << "Tiempo de ejecucion de ProcesamientoQuerys2: "<< 1000 * tiempo << " ms" << endl;
 
 	//pruebas desde aca
 	/*
