@@ -96,7 +96,8 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 
 	for(int i=first; i<=last;i++)
 	{
-
+		cout<<"i: "<<i<<endl;
+		cout<<"sum actual: "<<array[i].GetSumatoria()<<endl;
 		if(array[i].Min != INFINITY && array[i].Max != -INFINITY)
 		{
 			quantity++;
