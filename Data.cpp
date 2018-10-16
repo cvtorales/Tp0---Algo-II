@@ -9,6 +9,25 @@ Data::Data()
 
 }
 
+Data::Data(double value, int position, bool isEmpty)
+{
+	if(!isEmpty)
+	{
+		Min=value;
+		Max=value;
+		Sumatoria=value;
+		CantidadDatos=1;
+		First=position;
+		Last=position;
+	}else{
+		Min=INFINITY;
+		Max=-INFINITY;
+		Sumatoria=0;
+		CantidadDatos=0;
+		First=position;
+		Last=position;
+	}
+}
 
 Data::~Data()
 {

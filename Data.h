@@ -24,6 +24,7 @@ class Data
         int CantidadDatos;
         double Sumatoria;
         Data();
+        Data(double value, int position, bool isEmpty);
         ~Data();
         double GetMax();
         double GetMin();

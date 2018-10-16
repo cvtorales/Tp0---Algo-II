@@ -85,7 +85,6 @@ RedSensores::RedSensores(istream & dss)
 				str_value = str.substr(initial_pos, final_pos);
 
 				
-				Data d; //creo un objeto tipo Data para contener los valores
 
 				if(!str_value.empty())
 				{
@@ -94,17 +93,9 @@ RedSensores::RedSensores(istream & dss)
 					sensores[j].SetElementAt(number); //agrego el valor al sensor
 					acum_row += number;   // Se acumula la suma de todos los sensores en una fila.
 
-					//creo tipo Data
-					d.SetMin(number); 
-					d.SetMax(number);
-					d.SetSumatoria(number);
-					d.SetCantidadDatos(1);
-					d.SetFirst(pos);
-					d.SetLast(pos);
-					/*
-					cout<<"Maximo: "<<d.Max<<endl;
-					cout<<"Minimo: "<<d.Min<<endl;
-					cout<<"Suma: "<<d.Sumatoria<<endl;*/
+					//creo un objeto tipo Data para contener los valores individuales
+					Data d(number, pos, false);
+
 					sensores[j].DatosSinProcesar.Append(d);
 
 					pos++;
@@ -115,12 +106,9 @@ RedSensores::RedSensores(istream & dss)
 					istringstream(EMPTY_SPACE) >> number;
 					sensores[j].SetElementAt(number);
 
-					d.SetMin(INFINITY); 
-					d.SetMax(-INFINITY);
-					d.SetSumatoria(0);
-					d.SetCantidadDatos(0);
-					d.SetFirst(pos);
-					d.SetLast(pos);
+					//creo un objeto tipo Data para contener los valores individuales
+					Data d(number, pos, true);
+
 
 					sensores[j].DatosSinProcesar.Append(d);
 
