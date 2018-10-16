@@ -266,8 +266,6 @@ void Array<T>::InsertElementAt(int pos, T &x)
 	}
 }
 
-//Funcion que devuelve el valor de la potencia de 2 mas cercana
-//al tamaño de elementos del vector pasado
 template <class T>
 int Array<T>::Pot2MasCercana(const int cantidadElementos) const
 {
@@ -276,6 +274,5 @@ int Array<T>::Pot2MasCercana(const int cantidadElementos) const
 	n = ceil(log2(cantidadElementos));
 	return exponente<<=n;
 }
-
 
 #endif

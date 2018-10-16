@@ -4,7 +4,6 @@
 
 #include "main.h"
 
-
 using namespace std;
 
 /******************************* Elementos globales ***********************************/
@@ -27,6 +26,8 @@ static fstream ofs;		// Output File Stream (derivada de la clase ofstream que de
 
 int main(int argc, char * const argv[])
 {
+
+
 	size_t init_processsing_time, final_processsing_time, time, time1;
     cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline.
@@ -49,11 +50,12 @@ int main(int argc, char * const argv[])
 
 	double tiempo = (double (time1 - time)/ CLOCKS_PER_SEC);
 	cout << "Tiempo de ejecucion de ProcesamientoQuerys2: "<< 1000 * tiempo << " ms" << endl;
-
 	//pruebas desde aca
 	/*
 	Array<Data> arreglo;
 	
+	
+
 	for(int i=0; i<5;i++)
 	{
 		Data d2;
@@ -95,7 +97,8 @@ int main(int argc, char * const argv[])
 		cout<<"CantidadDatos: "<<st.DatosST[i].CantidadDatos<<endl;
 	}
 	cout<<endl;
-	
+	*/
+	/*
 	for(int i=0; i<st.DatosST.UsedSize();i++){
 		cout<<"First: "<<st.DatosST[i].GetFirst()<<endl;
 	}
@@ -106,7 +109,6 @@ int main(int argc, char * const argv[])
 
 	cout<<endl;
 	*/
-
 	/*
 	for(int i=0; i<arregloDatasUtiles.UsedSize();i++)
 	{
@@ -123,9 +125,10 @@ int main(int argc, char * const argv[])
 	cout<<"Maximo: "<<d.GetMax()<<endl;
 	cout<<"#Datos: "<<d.GetCantidadDatos()<<endl;
 	*/
-
 	//hasta aca
-		
+
+
+	
     return 0;
 }
 
