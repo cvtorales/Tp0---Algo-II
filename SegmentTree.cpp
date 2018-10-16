@@ -41,7 +41,6 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 	
 	//armo el arreglo de Datos del SegmentTree
 	ArmaArrayDatos(datos, 0, nuevoArray, 0,cantElementos-1);
-	cout<<"Estoy por salir"<<endl;
 	this->Datos = datos;
 
 
@@ -107,12 +106,12 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 	
 		if(Datos[i].GetFirst()==first && Datos[i].GetLast()==last)
 		{
-			cout<<"Busco First: "<<first<<endl;
+			/*cout<<"Busco First: "<<first<<endl;
 			cout<<"Busco Last: "<<last<<endl;
 			cout<<endl;
 			cout<<"Minimo encontrado: "<<Datos[i].GetMin()<<endl;
 			cout<<"Maximo encontrado: "<<Datos[i].GetMax()<<endl;
-			cout<<"#Datos encontrado: "<<Datos[i].GetCantidadDatos()<<endl;
+			cout<<"#Datos encontrado: "<<Datos[i].GetCantidadDatos()<<endl;*/
 			return Datos[i];
 			
 		}
@@ -138,35 +137,41 @@ void SegmentTree::BuscoIntervaloDeData(Array<Data> &data_array, int first, int l
 
 		if(init_range <= middle && final_range > middle) //me voy para izq y der
 		{
+			/*
 			cout<<"Izquierda y Derecha"<<endl;
 			cout<<"Init: "<<init_range<<endl;
 			cout<<"Final: "<<final_range<<endl;
 			cout<<"First: "<<first<<endl;
 			cout<<"Last: "<<last<<endl;
 			cout<<endl;
+			*/
 			BuscoIntervaloDeData(data_array, first, middle, init_range, middle);	//izq
 			BuscoIntervaloDeData(data_array, middle+1, last, middle+1, final_range);//der
 		}	
 
 		if(init_range <= middle && final_range <= middle)//me voy para la izq
 		{
+			/*
 			cout<<"Izquierda"<<endl;
 			cout<<"Init: "<<init_range<<endl;
 			cout<<"Final: "<<final_range<<endl;
 			cout<<"First: "<<first<<endl;
 			cout<<"Last: "<<last<<endl;
 			cout<<endl;
+			*/
 			BuscoIntervaloDeData(data_array, first, middle, init_range, final_range);	//der
 		}
 
 		if(init_range > middle && final_range > middle)//me voy para la der
 		{
+			/*
 			cout<<"Derecha"<<endl;
 			cout<<"Init: "<<init_range<<endl;
 			cout<<"Final: "<<final_range<<endl;
 			cout<<"First: "<<first<<endl;
 			cout<<"Last: "<<last<<endl;
 			cout<<endl;
+			*/
 			BuscoIntervaloDeData(data_array, middle + 1 , last, init_range, final_range); //der
 		}
 	}

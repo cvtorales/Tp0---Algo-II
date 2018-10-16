@@ -97,10 +97,14 @@ RedSensores::RedSensores(istream & dss)
 					//creo tipo Data
 					d.SetMin(number); 
 					d.SetMax(number);
+					d.SetTotal(number);
 					d.SetCantidadDatos(1);
 					d.SetFirst(pos);
 					d.SetLast(pos);
 
+					cout<<"Maximo: "<<d.Max<<endl;
+					cout<<"Minimo: "<<d.Min<<endl;
+					cout<<"Suma: "<<d.Total<<endl;
 					sensores[j].DatosSinProcesar.Append(d);
 
 					pos++;
@@ -113,6 +117,7 @@ RedSensores::RedSensores(istream & dss)
 
 					d.SetMin(INFINITY); 
 					d.SetMax(-INFINITY);
+					d.SetTotal(0);
 					d.SetCantidadDatos(0);
 					d.SetFirst(pos);
 					d.SetLast(pos);
@@ -137,13 +142,7 @@ RedSensores::RedSensores(istream & dss)
 	      }
 	}
 
-	for(int i=0; i<sensors_quantity;i++){
-		for(int j=0; j<sensores[i].DatosSinProcesar.UsedSize();j++)
-		{
-			cout<<"DatosSinProcesar del sensor"<<i<< ": "<<sensores[i].DatosSinProcesar[j].Min<<endl;
-		}
-		
-	}
+
 
 	for(int i=0; i<sensors_quantity;i++)
 	{
@@ -151,13 +150,15 @@ RedSensores::RedSensores(istream & dss)
 		sensores[i].ST=st;
 	}
 
-	
-
-	cout<<"SegmentTree de ultimo sensor:"<<endl<<endl;
-	for(int i=0; i<sensores[2].ST.Datos.UsedSize();i++){
-		cout<<"Valor: "<<sensores[2].ST.Datos[i].Min<<endl;
+/*
+	for(int p=0; p<sensors_quantity;p++)
+	{
+		for(int q=0; q<sensores[p].ST.Datos.UsedSize();q++){
+			cout<<"Min: "<<sensores[p].ST.Datos[q].Min<<endl;
+		}
+		
 	}
-
+*/
 	Sensores = sensores;
 
 }
@@ -186,14 +187,25 @@ Query RedSensores::ObtieneQuery(int pos)
 	return Querys[pos];
 }
 
-void RedSensores::ProcesamientoQuerys(ostream& oss)
+void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 {
 	int i=0;
 	
-	for(i = 0; i < Querys.UsedSize() ; i++)
-	{
-		EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
+	switch(search_method){
+		case USUAL_METHOD:
+			for(i = 0; i < Querys.UsedSize() ; i++)
+			{
+				EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
+			}
+			break;
+		case SEGMENT_TREE_METHOD:
+			for(i = 0; i < Querys.UsedSize() ; i++)
+			{
+				EjecutoQuery2(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
+			}
+			break;
 	}
+
 }
 
 
@@ -240,6 +252,103 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 							<<","<<datos.Minimo()
 							<<","<<datos.Maximo()
 							<<","<<datos.UsedSize()<<endl;
+						
+					}else
+					{
+							oss<<"BAD QUERY"<<endl;	
+					}
+					
+				}
+
+	// En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
+	// caso de que no se ingrese el nombre del sensor que se quiere consultar.
+	// Se procesan los datos consultando por todos los sensores en el rango indicado.
+
+				if(query_name.empty() && j == 0 )
+				{
+					average_quantity = GetQuantityOfAverage();
+
+					if (ValidarRangoAverage(InitRange, FinalRange))  // Si esta dentro del rango.
+					{
+						// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
+						// la cantidad de datos del sensor.
+
+						FinalRange = FinalRange> average_quantity ? average_quantity : FinalRange;
+						for( k = InitRange; k < FinalRange; k++)
+						{	
+							datos_average += Average[k];
+						}
+
+						oss<< datos_average.Promedio()
+						<<","<<datos_average.Minimo()
+						<<","<<datos_average.Maximo()
+						<<","<<datos_average.UsedSize()<<endl;
+						
+					}else
+					{
+							oss<<"NO DATA"<<endl;	
+					}
+				}
+
+				for(int l = 0; l < cantidadSensores; l++)
+				{
+					if(query_name == Sensores[l].GetName() || query_name.empty())
+						name_quentity++;
+
+					if((l+1) == cantidadSensores)
+						if(name_quentity == 0 && j==0)
+							oss << "UNKNOW ID" << endl;
+				}
+			}
+		}
+	}
+}
+
+void RedSensores::EjecutoQuery2(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
+{
+	Array<double> datos;
+	Array<double> datos_average;
+	int i=0, j=0, k=0; 
+	int average_quantity;
+	int name_quentity = 0;
+	int InitRange = q.GetInitRange();
+	int FinalRange = q.GetFinalRange();
+	
+	if(q.GetBadQuery() == true)   // Si la consulta esta mal ingresada.
+	{
+		oss<<"BAD QUERY"<<endl;
+	}else{ // Si se ingresa bien la consulta, se procesan los datos. 
+
+		for(i=0; i<cantNombresSensores; i++)               // Por si en el query hay mas de un sensor.
+		{
+			for(j=0; j<cantidadSensores; j++)
+			{
+				string query_name = q.GetSensorNameAt(i);
+				
+				if( query_name == Sensores[j].GetName())   // Se compara por nombre del sensor.
+				{
+					if (Sensores[j].ValidarRango(InitRange, FinalRange))  // Si esta dentro del rango.
+					{
+						// Si el FinalRange supera la cantidad de datos del sensor, el FinalRange pasa a ser
+						// la cantidad de datos del sensor.
+						FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
+
+                      // Si se ingresa bien la consulta, se procesan los datos. 
+
+						
+						Array<Data> arregloDatasUtiles;
+						Data d;
+
+						Sensores[j].ST.BuscoIntervaloDeData(arregloDatasUtiles, 0, 511, InitRange, FinalRange-1);
+						d.ArmoDataDeArreglo(arregloDatasUtiles);
+
+							oss<<d.GetPromedio()
+							<<","<<d.GetMin()
+							<<","<<d.GetMax()
+							<<","<<d.GetCantidadDatos()
+							<<endl;
+
+							
 						
 					}else
 					{

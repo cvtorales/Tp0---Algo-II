@@ -14,22 +14,29 @@ class Data
     private:
        /* double Max;
         double Min;
-        int CantidadDatos;*/
+        int CantidadDatos;
+        double Suma;*/
         int First;  //posicion inicial del arreglo original con el que se armó el Data
         int Last;
     public:
         double Max;
         double Min;
         int CantidadDatos;
+        double Total;
+        double Sumatoria;
         Data();
         ~Data();
         double GetMax();
         double GetMin();
+        double GetTotal();
+
         int GetFirst();
         int GetLast();
         int GetCantidadDatos();
+        double GetPromedio();
         void SetMax(double max);
         void SetMin(double min);
+        void SetTotal(double total);
         void SetFirst(int first);
         void SetLast(int last);
         void SetCantidadDatos(int cantidadDatos);

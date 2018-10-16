@@ -14,6 +14,8 @@
 #define RANGO_INICIAL 0
 #define RANGO_FINAL 1
 #define MINIMUM_EXPECTED_COMMAS 2
+#define USUAL_METHOD 0
+#define SEGMENT_TREE_METHOD 1
 
 using namespace std;
 

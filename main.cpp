@@ -35,7 +35,7 @@ int main(int argc, char * const argv[])
 	
 	rs.LecturaQuerys(*iss);
 
-	rs.ProcesamientoQuerys(*oss);
+	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
 	
 
 	
@@ -47,6 +47,8 @@ int main(int argc, char * const argv[])
 		Data d1;
 		d1.SetMin(i+1); 
 		d1.SetMax(i+1);
+		d1.SetTotal(i+1);
+		d1.Sumatoria=i+1;
 		d1.SetCantidadDatos(1);
 		d1.SetFirst(i);
 		d1.SetLast(i);
@@ -54,19 +56,16 @@ int main(int argc, char * const argv[])
 	}
 
 
-
-
-	
 	SegmentTree st(arreglo);
 	
 	Array<Data> arregloDatasUtiles;
 	Data d;
 
-	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 511, 0, 379);
+	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 7, 0, 7);
 	d.ArmoDataDeArreglo(arregloDatasUtiles);
 	
 
-	/*
+	
 	cout<<endl;
 	cout<<"SEGMENT TREE:"<<endl;
 	for(int i=0; i<st.Datos.UsedSize();i++){
@@ -75,6 +74,10 @@ int main(int argc, char * const argv[])
 	cout<<endl;
 	for(int i=0; i<st.Datos.UsedSize();i++){
 		cout<<"Max: "<<st.Datos[i].Max<<endl;
+	}
+	cout<<endl;
+	for(int i=0; i<st.Datos.UsedSize();i++){
+		cout<<"Total: "<<st.Datos[i].Sumatoria<<endl;
 	}
 	cout<<endl;
 	for(int i=0; i<st.Datos.UsedSize();i++){
@@ -91,8 +94,8 @@ int main(int argc, char * const argv[])
 	}
 
 	cout<<endl;
-	*/
 	
+	/*
 	for(int i=0; i<arregloDatasUtiles.UsedSize();i++)
 	{
 		cout<<"Minimo: "<<arregloDatasUtiles[i].GetMin()<<endl;
@@ -106,7 +109,7 @@ int main(int argc, char * const argv[])
 	cout<<"Minimo: "<<d.GetMin()<<endl;
 	cout<<"Maximo: "<<d.GetMax()<<endl;
 	cout<<"#Datos: "<<d.GetCantidadDatos()<<endl;
-	
+	*/
 	//hasta aca
 
 
