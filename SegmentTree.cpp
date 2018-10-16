@@ -11,9 +11,10 @@ SegmentTree::SegmentTree()
 
 SegmentTree::SegmentTree(const Array<Data>& v)
 {
-	int cantElementos = Pot2MasCercana(v.UsedSize());
+	int cantElementos = v.Pot2MasCercana(v.UsedSize());
 	int tamanoST = 2*cantElementos-1;
 	
+	cout<<"CantidadELementos: "<<cantElementos<<endl;
 	Array<Data> nuevoArray(cantElementos);
 	Array<Data> datos(tamanoST);
 
@@ -55,14 +56,14 @@ SegmentTree::~SegmentTree()
 
 //Funcion que devuelve el valor de la potencia de 2 mas cercana
 //al valor pasado
-int SegmentTree::Pot2MasCercana(int cantidadElementos)
+/*int SegmentTree::Pot2MasCercana(int cantidadElementos)
 {
 	int n;
 	int exponente=1;
 	n = ceil(log2(cantidadElementos));
 	return exponente<<=n;
 	
-}
+}*/
 
 //funcion que recibe el arreglo de datos del ST(largo=2*N-1), la posicion del arreglo donde será insertado
 // el proximo dato, el arreglo que contiene los datos del arreglo original (largo=N) y las posiciones inicial

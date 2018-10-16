@@ -40,6 +40,7 @@ public:
 	Array& operator+=(const T &t);
 	void Append(const T &s);
 	void InsertElementAt(int pos, T& x);
+	int Pot2MasCercana(const int cantidadElementos) const;
 };
 
 template <class T>
@@ -264,5 +265,17 @@ void Array<T>::InsertElementAt(int pos, T &x)
 		
 	}
 }
+
+//Funcion que devuelve el valor de la potencia de 2 mas cercana
+//al tamaño de elementos del vector pasado
+template <class T>
+int Array<T>::Pot2MasCercana(const int cantidadElementos) const
+{
+	int n;
+	int exponente=1;
+	n = ceil(log2(cantidadElementos));
+	return exponente<<=n;
+}
+
 
 #endif

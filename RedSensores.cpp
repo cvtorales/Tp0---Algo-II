@@ -195,13 +195,13 @@ void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 		case USUAL_METHOD:
 			for(i = 0; i < Querys.UsedSize() ; i++)
 			{
-				EjecutoQuery(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
+				EjecutoQueryUsual(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 			}
 			break;
 		case SEGMENT_TREE_METHOD:
 			for(i = 0; i < Querys.UsedSize() ; i++)
 			{
-				EjecutoQuery2(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
+				EjecutoQueryST(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 			}
 			break;
 	}
@@ -210,7 +210,7 @@ void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 
 
 
-void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
+void RedSensores::EjecutoQueryUsual(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
 	Array<double> datos;
 	Array<double> datos_average;
@@ -304,7 +304,7 @@ void RedSensores::EjecutoQuery(Query q, int cantNombresSensores , int cantidadSe
 	}
 }
 
-void RedSensores::EjecutoQuery2(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
+void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
 	Array<double> datos;
 	Array<double> datos_average;
@@ -338,8 +338,9 @@ void RedSensores::EjecutoQuery2(Query q, int cantNombresSensores , int cantidadS
 						
 						Array<Data> arregloDatasUtiles;
 						Data d;
-
-						Sensores[j].ST.BuscoIntervaloDeData(arregloDatasUtiles, 0, 511, InitRange, FinalRange-1);
+						int cantidadElementosST = arregloDatasUtiles.Pot2MasCercana(FinalRange) - 1;
+						
+						Sensores[j].ST.BuscoIntervaloDeData(arregloDatasUtiles, 0, cantidadElementosST, InitRange, FinalRange-1);
 						d.ArmoDataDeArreglo(arregloDatasUtiles);
 
 							oss<<d.GetPromedio()
