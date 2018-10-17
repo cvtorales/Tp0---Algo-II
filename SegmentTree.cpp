@@ -95,15 +95,22 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 
 	for(int i=0; i<DatosST.UsedSize();i++)
 	{
-	
+		/*
+		cout<<"First: "<<DatosST[i].GetFirst()<<endl;
+		cout<<"Last: "<<DatosST[i].GetFirst()<<endl;
+		cout<<"Max: "<<DatosST[i].GetMax()<<endl;
+		cout<<"Min: "<<DatosST[i].GetMin()<<endl;
+*/
 		if(DatosST[i].GetFirst()==first && DatosST[i].GetLast()==last)
 		{
-			/*cout<<"Busco First: "<<first<<endl;
+			/*
+			cout<<"Busco First: "<<first<<endl;
 			cout<<"Busco Last: "<<last<<endl;
 			cout<<endl;
 			cout<<"Minimo encontrado: "<<DatosST[i].GetMin()<<endl;
 			cout<<"Maximo encontrado: "<<DatosST[i].GetMax()<<endl;
-			cout<<"Sumatoria encontrado: "<<DatosST[i].GetSumatoria()<<endl;*/
+			cout<<"Sumatoria encontrado: "<<DatosST[i].GetSumatoria()<<endl;
+			*/
 			return DatosST[i];
 			
 		}

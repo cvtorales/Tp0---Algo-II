@@ -38,25 +38,25 @@ int main(int argc, char * const argv[])
 	rs.LecturaQuerys(*iss);
 	// Caso de ejecutoquerys1
 	init_processsing_time = clock();
-	rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
+	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
 	final_processsing_time = clock();
 	double processing_time1 = (double (final_processsing_time - init_processsing_time)/ CLOCKS_PER_SEC);
 	cout << "Tiempo de ejecucion de ProcesamientoQuerys1: "<< 1000 * processing_time1 << " ms" << endl;
     
     // Caso de ejecutoquerys2
 	time = clock();
-	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
+	//rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
 	time1 = clock();
 
 	double tiempo = (double (time1 - time)/ CLOCKS_PER_SEC);
 	cout << "Tiempo de ejecucion de ProcesamientoQuerys2: "<< 1000 * tiempo << " ms" << endl;
+	
 	//pruebas desde aca
 	/*
 	Array<Data> arreglo;
 	
-	
 
-	for(int i=0; i<5;i++)
+	for(int i=0; i<380;i++)
 	{
 		Data d2;
 		d2.SetMin(i+1); 
