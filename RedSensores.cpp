@@ -98,7 +98,7 @@ RedSensores::RedSensores(istream & dss)
 					//creo un objeto tipo Data para contener los valores individuales
 					Data d(number, pos, false);
 					dAverage += d;
-					sensores[j].DatosSinProcesar.Append(d);
+					sensores[j].SetElementoSinProcesar(d);
 					
 					pos++;
 
@@ -114,7 +114,7 @@ RedSensores::RedSensores(istream & dss)
 					//agrego un data al data promedio de esa fila de sensores
 					dAverage += d;
 					
-					sensores[j].DatosSinProcesar.Append(d);
+					sensores[j].SetElementoSinProcesar(d);
 
 					pos++;
 
@@ -143,37 +143,16 @@ RedSensores::RedSensores(istream & dss)
 	            j++;
 	      }
 	}
-/*
-	for(int p=0; p<AverageDataST.UsedSize();p++)
-	{
-		cout<<"First: "<<AverageDataST[p].GetFirst()<<endl;
-	}
-*/
+
 	//inicializo el ST del promedio de sensores
 	SegmentTree stAverage(AverageDataST);
 	AverageST = stAverage;
 
-	/*
-	for(int p=0; p<AverageST.DatosST.UsedSize();p++)
-	{
-		cout<<"#Datos: "<<AverageST.DatosST[p].GetCantidadDatos()<<endl;
-	}
-	*/
 	for(int i=0; i<sensors_quantity;i++)
 	{
-		SegmentTree st(sensores[i].DatosSinProcesar);
-		sensores[i].ST=st;
+		SegmentTree st(sensores[i].GetDatosSinProcesar());
+		sensores[i].SetSegmentTree(st);
 	}
-
-	/*
-	for(int p=0; p<sensors_quantity;p++)
-	{
-		for(int q=0; q<sensores[p].ST.DatosST.UsedSize();q++){
-			cout<<"First: "<<sensores[p].ST.DatosST[q].GetFirst()<<endl;
-		}
-		
-	}
-	*/
 
 	Sensores = sensores;
 
@@ -208,6 +187,7 @@ void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 	int i=0;
 	
 	switch(search_method){
+	//se ejecutan las querys segun el tipo de busqueda que se haya pasado por parametro
 		case USUAL_METHOD:
 			for(i = 0; i < Querys.UsedSize() ; i++)
 			{
@@ -326,7 +306,7 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 	Array<double> datos_average;
 	int i=0, j=0; 
 	int average_quantity;
-	int name_quentity = 0;
+	int name_quantity = 0;
 	int InitRange = q.GetInitRange();
 	int FinalRange = q.GetFinalRange();
 	
@@ -351,12 +331,22 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 
                       // Si se ingresa bien la consulta, se procesan los datos. 
 
-						
+						//sera necesario un arreglo de tipos Data que contendra los intervalos completos
+						//que en la busqueda se vayan capturando y un tipo Data que contendra el resultado
+						//final de toda la busqueda
 						Array<Data> arregloDatasUtiles;
 						Data d;
 						
+						//se selecciona la cantidad de elementos que tendra el Segment Tree como la potencia de 2
+						//mas cercana al tamaño de datos del sensor
 						int cantidadElementosST = arregloDatasUtiles.Pot2MasCercana(FinalRange) - 1;
-						Sensores[j].ST.BuscoIntervaloDeData(arregloDatasUtiles, 0, cantidadElementosST, InitRange, FinalRange-1);
+
+						//usando el ST del sensor se buscan todos los intervalos completos capturados y se agregan al
+						//arreglo arregloDatasUtiles
+						Sensores[j].GetSegmentTree().BuscoIntervaloDeData(arregloDatasUtiles, 0, cantidadElementosST, InitRange, FinalRange-1);
+
+						//a partir de todos los tipos Data de arregloDatasUtiles se inicializa un único tipo Data con 
+						//los resultados
 						d.ArmoDataDeArreglo(arregloDatasUtiles);
 
 							oss<<d.GetPromedio()
@@ -374,9 +364,9 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 					
 				}
 
-	// En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
-	// caso de que no se ingrese el nombre del sensor que se quiere consultar.
-	// Se procesan los datos consultando por todos los sensores en el rango indicado.
+				// En lo que sigue se tiene el cuenta el procesamiento de la consulta en 
+				// caso de que no se ingrese el nombre del sensor que se quiere consultar.
+				// Se procesan los datos consultando por todos los sensores en el rango indicado.
 
 				if(query_name.empty() && j == 0 )
 				{
@@ -389,6 +379,8 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 
 						FinalRange = FinalRange> average_quantity ? average_quantity : FinalRange;
 
+						//La metodologia es parecida a la de un sensor en particular pero se usa el Segment Tree
+						//promedio capturado en la lectura de sensores
 						Array<Data> arregloDatasUtiles;
 						Data d;
 						
@@ -409,19 +401,21 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 					}
 				}
 
+				//si no se encuentra el nombre del sensor, se devuelve UNKNOW ID
 				for(int l = 0; l < cantidadSensores; l++)
 				{
 					if(query_name == Sensores[l].GetName() || query_name.empty())
-						name_quentity++;
+						name_quantity++;
 
 					if((l+1) == cantidadSensores)
-						if(name_quentity == 0 && j==0)
+						if(name_quantity == 0 && j==0)
 							oss << "UNKNOW ID" << endl;
 				}
 			}
 		}
 	}
 }
+
 
 bool RedSensores::ValidarRangoAverage(int initRange, int finalRange)
 {

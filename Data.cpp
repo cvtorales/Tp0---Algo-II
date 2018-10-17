@@ -168,14 +168,7 @@ void Data::ArmoDataDeArreglo(Array<Data> &array)
 		}
 		
 	}
-/*
-	cout<<endl<<endl;
-	cout<<"First: "<<First<<endl;
-	cout<<"Last: "<<Last<<endl;
-	cout<<"#Datos: "<<quantity<<endl;
-	cout<<"Suma: "<<sum<<endl;
-	cout<<endl<<endl;
-*/
+
 	this -> Min = min;
 	this -> Max = max;
 	this -> CantidadDatos = quantity;
@@ -204,17 +197,13 @@ Data& Data::operator+=(const Data &d) {
 	//que la del argumento, ejecuto lo siguiente:
 	if(this!=&d) 
 	{
-		/*if(d.Min < Min){
-			this->Min=d.Min;
-		}
-		if(d.Max < Max){
-			this->Max=d.Max;
-		}*/
-		this -> Min += d.Sumatoria;
-		this -> Max += d.Sumatoria;
+
+
 		this -> First = d.First;
 		this -> Last = d.Last;
 		this -> CantidadDatos++;
+		this -> Min += d.Sumatoria;
+		this -> Max += d.Sumatoria;
 		this -> Sumatoria += d.Sumatoria;
 	}
 

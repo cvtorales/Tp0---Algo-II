@@ -22,16 +22,16 @@ using namespace std;
 class RedSensores
 {
     private:
+    
         string Name;
-        //Array<Sensor> Sensores;
+        Array<Sensor> Sensores;
         Array<Query> Querys;
         Array<double> Average;   // Arreglo de promedios de las filas de todos los sensores.
-        //Array<Data> AverageDataST;
-        //SegmentTree AverageST;
-    public:
         Array<Data> AverageDataST;
         SegmentTree AverageST;
-        Array<Sensor> Sensores;
+
+    public:
+            
         RedSensores();
         ~RedSensores();
         RedSensores(istream&);

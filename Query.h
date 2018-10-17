@@ -28,7 +28,7 @@ class Query
         bool IsBadQuery;
         int ObtieneParametro(string linea, int instruccion, Array<int>& array);
         Array<string> ObtieneNombreSensores(string linea, Array<int>& arraySemicolons, int) const;
-	string RemoveSpaces(string &str);
+	    string RemoveSpaces(string &str);
     public:
         Query();
         Query(string);

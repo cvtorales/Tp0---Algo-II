@@ -10,25 +10,26 @@
 #include "TemplateArray.h"
 #include "SegmentTree.h"
 
-
 using namespace std;
 
 class Sensor
 {
     private:
         string Name;
-        //Array<double> Data;
-        //SegmentTree ST;
-
-    public:
         Array<double> Datos;
-        Array<Data> DatosSinProcesar;
         SegmentTree ST;
+        Array<Data> DatosSinProcesar;
+    public:
+        
+        //SegmentTree ST;
         Sensor();
         ~Sensor();
         void SetName(string Name);
         string GetName();
         void SetElementAt(double dato);
+        void SetElementoSinProcesar(Data d);
+        Array<Data>& GetDatosSinProcesar();
+        SegmentTree& GetSegmentTree();
         double GetElementAt(int pos);
         Array<double>& GetData();
         bool ValidarRango(int initRange, int finalRange);

@@ -12,17 +12,15 @@ using namespace std;
 class Data
 {
     private:
-       /* double Max;
-        double Min;
-        int CantidadDatos;
-        double Suma;*/
-        int First;  //posicion inicial del arreglo original con el que se armó el Data
-        int Last;
-    public:
+    
         double Max;
         double Min;
         int CantidadDatos;
         double Sumatoria;
+        int First;  //posicion inicial del arreglo original con el que se armó el Data
+        int Last;
+
+    public:
         Data();
         Data(double value, int position, bool isEmpty);
         ~Data();

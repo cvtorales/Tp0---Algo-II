@@ -35,9 +35,24 @@ double Sensor::GetElementAt(int pos)
 	return this-> Datos[pos];
 }
 
+void Sensor::SetElementoSinProcesar(Data d)
+{
+	this->DatosSinProcesar.Append(d);
+}
+
 Array<double>& Sensor::GetData()
 {
 	return this -> Datos;
+}
+
+Array<Data>& Sensor::GetDatosSinProcesar()
+{
+	return this -> DatosSinProcesar;
+}
+
+SegmentTree& Sensor::GetSegmentTree()
+{
+	return this -> ST;
 }
 
 bool Sensor::ValidarRango(int initRange, int finalRange)

@@ -95,22 +95,10 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 
 	for(int i=0; i<DatosST.UsedSize();i++)
 	{
-		/*
-		cout<<"First: "<<DatosST[i].GetFirst()<<endl;
-		cout<<"Last: "<<DatosST[i].GetFirst()<<endl;
-		cout<<"Max: "<<DatosST[i].GetMax()<<endl;
-		cout<<"Min: "<<DatosST[i].GetMin()<<endl;
-*/
+
 		if(DatosST[i].GetFirst()==first && DatosST[i].GetLast()==last)
 		{
-			/*
-			cout<<"Busco First: "<<first<<endl;
-			cout<<"Busco Last: "<<last<<endl;
-			cout<<endl;
-			cout<<"Minimo encontrado: "<<DatosST[i].GetMin()<<endl;
-			cout<<"Maximo encontrado: "<<DatosST[i].GetMax()<<endl;
-			cout<<"Sumatoria encontrado: "<<DatosST[i].GetSumatoria()<<endl;
-			*/
+
 			return DatosST[i];
 			
 		}
@@ -136,41 +124,20 @@ void SegmentTree::BuscoIntervaloDeData(Array<Data> &data_array, int first, int l
 
 		if(init_range <= middle && final_range > middle) //me voy para izq y der
 		{
-			/*
-			cout<<"Izquierda y Derecha"<<endl;
-			cout<<"Init: "<<init_range<<endl;
-			cout<<"Final: "<<final_range<<endl;
-			cout<<"First: "<<first<<endl;
-			cout<<"Last: "<<last<<endl;
-			cout<<endl;
-			*/
+
 			BuscoIntervaloDeData(data_array, first, middle, init_range, middle);	//izq
 			BuscoIntervaloDeData(data_array, middle+1, last, middle+1, final_range);//der
 		}	
 
 		if(init_range <= middle && final_range <= middle)//me voy para la izq
 		{
-			/*
-			cout<<"Izquierda"<<endl;
-			cout<<"Init: "<<init_range<<endl;
-			cout<<"Final: "<<final_range<<endl;
-			cout<<"First: "<<first<<endl;
-			cout<<"Last: "<<last<<endl;
-			cout<<endl;
-			*/
+
 			BuscoIntervaloDeData(data_array, first, middle, init_range, final_range);	//der
 		}
 
 		if(init_range > middle && final_range > middle)//me voy para la der
 		{
-			/*
-			cout<<"Derecha"<<endl;
-			cout<<"Init: "<<init_range<<endl;
-			cout<<"Final: "<<final_range<<endl;
-			cout<<"First: "<<first<<endl;
-			cout<<"Last: "<<last<<endl;
-			cout<<endl;
-			*/
+
 			BuscoIntervaloDeData(data_array, middle + 1 , last, init_range, final_range); //der
 		}
 	}
