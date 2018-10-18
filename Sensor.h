@@ -21,7 +21,6 @@ class Sensor
         Array<Data> DatosSinProcesar;
     public:
         
-        //SegmentTree ST;
         Sensor();
         ~Sensor();
         void SetName(string Name);

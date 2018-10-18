@@ -266,6 +266,8 @@ void Array<T>::InsertElementAt(int pos, T &x)
 	}
 }
 
+//devuelve la potencia de 2 mas cercana (superior) al entero cantidadElementos proporcionado
+//como parametro
 template <class T>
 int Array<T>::Pot2MasCercana(const int cantidadElementos) const
 {

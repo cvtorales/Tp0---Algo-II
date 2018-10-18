@@ -95,7 +95,8 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 
 	for(int i=0; i<DatosST.UsedSize();i++)
 	{
-
+		//si el rango pasado (first-last) se encuentra en los rangos guardados en el ST
+		//devuelve el Data del mismo
 		if(DatosST[i].GetFirst()==first && DatosST[i].GetLast()==last)
 		{
 
@@ -108,14 +109,15 @@ Data SegmentTree::BuscoDataEnST(int first, int last)
 }
 
 //funcion que recibe un arreglo vacio de tipos Data con su posicion inicial, final y el rango buscado. Recursivamente
-//va a 
+//va a ir cargando el arreglo con los intervalos completos encontrados que esten dentro del rango
 void SegmentTree::BuscoIntervaloDeData(Array<Data> &data_array, int first, int last, int init_range, int final_range)
 {
 
 	
 	if(first >= init_range && last <= final_range)  // CASO BASE
 	{
-	
+		//busco en el segment tree el Data correspondiente al intervalo completo
+		//encontrado
 		data_array += BuscoDataEnST(first, last);
 	}
 

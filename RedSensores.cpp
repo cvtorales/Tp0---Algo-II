@@ -14,6 +14,7 @@ RedSensores::~RedSensores()
 
 }
 
+//inicializo una Red de Sensores a partir de pasarle un archivo con los datos separados por comas
 RedSensores::RedSensores(istream & dss)
 {
 	string str, str_value;
@@ -158,7 +159,8 @@ RedSensores::RedSensores(istream & dss)
 
 }
 
-
+//lee archivo de consultas e inicializa objetos Query que se guardan en un arreglo
+//propio de la clase
 void RedSensores::LecturaQuerys(istream & iss)
 {
 	int i = 0;
@@ -205,7 +207,7 @@ void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 }
 
 
-
+//Ejecuta la Query a partir del metodo de busqueda usual
 void RedSensores::EjecutoQueryUsual(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
 	Array<double> datos;
@@ -300,6 +302,7 @@ void RedSensores::EjecutoQueryUsual(Query q, int cantNombresSensores , int canti
 	}
 }
 
+//Ejecuta la Query a partir del metodo de busqueda que emplea un Segment Tree
 void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss)
 {
 	Array<double> datos;
@@ -416,7 +419,8 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 	}
 }
 
-
+//valida que el rango (initRange-finalRange) del sensor creado a partir de los promedios de todos
+//los sensores sea correcto
 bool RedSensores::ValidarRangoAverage(int initRange, int finalRange)
 {
 	bool resultado=false;

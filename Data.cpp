@@ -9,6 +9,8 @@ Data::Data()
 		
 }
 
+//Instancia un objeto Data segun si es vacio o no con el valor value en el rango
+//unitario first=last=position
 Data::Data(double value, int position, bool isEmpty)
 {
 	if(!isEmpty)
@@ -104,7 +106,8 @@ void Data::SetLast(int last)
 	this->Last = last;
 }
 
-
+//toma un arreglo de tipos Data. Lo cicla desde una posicion first a last y carga un 
+//data individual en el objeto que llamó al metodo
 void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 {
 
@@ -210,6 +213,7 @@ Data& Data::operator+=(const Data &d) {
 	return *this;
 }
 
+//limpia el data que llama al metodo
 void Data::CleanData()
 {
 	this -> First=0;

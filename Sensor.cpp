@@ -55,6 +55,7 @@ SegmentTree& Sensor::GetSegmentTree()
 	return this -> ST;
 }
 
+//valida que el rango (initRange-finalRange) del sensor sea correcto
 bool Sensor::ValidarRango(int initRange, int finalRange)
 {
 	bool resultado=false;
