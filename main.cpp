@@ -52,79 +52,33 @@ int main(int argc, char * const argv[])
 	cout << "Tiempo de ejecucion de Búsqueda Usual: "<< 1000 * tiempo << " ms" << endl;
 	
 	//pruebas desde aca
-	/*
+	
 	Array<Data> arreglo;
 	
 
-	for(int i=0; i<380;i++)
+	for(int i=0; i<5;i++)
 	{
-		Data d2;
-		d2.SetMin(i+1); 
-		d2.SetMax(i+1);
-		d2.SetSumatoria(i+1);
-		d2.SetCantidadDatos(1);
-		d2.SetFirst(i);
-		d2.SetLast(i);
-		arreglo.Append(d2);
+		Data d;
+		d.SetMin(i+1); 
+		d.SetMax(i+1);
+		d.SetSumatoria(i+1);
+		d.SetCantidadDatos(1);
+		d.SetFirst(i);
+		d.SetLast(i);
+		arreglo.Append(d);
 	}
 
 
 	SegmentTree st(arreglo);
 	
-	Array<Data> arregloDatasUtiles;
-	Data d;
-
-	st.BuscoIntervaloDeData(arregloDatasUtiles, 0, 7, 0, 3);
-	d.ArmoDataDeArreglo(arregloDatasUtiles);
+	st.Print();
 	
 
 	
-	cout<<endl;
-	cout<<"SEGMENT TREE:"<<endl;
-	for(int i=0; i<st.DatosST.UsedSize();i++){
-		cout<<"Min: "<<st.DatosST[i].Min<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<st.DatosST.UsedSize();i++){
-		cout<<"Max: "<<st.DatosST[i].Max<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<st.DatosST.UsedSize();i++){
-		cout<<"Sumatoria: "<<st.DatosST[i].GetSumatoria()<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<st.DatosST.UsedSize();i++){
-		cout<<"CantidadDatos: "<<st.DatosST[i].CantidadDatos<<endl;
-	}
-	cout<<endl;
-	*/
-	/*
-	for(int i=0; i<st.DatosST.UsedSize();i++){
-		cout<<"First: "<<st.DatosST[i].GetFirst()<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<st.DatosST.UsedSize();i++){
-		cout<<"Last: "<<st.DatosST[i].GetLast()<<endl;
-	}
 
-	cout<<endl;
-	*/
-	/*
-	for(int i=0; i<arregloDatasUtiles.UsedSize();i++)
-	{
-		cout<<"Minimo: "<<arregloDatasUtiles[i].GetMin()<<endl;
-		cout<<"Maximo: "<<arregloDatasUtiles[i].GetMax()<<endl;
-		cout<<"#Datos: "<<arregloDatasUtiles[i].GetCantidadDatos()<<endl;
-		cout<<"Sumatoria: "<<arregloDatasUtiles[i].GetTotal()<<endl;
-		cout<<endl;
-	}
 	
 	
-	cout<<endl;
-	cout<<"Minimo: "<<d.GetMin()<<endl;
-	cout<<"Maximo: "<<d.GetMax()<<endl;
-	cout<<"#Datos: "<<d.GetCantidadDatos()<<endl;
-	*/
+	
 	//hasta aca
 
 

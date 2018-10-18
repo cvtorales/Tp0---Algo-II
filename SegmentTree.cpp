@@ -158,3 +158,39 @@ SegmentTree& SegmentTree::operator=(const SegmentTree &st)
 
 	return *this;
 }
+
+
+void SegmentTree::Print()
+{
+	for(int i=0; i<DatosST.UsedSize();i++)
+	{
+		cout<<"First: "<<DatosST[i].GetFirst()<<endl;
+	}
+	cout<<endl;
+	for(int i=0; i<DatosST.UsedSize();i++)
+	{
+		cout<<"Last: "<<DatosST[i].GetLast()<<endl;
+	}
+	cout<<endl;
+	for(int i=0; i<DatosST.UsedSize();i++)
+	{
+		cout<<"Min: "<<DatosST[i].GetMin()<<endl;
+	}
+	cout<<endl;
+	for(int i=0; i<DatosST.UsedSize();i++)
+	{
+		cout<<"Max: "<<DatosST[i].GetMax()<<endl;
+	}
+	cout<<endl;
+	for(int i=0; i<DatosST.UsedSize();i++)
+	{
+		cout<<"Cantidad de Datos: "<<DatosST[i].GetCantidadDatos()<<endl;
+	}	
+	cout<<endl;
+	for(int i=0; i<DatosST.UsedSize();i++)
+	{
+		cout<<"Promedio: "<<DatosST[i].GetPromedio()<<endl;
+	}	
+		
+	
+}
