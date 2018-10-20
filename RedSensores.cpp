@@ -179,10 +179,10 @@ void RedSensores::LecturaQuerys(istream & iss)
 	}	
 }
 
-Query RedSensores::ObtieneQuery(int pos)
-{
-	return Querys[pos];
-}
+//Query RedSensores::GetQuery(int pos)
+//{
+//	return Querys[pos];
+//}
 
 void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 {
@@ -457,4 +457,15 @@ bool RedSensores::ValidarRangoAverage(int initRange, int finalRange)
 int RedSensores::GetQuantityOfAverage()
 {
 	return this -> Average.UsedSize();
+}
+
+
+int RedSensores::GetQuantitySensores()
+{
+	return this -> Sensores.UsedSize();
+}
+
+Array<Sensor> RedSensores::GetSensores()
+{
+	return this -> Sensores;
 }

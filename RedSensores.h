@@ -36,7 +36,9 @@ class RedSensores
         ~RedSensores();
         RedSensores(istream&);
         void LecturaQuerys(istream&);
-        Query ObtieneQuery(int);
+        int GetQuantitySensores();
+        Array<Sensor> GetSensores();
+     //   Query GetQuery(int);
         void ProcesamientoQuerys(ostream&, int search_method);
         void EjecutoQueryUsual(Query,int,int,ostream&);
         void EjecutoQueryST(Query q, int cantNombresSensores , int cantidadSensores, ostream& oss);
