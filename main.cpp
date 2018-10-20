@@ -28,7 +28,7 @@ int main(int argc, char * const argv[])
 {
 
 
-	size_t init_processsing_time, final_processsing_time, time2, time1;
+	//size_t init_processsing_time, final_processsing_time, time2, time1;
     cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline.
 	
@@ -36,23 +36,15 @@ int main(int argc, char * const argv[])
 	RedSensores rs(*dss);
 	
 	rs.LecturaQuerys(*iss);
-	// Caso de ejecutoquerys1
-	init_processsing_time = clock();
-	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
-	final_processsing_time = clock();
-	double processing_time1 = (double (final_processsing_time - init_processsing_time)/ CLOCKS_PER_SEC);
-	cout << "Tiempo de ejecucion de Búsqueda con Segment Tree: "<< 1000 * processing_time1 << " ms" << endl;
-    
-    // Caso de ejecutoquerys2
-	time1 = clock();
-	rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
-	time2 = clock();
 
-	double tiempo = (double (time2 - time1)/ CLOCKS_PER_SEC);
-	cout << "Tiempo de ejecucion de Búsqueda Usual: "<< 1000 * tiempo << " ms" << endl;
-	
+    // Realizar el procesamiento con solo uno de los dos metodos.
+    // Si se utiliza uno, comentar el otro.
+    // Para comparar se genera un ejecutable para cada metodo.
+	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
+	rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
+
 	//pruebas desde aca
-	
+/*	
 	Array<Data> arreglo;
 	
 
@@ -74,7 +66,7 @@ int main(int argc, char * const argv[])
 	st.Print();
 	
 
-	
+*/	
 
 	
 	

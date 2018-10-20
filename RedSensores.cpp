@@ -187,20 +187,41 @@ Query RedSensores::ObtieneQuery(int pos)
 void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 {
 	int i=0;
+	size_t init_process, final_process;
+	size_t init_process_st, final_process_st;
+	double usual_processing_time, st_processing_time;
 	
 	switch(search_method){
 	//se ejecutan las querys segun el tipo de busqueda que se haya pasado por parametro
+
 		case USUAL_METHOD:
+
+			init_process = clock();
+
 			for(i = 0; i < Querys.UsedSize() ; i++)
 			{
 				EjecutoQueryUsual(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 			}
+
+			final_process = clock();
+			usual_processing_time =  (double (final_process - init_process)/ CLOCKS_PER_SEC); 
+			cout << "Tiempo de ejecucion de EjecutoQuery Búsqueda Usual: "<< 1000 * usual_processing_time << " ms" << endl;
+
 			break;
+
 		case SEGMENT_TREE_METHOD:
+
+			init_process_st = clock();
+
 			for(i = 0; i < Querys.UsedSize() ; i++)
 			{
 				EjecutoQueryST(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
 			}
+
+			final_process_st = clock();
+			st_processing_time = (double (final_process_st - init_process_st)/ CLOCKS_PER_SEC); 
+			cout << "Tiempo de ejecucion de Búsqueda EjecutoQueryST: "<< 1000 * st_processing_time << " ms" << endl;
+
 			break;
 	}
 
