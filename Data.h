@@ -43,6 +43,7 @@ class Data
         Data& operator=(const Data &d);
         Data& operator+=(const Data &d);
         void CleanData();
+        void PrintData();
 
         
 };

@@ -223,3 +223,16 @@ void Data::CleanData()
 	this -> Min=0;
 	this -> Max=0;
 }
+
+void Data::PrintData()
+{
+	// Testeo del funcionamiento de los getters:
+	cout << "D.GetMin()= " << this -> GetMin() << endl
+		 << "D.GetMax()= " << this ->GetMax() << endl
+		 << "D.GetSumatoria()= "<< this ->GetSumatoria() << endl
+		 << "D.GetCantidadDatos()= " << this ->GetCantidadDatos() << endl
+		 << "D.GetFirst()= " << this ->GetFirst() << endl
+         << "D.GetLast()= " << this ->GetLast() << endl
+         << "D.GetPromedio()= " << this ->GetPromedio() << endl
+		 << endl;
+}
