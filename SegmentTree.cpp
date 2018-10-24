@@ -17,7 +17,6 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 	Array<Data> nuevoArray(cantElementos);
 	Array<Data> datos(tamanoST);
 
-
 	for(int i=0; i<cantElementos;i++ )
 	{
 		Data d;
@@ -26,9 +25,7 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 		if(i<v.UsedSize())
 		{
 			d=v[i];
-			
-		}else{
-			
+		}else{		
 			d.SetMin(INFINITY); 
 			d.SetMax(-INFINITY);
 			d.SetCantidadDatos(0);
@@ -38,14 +35,10 @@ SegmentTree::SegmentTree(const Array<Data>& v)
 		}
 		nuevoArray.Append(d);
 	}
-
-
 	
-	//armo el arreglo de Datos del SegmentTree
+	// Armo el arreglo de Datos del SegmentTree:
 	ArmaArrayDatos(datos, 0, nuevoArray, 0,cantElementos-1);
 	this->DatosST = datos;
-
-
 }
 
 SegmentTree::~SegmentTree()
@@ -72,10 +65,9 @@ void SegmentTree::ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v,
 	{
 		
 		int med = (first+last)/2;
-
 		
-		ArmaArrayDatos(st_datos, 2*pos+1,v,first,med);
-		ArmaArrayDatos(st_datos, 2*pos+2,v,med+1,last);
+		ArmaArrayDatos(st_datos, 2*pos+1, v, first, med);
+		ArmaArrayDatos(st_datos, 2*pos+2, v, med+1, last);
 
 	}
 
@@ -165,31 +157,33 @@ void SegmentTree::Print()
 	for(int i=0; i<DatosST.UsedSize();i++)
 	{
 		cout<<"First: "<<DatosST[i].GetFirst()<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<DatosST.UsedSize();i++)
-	{
+	//}
+	//cout<<endl;
+	//for(int i=0; i<DatosST.UsedSize();i++)
+	//{
 		cout<<"Last: "<<DatosST[i].GetLast()<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<DatosST.UsedSize();i++)
-	{
+	//}
+	//cout<<endl;
+	//for(int i=0; i<DatosST.UsedSize();i++)
+	//{
 		cout<<"Min: "<<DatosST[i].GetMin()<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<DatosST.UsedSize();i++)
-	{
+	//}
+	//cout<<endl;
+	//for(int i=0; i<DatosST.UsedSize();i++)
+	//{
 		cout<<"Max: "<<DatosST[i].GetMax()<<endl;
-	}
-	cout<<endl;
-	for(int i=0; i<DatosST.UsedSize();i++)
-	{
+	//}
+	//cout<<endl;
+	//for(int i=0; i<DatosST.UsedSize();i++)
+	//{
 		cout<<"Cantidad de Datos: "<<DatosST[i].GetCantidadDatos()<<endl;
-	}	
-	cout<<endl;
-	for(int i=0; i<DatosST.UsedSize();i++)
-	{
+	//}	
+	//cout<<endl;
+	//for(int i=0; i<DatosST.UsedSize();i++)
+	//{
 		cout<<"Promedio: "<<DatosST[i].GetPromedio()<<endl;
+
+		cout << endl;
 	}	
 		
 	

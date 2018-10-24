@@ -17,3 +17,15 @@
 
 // En el testeo, se tomo la clase data y en caso de que no tenga valores no definidos, 
 // no se imprimen. 
+//************************************************************************************
+// Para el cado de Test_SegmentTree:
+
+// Comandos para compilar: 
+// g++ -Wall -g -o Test_SegmentTree Test_SegmentTree.cpp Data.cpp SegmentTree.cpp
+
+// Para ejecutar:
+// ./Test_SegmentTree
+
+
+// Comentario: No tengo idea de como probar ArmaArrayDatos(), ya se realizaron las 
+// pruebas por el resto.
