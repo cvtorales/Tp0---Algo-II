@@ -1,0 +1,211 @@
+ \documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,left=2cm,right=2cm,top=2.5cm,bottom=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage[section]{placeins}
+\usepackage{float}
+\usepackage{bookmark}
+\usepackage{listings}
+\usepackage{pdflscape}
+\graphicspath{ {/imagenes} }
+\usepackage[normalem]{ulem}
+\usepackage[bottom,flushmargin]{footmisc}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+%====== COMANDOS =======
+
+
+
+\title{Trabajo Práctico N$^{\circ}$1}
+
+\date{\today}
+
+\pagestyle{fancy}
+
+\fancyhf{} % sets both header and footer to nothing
+%\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{1pt}
+\fancyfoot[C]{\thepage}
+
+\rhead{Algoritmos y Programación II}
+\chead{TP N$^{\circ}1$}
+\lhead{Facultad de Ingeniería, UBA}
+
+
+\begin{document}
+
+% Titulo
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+
+\begin{center}
+ 
+\includegraphics[scale=0.4]{logofiuba.png}\\[0.3cm]
+
+\textsc{\large Algoritmos y Programación II}\\[0.30cm]  
+{\normalsize $2^{do}$ Cuatrimestre de 2018}\\[0.20cm]
+.\HRule \\[0.1cm]
+
+{ \Large \bfseries Trabajo Práctico N$^{\circ}1$\\\bfseries  Estructuras de datos y Algoritmos}\\[0.1cm] 
+\HRule \\[0.2cm] 
+\begin{center}
+\large\textbf{Grupo}
+\end{center}
+% Integrantes(nombre, padron, mail)
+\begin{tabular}{l c r}
+\hline
+\hline
+\\
+\large{Jannello, Matías } & \hspace{6mm}96479 & \hspace{6mm}{mjannello@gmail.com}\\
+\large{Torales, Cristian Valentín} & \hspace{6mm}95549 &\hspace{6mm}{crist.torales@gmail.com}\\
+\\
+\hline
+\hline
+\end{tabular}
+\end{center}
+
+%==== RESUMEN (TO DO) ====
+\begin{center}
+\section*{Resumen}
+
+El siguiente trabajo práctico consiste en la elaboración de un programa que utiliza línea de comandos y está escrito en lenguaje C++. El programa realiza la lectura y el procesamiento de información recopilada por un conjunto de sensores, a partir de un archivo de entrada de datos, otro de consultas o \textit{querys} y finalmente imprime los resultados obtenidos en un archivo de salida. Se aplican los métodos de búsqueda secuencial y empleando un \textit{Segment Tree}.
+Se indicarán las clases creadas, decisiones de diseño y cómo utilizar el programa. También se presentará el archivo  $Makefile$ que sirve para su compilación y casos de prueba que el programa deberá pasar para considerar un buen funcionamiento. 
+   
+\end{center}
+
+\section{Diseño}
+
+\subsection{Descripción de alto nivel}
+
+Para el desarrollo del Trabajo Práctico se optó por realizar una clase \textit{Sensor} la cual contendrá toda la información correspondiente al  archivo de ingreso de datos.   En ese sentido, esta clase incluye como propiedad un arreglo de \textit{doubles}  que servirá de contenedor de los valores capturados.\\ 
+
+\indent Por otra parte, se optó por elaborar una clase \textit{Query}, la cual leerá y guardará la información de cada consulta en particular del archivo de ingreso de consultas.\\
+
+\indent Luego, se codificó una clase \textit{RedSensores}, la cual tendrá como propiedades principales un arreglo de la clase \textit{Sensor} con todos los sensores que se hayan podido leer del archivo de entrada, y otro de la clase \textit{Query} que hará lo propio para todas las consultas leídas por el flujo de entrada.\\
+
+\indent Con la finalidad de implementar la solución que emplea un \textit{árbol de segmento} para la búsqueda de resultados se creó una clase \textit{Segment Tree} que contendrá un arreglo de objetos de una clase \textit{Data}, elaborada especialmente para contener la información relevante a los sensores. 
+
+
+\subsection{Estrategias}
+
+En primer lugar, se decidió codificar una clase genérica \textit{TemplateArray}  a medida, la cual será la encargada de contener distintos objetos o tipos que servirán a lo largo de todo el desarrollo. Esta contiene los métodos específicos para el almacenamiento y procesamiento de su contenido, además de operadores sobrecargados que simplifican la lectura e implementación del código.\\
+
+\indent En cuanto al archivo de entrada de datos, se decidió capturarlo a través de la sobrecarga del constructor de la clase \textit{RedSensores}. Dentro del mismo, se elabora la lectura del archivo y se crean los respectivos objetos de la clase \textit{Sensor} que se guardarán en el arreglo de sensores propio de la clase. Se hizo uso de distintos métodos de la clase \textit{string} que sirvieron para analizar y dividir cada línea de archivo leída por el flujo de entrada.\\
+
+\indent Para el caso de la búsqueda usual (lineal), se optó por capturar los datos de los sensores en un arreglo de \textit{doubles} propio de cada sensor que contendrá los valores de correspondientes a cada sensor.  
+
+\indent Además, en esta instancia se va a generar un arreglo de nombre \textit{Average} que tendrá por objetivo tomar el promedio en cada posición de los sensores y estará disponible para cuando sea necesario procesar la información de múltiples sensores.\\ 
+
+\indent La consideración que se tomó en la captura de los datos dentro del constructor para implementar la búsqueda por árbol de segmentos, fue la de crear un objeto \textit{Data} unitario por cada valor capturado y agregarlo a un arreglo llamado \textit{DatosSinProcesar} que servirá para crear un \textit{SegmentTree} a través de su constructor. De la misma manera se creará un \textit{SegmentTree} propio de la red de sensores que sirva para el promedio de todos los sensores leídos del archivo. La creación de los distintos árboles se implementaron usando una función recursiva que simplificó dicha tarea.\\
+
+\indent Para la lectura de las consultas, se hizo uso de un método de la clase \textit{RedSensores} que capturará línea por línea las \textit{querys} del archivo ingresado por el flujo de entrada y creará un objeto de la clase \textit{Query} el cual será almacenado en el arreglo para dicho fin de la clase. El archivo de consultas es procesado línea por línea y se \textit{parsea} dentro de un constructor de la clase \textit{Query}. \\
+
+\indent El procesamiento de cada consulta en particular se implementó desarrollando un arreglo que contiene la posición de cada “,” (coma) y se le asignó un nombre a cada parámetro (rango inicial y final) que serán buscados posteriormente. Luego, para la captura de cada uno de los rangos se llama a una función privada de la clase \textit{Query} con el nombre \textit{ObtieneParametro} que recibirá como parámetros la línea de la consulta,  el arreglo con las posiciones de las comas, y una macro que indica el número del parámetro según su orden a obtener. \\
+
+\indent La idea de capturar los parámetros de esta manera se pensó de forma tal que sea adaptable en caso de que se decida incorporar más parámetros en un futuro. En ese sentido sólo deberá crearse una nueva macro con la nueva posición de dicho parámetro y gracias al arreglo de comas no se deberá cambiar el tipo de procesamiento.\\
+
+\indent De forma similar, para la captura de los nombres de los sensores leídos desde el archivo de consultas, se llama a una función privada de nombre \textit{ObtieneNombreSensores} que procesará la línea de forma tal que leerá lo que se encuentre antes de la primera coma. Es por ello que se le debe pasar como parámetro la primera posición del arreglo que contiene las posiciones  de las comas.  También se le deberá pasar un arreglo que contiene las posiciones de los “;” (punto y coma). Esta opción, si bien finalmente no fue implementada, se dejó abierta para el caso en que se desee pasar más de un sensor a través de la misma consulta para ser procesado. \\
+
+\indent Finalmente, para el procesamiento de las consultas e impresión de los resultados se llama a un método de la clase \textit{RedSensores} de nombre \textit{ProcesamientoQuerys} que se encargará de recorrer el arreglo de consultas que es propiedad de la clase. La idea de realizarlo así consistió en poder elegir un rango de consultas a ejecutar. Para la selección del método de procesamiento de las consultas se debe enviar una macro como parámetro según se desee buscar por el método usual(búsqueda lineal) o bien por medio del árbol de segmentos.\\ 
+
+\indent La ejecución de cada consulta en particular se realiza mediante otra función de clase de nombre \textit{EjecutoQueryUsual()} en caso de querer usar la búsqueda lineal o \textit{EjecutoQueryST()} si se desea hacerlo con el \textit{Segment Tree} propio de cada sensor. Es aquí donde se comparará el nombre de cada sensor con los nombres de sensor registrados en el objeto de la clase \textit{Query} que llega como parámetro. En caso de encontrarse una coincidencia, se valida el rango con otra función de clase y se pasa a la impresión de los resultados por el flujo de salida. \\
+
+\indent En el caso particular de que la consulta no incluya un nombre de sensor, se hará uso del ya mencionado arreglo de promedios propio de la clase \textit{RedSensores} creando un nuevo arreglo con el promedio de los datos de todos los sensores y se procesarán como un nuevo sensor individual. 
+
+
+
+\subsection{Algoritmos empleados}
+\subsubsection{Árbol de segmentos}
+
+En la elaboración del siguiente trabajo práctico se utilizó un método que emplea un \textit{árbol de segmentos} para la búsqueda de la información relevante a la red de sensores. \\
+
+\indent La creación del \textit{Segment Tree} se realiza de forma recursiva a partir de un arreglo de tipos \textit{Data} que se recibirá a través de un constructor. En primer lugar, en caso que el tamaño del arreglo no sea potencia de 2, se crea otro arreglo con un tamaño correspondiente a la potencia más cercana al largo original (lo llamaremos tamaño N). Las posiciones que pudiesen agregarse a partir de esta extensión se rellenan con objetos \textit{Data} con los valores correspondientes de forma tal que puedan considerarse vacíos. Luego, se creará un nuevo arreglo de objetos \textit{Data} de tamaño 2N - 1 que contendrá en su primera posición la raíz del árbol, en los dos subsiguientes las hojas del mismo y así sucesivamente de forma tal que para el elemento n-ésimo del vector, sus hijos se encuentren en las posiciones 2n+1 y 2n+2.\\
+
+\indent A medida que se lee el archivo, se va creando un arreglo de datos por cada sensor de nombre \textit{DatosSinProcesar}, que a su vez será utilizado para instanciar un \textit{SegmentTree} a partir de su constructor. Una vez creados los distintos árboles son asignados al árbol propio de la clase de cada sensor en particular. \\
+
+\indent En cuanto a la búsqueda dentro del \textit{Segment Tree} se emplea también un método recursivo (\textit{BuscoIntervaloDeData()}) que va recorriendo y capturando todos los intervalos del arreglo de datos de sensores limitados por el rango de la consulta y que se encuentran completamente contenidos en el \textit{árbol}.Una vez encontrados dichos intervalos, se buscará el objeto \textit{Data} (usando el método \textit{BuscoDataEnST()})y se agregará a un arreglo que ingresará vacío como parámetro a la función de búsqueda. \\
+
+\indent Una vez contenidos todos los objetos en el arreglo de \textit{Data} se los recorrerá individualmente a partir de un método (\textit{ArmaArrayDatos()}) con la finalidad de armar un único objeto que sea resultado final de la búsqueda. \\
+
+\indent Este método de búsqueda fue utilizado también para calcular el promedio de todos los sensores como se había realizado con la búsqueda lineal. En ese sentido, se fue cargando un tipo \textit{Data} por cada fila leída del archivo de entrada que represente el promedio de todos los datos capturados. Fue de utilidad sobrecargar el operador \textbf{+=} para generar el objeto como promedio de los distintos tipos \textit{Data} que se iban leyendo línea por línea. \\
+
+\indent Por cada objeto promedio correspondiente a cada línea del archivo (\textit{dAverage}) se divide su suma, mínimo y máximo por la cantidad de datos que dicha línea contenga y luego se agregarán a un arreglo propio de la clase \textit{RedSensores} llamado \textit{AverageDataST} que será el utilizado para cargar el \textit{SegmentTree} de promedios particular de la clase (\textit{AverageST}) el cual es asignado a partir de la sobrecarga del operador \textbf{=}. Fue necesario crear un método \textit{CleanData()} que vaya limpiando los valores del objeto \textit{dAverage} de forma tal que por cada línea comience a cargarse nuevamente.\\
+
+\indent Para la ejecución del método de búsqueda por \textit{SegmentTree} se creó un método particular (\textit{EjecutoQueryST()}) el cual se seleccionará a través del pasaje de un parámetro a la función \textit{ProcesamientoQuerys()}.\\
+
+\indent Una estrategia que fue de utilidad para verificar el buen funcionamiento de los árboles consistió en la creación de un método \textit{Print()} en la clase \textit{SegmentTree} que se encargue de imprimir un árbol de segmento en particular. La idea del método consiste en recorrer el \textit{SegmentTree} e ir imprimiendo los 
+atributos \textit{First}, \textit{Last}, \textit{Min}, \textit{Max}, \textit{CantidadDatos} y \textit{Promedio} de los objetos contenidos en el mismo. 
+
+\subsection{Análisis de los resultados}
+\subsubsection{Complejidad Temporal}
+Para analizar la complejidad temporal del problema de búsqueda se tuvo en cuenta el peor caso. Este caso ocurre cuando para obtener un resultado se debe llegar hasta una hoja del árbol. La condición que debe cumplirse en ese sentido es:
+
+\begin{equation}
+	\frac{n}{2^i} = 1
+\end{equation}  
+
+
+siendo \textit{n} la potencia de 2 superior más cercana a la cantidad de elementos en el arreglo original y \textit{i} el valor de la iteración. De esta manera, la complejidad temporal del algoritmo es $log(n)$.\\
+
+\indent La función $T(n)$ correspondiente al coste temporal para una entrada de tamaño \textit{n} será del tipo: \\
+
+\begin{equation}
+	T(n) = 2T\left(\frac{n}{2}\right) + f(n) 
+\end{equation} 
+
+con $f(n) \in \Theta(n)$.\\
+
+\indent Este orden de complejidad temporal mejora la alcanzada con la búsqueda secuencial, la cual tenía un orden $\Theta(n)$
+
+\subsection{Compilación}
+Para realizar el proceso de compilación de los códigos fuente del proyecto, se creó un archivo tipo makefile encargado de recopilar los archivos, limpiar los temporales y crear el ejecutable. La línea de comando que ha de correrse para compilar el programa es: \textit{make all}. En cuanto a su ejecución, deberá utilizarse la siguiente línea:\\
+
+\begin{center}
+./tp1   -d  DatosSensores.csv   -i  Querys.csv   -o  Salida.csv
+\end{center}
+
+\subsection{Casos de prueba}
+
+\subsection{Inconvenientes encontrados durante el desarrollo y posibles mejoras}
+
+Uno de los inconvenientes encontrados fue definir en el arreglo de datos las posiciones en las cuales los sensores no contienen datos. La solución que se encontró fue definir un valor constante a partir de una macro para cargar en tales posiciones y no tenerlo en cuenta a la hora de realizar los cálculos. Una posible mejora a esta solución podría ser crear un arreglo de tipos \textit{bool} del mismo largo que el arreglo de datos y que guarde en sus posiciones si el dato es válido o no.\\
+
+\indent En el mismo sentido, para no tener que recurrir a un arreglo de promedios, se podría crear un arreglo distinto a medida que se cargan los datos que cuente la cantidad de elementos que serán divisores de cada posición. Esto puede ser útil no sólo para realizar el cálculo del promedio de todos los sensores sino que también puede servir para una cantidad múltiple de sensores sin necesidad de que sean todos ellos.\\
+
+\indent Además, si bien resultó conveniente la creación de un arreglo de \textit{Querys} para poder seleccionar que consultas realizar, esto puede ser un problema a la hora de guardar una gran cantidad de las mismas. Por lo tanto se podría realizar otra implementación que en lugar de guardar las \textit{querys}, se procesen e impriman directamente sin guardarlas. \\
+
+\indent En el presente trabajo práctico se optó por incluir la carga de un \textit{Segment Tree} por sensor en la lectura del archivo de datos, a la vez que se crea el arreglo que sirvió para implementar la solución de búsqueda lineal. Una posible mejora sería separar la carga del árbol de segmentos de la del mencionado arreglo de datos. De esta manera se podría seleccionar desde el comienzo el método de búsqueda que se desee implementar teniendo en cuenta el tiempo que cada uno requiere para la carga de información como para el procesamiento de la misma. \\
+
+Se podría aplicar también una solución para la búsqueda lineal en la cual se aproveche la carga del arreglo de tipos \textit{Data} llamado \textit{DatosSinProcesar} utilizado para la creación del árbol de segmentos, sin necesidad de cargar de forma particular un arreglo de \textit{doubles}. Además, de esta manera se omite la utilización de una bandera que me especifique si un dato del archivo se encuentra vacío.
+
+%%%%%%%%%%%%%%%%%%%% CONCLUSIONES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusiones}
+
+En primer lugar, se llega a la conclusión de que los \textit{templates} que se utilizaron, por ejemplo, para los arreglos ahorraron mucho trabajo, ya que gracias a su utilización se evitó crear una clase arreglo para cada tipo de dato.\\
+
+Se pudo comprobar los beneficios de utilizar sobrecarga de operadores para simplificar la lectura e implementación del código. \\
+
+A lo largo del desarrollo del Trabajo Práctico se pudo aprovechar de las ventajas que ofrece el diagramado de clases para guardar y encapsular los datos. Además se pudo implementar distinto tipo de constructores que fueron útiles para tomar los archivos y procesarlos directamente dentro de los mismos. \\
+
+Otra ventaja que se encontró fue el uso de métodos de clase tanto privados como públicos para el acceso de la información contenida en cada objeto. \\
+
+La utilización del árbol de segmentos como método de búsqueda, si bien implica usar más tiempo en la carga de los datos al inicial el programa, permitió reducir el tiempo de ejecución de las consultas suministradas posteriormente. Esta ventaja puede apreciarse más a medida que aumenta la cantidad de consultas realizadas.
+
+\newpage
+
+
+
+\section{Código Fuente}
+
+\end{document}
