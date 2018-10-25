@@ -1,10 +1,7 @@
-/*
-	Archivo: main.cpp
-*/
-
+#include "Data.h"
 #include "main.h"
 
-using namespace std;
+#define QUERY_TEST "Sensor,4,6" 
 
 /******************************* Elementos globales ***********************************/
 
@@ -26,35 +23,17 @@ static fstream ofs;		// Output File Stream (derivada de la clase ofstream que de
 
 int main(int argc, char * const argv[])
 {
-
-	double value;
-
     cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline.
-	
-		
+
 	RedSensores rs(*dss);
-	
-	for( int i=0; i < rs.GetQuantitySensores(); i++)
-	{
-		for(int j=0; j< rs.GetSensores()[i].GetQuantityOfData(); j++)
-		{
-		
-			if(j == 0)
-				cout << "rs.GetSensores()[" << i << "].GetName(): "<< rs.GetSensores()[i].GetName() << endl;
-		
-			// GetDatosSinProcesar() toma el dato de cada elemento del sensor.
-			value = rs.GetSensores()[i].GetDatosSinProcesar()[j].GetMax();
-			if(value != -INFINITY && value != INFINITY)
-				cout << "rs.GetSensores()["<<i<<"].GetDatosSinProcesar()["<<j<<"] = "<< value << endl;
-		
-		}
-		cout << endl;
-	}
+	rs.LecturaQuerys(*iss);
 
+	// Metodos correspondientes a las querys:
+	Query q(QUERY_TEST);
+	q.PrintQuery();
 
-	
-    return 0;
+	return 0;
 }
 
 static void opt_data(string const &arg)

@@ -194,6 +194,21 @@ void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 	switch(search_method){
 	//se ejecutan las querys segun el tipo de busqueda que se haya pasado por parametro
 
+		case SEGMENT_TREE_METHOD:
+
+			init_process_st = clock();
+
+			for(i = 0; i < Querys.UsedSize() ; i++)
+			{
+				EjecutoQueryST(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
+			}
+
+			final_process_st = clock();
+			st_processing_time = (double (final_process_st - init_process_st)/ CLOCKS_PER_SEC); 
+			cout << "Tiempo de ejecucion de Búsqueda EjecutoQueryST: "<< 1000 * st_processing_time << " ms" << endl;
+
+			break;
+
 		case USUAL_METHOD:
 
 			init_process = clock();
@@ -209,20 +224,7 @@ void RedSensores::ProcesamientoQuerys(ostream& oss, int search_method)
 
 			break;
 
-		case SEGMENT_TREE_METHOD:
 
-			init_process_st = clock();
-
-			for(i = 0; i < Querys.UsedSize() ; i++)
-			{
-				EjecutoQueryST(Querys[i],Querys[i].GetSensorsNameQuantity(), Sensores.UsedSize() ,oss);
-			}
-
-			final_process_st = clock();
-			st_processing_time = (double (final_process_st - init_process_st)/ CLOCKS_PER_SEC); 
-			cout << "Tiempo de ejecucion de Búsqueda EjecutoQueryST: "<< 1000 * st_processing_time << " ms" << endl;
-
-			break;
 	}
 
 }

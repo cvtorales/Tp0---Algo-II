@@ -26,9 +26,6 @@ static fstream ofs;		// Output File Stream (derivada de la clase ofstream que de
 
 int main(int argc, char * const argv[])
 {
-
-
-	//size_t init_processsing_time, final_processsing_time, time2, time1;
     cmdline cmdl(options);	// Objeto con parametro tipo option_t (struct) declarado globalmente. Ver l�nea 51 main.cc
 	cmdl.parse(argc, argv); // Método de parseo de la clase cmdline.
 	
@@ -41,39 +38,7 @@ int main(int argc, char * const argv[])
     // Si se utiliza uno, comentar el otro.
     // Para comparar se genera un ejecutable para cada metodo.
 	rs.ProcesamientoQuerys(*oss, SEGMENT_TREE_METHOD);
-	rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
-
-	//pruebas desde aca
-/*	
-	Array<Data> arreglo;
-	
-
-	for(int i=0; i<5;i++)
-	{
-		Data d;
-		d.SetMin(i+1); 
-		d.SetMax(i+1);
-		d.SetSumatoria(i+1);
-		d.SetCantidadDatos(1);
-		d.SetFirst(i);
-		d.SetLast(i);
-		arreglo.Append(d);
-	}
-
-
-	SegmentTree st(arreglo);
-	
-	st.Print();
-	
-
-*/	
-
-	
-	
-	
-	//hasta aca
-
-
+	//rs.ProcesamientoQuerys(*oss, USUAL_METHOD);
 	
     return 0;
 }

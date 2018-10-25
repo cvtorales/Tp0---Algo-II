@@ -31,7 +31,7 @@ int main(void)
 		array_data.Append(d);
 	}
 
-	cout << "Parte del segment SegmentTree" << endl;
+	cout << "Parte del segment SegmentTree:" << endl;
 	// Defincion del SegmentTree:
 	SegmentTree ST(array_data);
 	ST.Print();

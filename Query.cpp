@@ -152,3 +152,11 @@ string Query::RemoveSpaces(string &str)
     str.erase(remove(str.begin(), str.end(), ' '), str.end()); 
     return str; 
 } 
+
+void Query::PrintQuery()
+{
+	cout << "Impresion de Query: " << endl;
+	cout << "InitRange: " << this -> InitRange  << endl;
+    cout << "FinalRange: " << this -> FinalRange << endl;
+    cout << "IsBadQuery: " << this -> IsBadQuery << endl;
+}

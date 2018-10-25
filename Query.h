@@ -39,6 +39,7 @@ class Query
         int GetSensorsNameQuantity();
         void SetBadQuery(bool badq);
         bool GetBadQuery();
+        void PrintQuery();
         
 };
 
