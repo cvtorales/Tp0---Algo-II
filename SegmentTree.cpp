@@ -188,3 +188,29 @@ void SegmentTree::Print()
 		
 	
 }
+
+Data SegmentTree::BuscarRangoST( int first, int last, int q_init, int q_final, int pos)
+{
+
+	    Data d;
+
+ 
+        if(q_init <= first && q_final >= last){
+            return this->DatosST[pos];
+        }
+
+        if(q_init > last || q_final < first){
+            
+	        d.SetMin(INFINITY);
+			d.SetMax(-INFINITY);
+			d.SetSumatoria(0);
+			d.SetCantidadDatos(0);
+
+			
+            return d;
+        }
+
+        int mid = (first+last)/2;
+        return d.UnificarDatas(BuscarRangoST(first, mid, q_init, q_final, 2 * pos + 1),
+                BuscarRangoST( mid + 1, last, q_init, q_final, 2 * pos + 2));
+}

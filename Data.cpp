@@ -145,6 +145,7 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 	
 }
 
+//REEMPLAZADAAAAAA!!!
 //funcion que recibe un arreglo de tipos Data y devuelve un unico tipo Data con los elementos que tiene dentro
 void Data::ArmoDataDeArreglo(Array<Data> &array)
 {
@@ -201,10 +202,14 @@ Data& Data::operator+=(const Data &d) {
 	if(this!=&d) 
 	{
 
+	if(d.Min != INFINITY && d.Max != -INFINITY){
+		
+		this -> CantidadDatos++;	
+	}
 
 		this -> First = d.First;
 		this -> Last = d.Last;
-		this -> CantidadDatos++;
+		
 		this -> Min += d.Sumatoria;
 		this -> Max += d.Sumatoria;
 		this -> Sumatoria += d.Sumatoria;
@@ -235,4 +240,19 @@ void Data::PrintData()
          << "D.GetLast()= " << this ->GetLast() << endl
          << "D.GetPromedio()= " << this ->GetPromedio() << endl
 		 << endl;
+}
+
+//funcion que recibe dos elementos de tipo Data y devuelve un unico tipo Data como resultado
+Data Data::UnificarDatas(Data d1, Data d2)
+{
+	Data data_resultado;
+	
+	data_resultado.Min = d1.Min <= d2.Min ? d1.Min : d2.Min;
+	data_resultado.Max = d1.Max >= d2.Max ? d1.Max : d2.Max;
+	data_resultado.Sumatoria = d1.Sumatoria + d2.Sumatoria;
+	data_resultado.CantidadDatos = d1.CantidadDatos + d2.CantidadDatos;
+			
+
+	return data_resultado;
+	
 }

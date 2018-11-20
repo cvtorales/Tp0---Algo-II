@@ -44,6 +44,8 @@ class Data
         Data& operator+=(const Data &d);
         void CleanData();
         void PrintData();
+        Data UnificarDatas(Data d1, Data d2);
+
 
         
 };

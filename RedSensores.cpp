@@ -356,24 +356,14 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 						FinalRange = FinalRange>Sensores[j].GetQuantityOfData() ? Sensores[j].GetQuantityOfData() : FinalRange ;
 
                       // Si se ingresa bien la consulta, se procesan los datos. 
-
-						//sera necesario un arreglo de tipos Data que contendra los intervalos completos
-						//que en la busqueda se vayan capturando y un tipo Data que contendra el resultado
-						//final de toda la busqueda
-						Array<Data> arregloDatasUtiles;
 						Data d;
-						
-						//se selecciona la cantidad de elementos que tendra el Segment Tree como la potencia de 2
-						//mas cercana al tamaño de datos del sensor
-						int cantidadElementosST = arregloDatasUtiles.Pot2MasCercana(FinalRange) - 1;
+
 
 						//usando el ST del sensor se buscan todos los intervalos completos capturados y se agregan al
 						//arreglo arregloDatasUtiles
-						Sensores[j].GetSegmentTree().BuscoIntervaloDeData(arregloDatasUtiles, 0, cantidadElementosST, InitRange, FinalRange-1);
+						d = Sensores[j].GetSegmentTree().BuscarRangoST(0, Sensores[j].GetData().UsedSize(), InitRange, FinalRange-1,0);
 
-						//a partir de todos los tipos Data de arregloDatasUtiles se inicializa un único tipo Data con 
-						//los resultados
-						d.ArmoDataDeArreglo(arregloDatasUtiles);
+
 
 							oss<<d.GetPromedio()
 							<<","<<d.GetMin()
@@ -405,14 +395,12 @@ void RedSensores::EjecutoQueryST(Query q, int cantNombresSensores , int cantidad
 
 						FinalRange = FinalRange> average_quantity ? average_quantity : FinalRange;
 
-						//La metodologia es parecida a la de un sensor en particular pero se usa el Segment Tree
-						//promedio capturado en la lectura de sensores
-						Array<Data> arregloDatasUtiles;
+												
 						Data d;
 						
-						int cantidadElementosST = arregloDatasUtiles.Pot2MasCercana(FinalRange) - 1;
-						AverageST.BuscoIntervaloDeData(arregloDatasUtiles, 0, cantidadElementosST, InitRange, FinalRange-1);
-						d.ArmoDataDeArreglo(arregloDatasUtiles);
+
+						d = AverageST.BuscarRangoST(0, AverageDataST.UsedSize(), InitRange, FinalRange-1,0);
+												
 
 							
 							oss<<d.GetPromedio()

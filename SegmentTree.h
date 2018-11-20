@@ -24,6 +24,7 @@ class SegmentTree
         void BuscoIntervaloDeData(Array<Data> &data_array, int first, int last, int init_range, int final_range);
         void Print();
         SegmentTree& operator=(const SegmentTree &st);
+        Data BuscarRangoST(int first, int last, int q_init, int q_final, int pos);
 };
 
 
