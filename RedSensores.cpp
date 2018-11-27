@@ -98,6 +98,7 @@ RedSensores::RedSensores(istream & dss)
 
 					//creo un objeto tipo Data para contener los valores individuales
 					Data d(number, pos, false);
+					if(i==0&&j==0){dAverage.SetCantidadDatos(0);}
 					dAverage += d;
 					sensores[j].SetElementoSinProcesar(d);
 					
@@ -112,6 +113,7 @@ RedSensores::RedSensores(istream & dss)
 					//creo un objeto tipo Data para contener los valores individuales
 					Data d(number, pos, true);
 					
+					if(i==0&&j==0){dAverage.SetCantidadDatos(0);}
 					//agrego un data al data promedio de esa fila de sensores
 					dAverage += d;
 					

@@ -76,69 +76,6 @@ void SegmentTree::ArmaArrayDatos(Array<Data> &st_datos, int pos, Array<Data> &v,
 
 }
 
-
-//Busco en el ST el Data que tiene como rango inicial la posicion first y como rango final
-//la posicion last
-Data SegmentTree::BuscoDataEnST(int first, int last)
-{
-	//Creo un data vacio para devolver en caso que no este en el ST
-	Data d;
-
-
-	for(int i=0; i<DatosST.UsedSize();i++)
-	{
-		//si el rango pasado (first-last) se encuentra en los rangos guardados en el ST
-		//devuelve el Data del mismo
-		if(DatosST[i].GetFirst()==first && DatosST[i].GetLast()==last)
-		{
-
-			return DatosST[i];
-			
-		}
-	}
-
-	return d;
-}
-
-//funcion que recibe un arreglo vacio de tipos Data con su posicion inicial, final y el rango buscado. Recursivamente
-//va a ir cargando el arreglo con los intervalos completos encontrados que esten dentro del rango
-void SegmentTree::BuscoIntervaloDeData(Array<Data> &data_array, int first, int last, int init_range, int final_range)
-{
-
-	
-	if(first >= init_range && last <= final_range)  // CASO BASE
-	{
-		//busco en el segment tree el Data correspondiente al intervalo completo
-		//encontrado
-		data_array += BuscoDataEnST(first, last);
-	}
-
-	else{
-		int middle = (first+last)/2;
-
-		if(init_range <= middle && final_range > middle) //me voy para izq y der
-		{
-
-			BuscoIntervaloDeData(data_array, first, middle, init_range, middle);	//izq
-			BuscoIntervaloDeData(data_array, middle+1, last, middle+1, final_range);//der
-		}	
-
-		if(init_range <= middle && final_range <= middle)//me voy para la izq
-		{
-
-			BuscoIntervaloDeData(data_array, first, middle, init_range, final_range);	//der
-		}
-
-		if(init_range > middle && final_range > middle)//me voy para la der
-		{
-
-			BuscoIntervaloDeData(data_array, middle + 1 , last, init_range, final_range); //der
-		}
-	}
-
-}
-
-
 SegmentTree& SegmentTree::operator=(const SegmentTree &st) 
 {
 	//Si la direccion del objeto sobre el cual trabajo no es la misma
