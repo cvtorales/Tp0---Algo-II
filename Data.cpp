@@ -145,14 +145,12 @@ void Data::ArmoDataDeArreglo(Array<Data> &array, int first, int last)
 	
 }
 
-//REEMPLAZADAAAAAA!!!
+/*
 //funcion que recibe un arreglo de tipos Data y devuelve un unico tipo Data con los elementos que tiene dentro
 void Data::ArmoDataDeArreglo(Array<Data> &array)
 {
 	Data d;
 	double min=array[0].Min, max=array[0].Max;
-	/*double min= INFINITY;
-	double max = -INFINITY;*/
 
 	int quantity=0;
 	double sum=0;
@@ -178,7 +176,7 @@ void Data::ArmoDataDeArreglo(Array<Data> &array)
 	this -> CantidadDatos = quantity;
 	this -> Sumatoria = sum;
 	
-}
+}*/
 
 Data& Data::operator=(const Data &d) {
 	//Si la direccion del objeto sobre el cual trabajo no es la misma
